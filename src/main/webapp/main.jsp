@@ -49,7 +49,7 @@
 				<li><a href="/concordia">Home</a></li>
 				<li><a href="collectie.jsp">Collectie</a></li>
 				<li><a href="#">Expositie</a></li>
-				<li><a href="AmaiHetIsEenWebpagina">Reserveringen</a></li>
+				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
