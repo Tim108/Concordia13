@@ -56,8 +56,8 @@
       </div>
 	  <CENTER><h1>Welkom bij Concordia,</h1></CENTER>
 	  <CENTER><p>jouw portaal naar betaalbare kunst, begin gelijk met zoeken in 1.734 kunstwerken.</p></Center>
-<CENTER><div style="width:400px;">
-	 	  <form class="navbar-form2" role="search">
+		<CENTER><div style="width:400px;">
+	 	  <form class="navbar-form" method="POST" action="/concordia/search">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Zoeken" name="srch-term" id="srch-term">
           <div class="input-group-btn">

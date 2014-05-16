@@ -23,11 +23,17 @@
 SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
 <%
-if(request.getAttribute("Search") != null) { %>
-AND a.name='<%=request.getAttribute("Search")%>'
+if(request.getAttribute("Search") != null) {
+	List<String> l = (List<String>)request.getAttribute("Search"); %>
+ AND (a.name='<%=l.get(0)%>'
+	<%for(int i=0; i<l.size(); i++) { %>
+ OR a.name='<%=l.get(i)%>'
+ OR b.artist='<%=l.get(i)%>'
+ OR b.technique='<%=l.get(i)%>'
 <%
-}
-%>;
+}}
+if(request.getAttribute("Search") != null)%>)
+;
 </sql:query>
 <CENTER><H1>Collectie</H1><CENTER>
 	 <div style="width:400px;">

@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +28,9 @@ public class SearchServlet extends HttpServlet {
 			request.getRequestDispatcher("/collectie.jsp").forward(request, response);
 			return;
 		}
+		srch = srch.toLowerCase();
 		String[] srchterms = srch.split(" ");
+		List<String> attributes = new ArrayList<String>();
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -37,19 +41,24 @@ public class SearchServlet extends HttpServlet {
 			"dude")) {
 			for(int i=0; i<srchterms.length; i++) {
 				try (PreparedStatement ps2 =
-						conn.prepareStatement("SELECT art.name FROM art,artpiece WHERE art.id=artpiece.id "
-								+ "AND ( art.name LIKE '%" + srchterms[i] + "%' "
-								+ "OR artpiece.artist LIKE '%" + srchterms[i] + "%' "
-								+ "OR artpiece.technique LIKE '&" + srchterms[i] + "%'"
+						conn.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
+								+ "AND (LOWER(a.name) LIKE '%" + srchterms[i] + "%' "
+								+ "OR LOWER(ap.artist) LIKE '%" + srchterms[i] + "%' "
+								+ "OR LOWER(ap.technique) LIKE '&" + srchterms[i] + "%'"
 								+ ");")){
 					try (ResultSet rs = ps2.executeQuery()) {
 						while ( rs.next() ) {
-							request.setAttribute("Search", rs.getString("name"));
-							request.getRequestDispatcher("/collectie.jsp").forward(request, response);
+							attributes.add(rs.getString("name"));
 						} 
 					}
 				}
 			} 
+			if(attributes.isEmpty()) {
+				request.getRequestDispatcher("/collectie.jsp").forward(request, response);
+				return;
+			}
+			request.setAttribute("Search", attributes);
+			request.getRequestDispatcher("/collectie.jsp").forward(request, response);
 		} catch (SQLException e2) { e2.printStackTrace(); }
 	}
 }
