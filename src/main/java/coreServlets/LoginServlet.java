@@ -39,14 +39,14 @@ public class LoginServlet extends HttpServlet {
 					ResultSet rs = stmt
 							.executeQuery("SELECT id,pass,name,surname FROM Customer WHERE email='"+ email + "';")) {
 				if(!rs.next()) {
-					System.out.println("Bestaat niet");
+					response.sendRedirect("/concordia/login.jsp");
 					return;
 				}
 				String savedPass = rs.getString("pass");
 				
 				if(!savedPass.equals(RegisterServlet.hashThis(pass))){
 					System.out.println("NIET INLOGGUH!");
-					response.sendRedirect("");
+					response.sendRedirect("/concordia/login.jsp");
 					return;
 				}
 				int id = rs.getInt("id");

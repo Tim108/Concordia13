@@ -46,6 +46,10 @@ if(request.getAttribute("Search") != null)%>)
         </div>
       </form>
 	 </div>
+	 <%
+		if(request.getAttribute("Error") != null) { %>
+<h4><font color="FF0000"><%= request.getAttribute("Error") %></font></h4><br>
+<% } %>
 <% String euroteken = "\u20ac"; %>
 <div class="container">
 <div class="row">

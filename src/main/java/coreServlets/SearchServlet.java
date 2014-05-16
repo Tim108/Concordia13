@@ -44,7 +44,8 @@ public class SearchServlet extends HttpServlet {
 						conn.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
 								+ "AND (LOWER(a.name) LIKE '%" + srchterms[i] + "%' "
 								+ "OR LOWER(ap.artist) LIKE '%" + srchterms[i] + "%' "
-								+ "OR LOWER(ap.technique) LIKE '&" + srchterms[i] + "%'"
+								+ "OR LOWER(ap.technique) LIKE '%" + srchterms[i] + "%'"
+								+ "OR LOWER(ap.style) LIKE '%" + srchterms[i] + "%'"
 								+ ");")){
 					try (ResultSet rs = ps2.executeQuery()) {
 						while ( rs.next() ) {
@@ -54,6 +55,7 @@ public class SearchServlet extends HttpServlet {
 				}
 			} 
 			if(attributes.isEmpty()) {
+				request.setAttribute("Error", "Niks gevonden!");
 				request.getRequestDispatcher("/collectie.jsp").forward(request, response);
 				return;
 			}
