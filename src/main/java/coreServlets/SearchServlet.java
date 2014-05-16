@@ -37,7 +37,11 @@ public class SearchServlet extends HttpServlet {
 			"dude")) {
 			for(int i=0; i<srchterms.length; i++) {
 				try (PreparedStatement ps2 =
-						conn.prepareStatement("SELECT * FROM Art WHERE name LIKE '%"+ srchterms[i] + "%';")){
+						conn.prepareStatement("SELECT art.name FROM art,artpiece WHERE art.id=artpiece.id "
+								+ "AND ( art.name LIKE '%" + srchterms[i] + "%' "
+								+ "OR artpiece.artist LIKE '%" + srchterms[i] + "%' "
+								+ "OR artpiece.technique LIKE '&" + srchterms[i] + "%'"
+								+ ");")){
 					try (ResultSet rs = ps2.executeQuery()) {
 						while ( rs.next() ) {
 							request.setAttribute("Search", rs.getString("name"));
