@@ -39,13 +39,21 @@ public class SearchServlet extends HttpServlet {
 			"jdbc:postgresql://localhost:5432/Kunstuitleen",
 			"postgres",
 			"dude")) {
+			int width = 99999999;
+			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {
+				if(srchterms[i].equals("by") || srchterms[i].equals("bij") || srchterms[i].equals("x")) {
+					width = Integer.parseInt(srchterms[i-1]);
+					heigth = Integer.parseInt(srchterms[i+1]);
+				}
 				try (PreparedStatement ps2 =
 						conn.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
 								+ "AND (LOWER(a.name) LIKE '%" + srchterms[i] + "%' "
 								+ "OR LOWER(ap.artist) LIKE '%" + srchterms[i] + "%' "
 								+ "OR LOWER(ap.technique) LIKE '%" + srchterms[i] + "%'"
 								+ "OR LOWER(ap.style) LIKE '%" + srchterms[i] + "%'"
+								+ "OR ( (ap.width)>'" + width + "'"
+								+ "AND  (ap.height)>'" + heigth + "')"
 								+ ");")){
 					try (ResultSet rs = ps2.executeQuery()) {
 						while ( rs.next() ) {

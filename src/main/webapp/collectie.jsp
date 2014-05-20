@@ -26,10 +26,8 @@ WHERE a.id=b.id
 if(request.getAttribute("Search") != null) {
 	List<String> l = (List<String>)request.getAttribute("Search"); %>
  AND (a.name='<%=l.get(0)%>'
-	<%for(int i=0; i<l.size(); i++) { %>
+	<%for(int i=1; i<l.size(); i++) { %>
  OR a.name='<%=l.get(i)%>'
- OR b.artist='<%=l.get(i)%>'
- OR b.technique='<%=l.get(i)%>'
 <%
 }}
 if(request.getAttribute("Search") != null)%>)
@@ -56,7 +54,7 @@ if(request.getAttribute("Search") != null)%>)
   <c:forEach var="row" items="${artpieces.rows}">
     <div class="col-md-4">
   	    <div class="thumbnail">
-	  		<a href=<c:out value="${row.source}"/>><img src=<c:out value="${row.source}"/> alt="..." style="height:250px;"></a>
+	  		<a href="img/${row.source}"><img src="img/${row.source}" alt="${row.source}" style="height:250px;"></a> <!-- http://fancybox.net/ -->
 	  	<div class="caption">
         <h3><c:out value="${row.name}"/></h3>
         <div><p>Artiest: <c:out value="${row.artist}"/></p>
@@ -73,12 +71,12 @@ if(request.getAttribute("Search") != null)%>)
     Delen <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="http://www.facebook.com/sharer.php?u=http://www.concordia.nl/kunstverhuur" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /></a>
-</li>
-    <li><a href="http://twitter.com/share?url=http://www.concordia.nl/kunstverhuur&text=Geweldig werk gezien bij concordia! // via @Concordia053" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" /></a></li>
-    <li><a href="https://plus.google.com/share?url=http://www.concordia.nl/kunstverhuur" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/google.png" alt="Google" /></a></li>
-<li><a href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://www.concordia.nl/kunstverhuur"><img src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a>
-</a></li>
+  	<table>
+    <tr><td style="padding-right:10px; padding-bottom:10px"><a href="http://www.facebook.com/sharer.php?u=http://www.concordia.nl/kunstverhuur" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" style="height:50px;" /></a>
+    	<td style="padding-bottom:10px;"><a href="http://twitter.com/share?url=http://www.concordia.nl/kunstverhuur&text=Geweldig werk gezien bij concordia! // via @Concordia053" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" style="height:50px;"/></a> </tr>
+    <tr><td style="padding-right:10px;"><a href="https://plus.google.com/share?url=http://www.concordia.nl/kunstverhuur" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/google.png" alt="Google" style="height:50px;"/></a>
+    	<td><a href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://www.concordia.nl/kunstverhuur"><img src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" style="height:50px;"/></a> </tr>
+</a></table>
 
     <li class="divider"></li>
     <li><a href="#">Voeg toe aan expositie.</a></li>
