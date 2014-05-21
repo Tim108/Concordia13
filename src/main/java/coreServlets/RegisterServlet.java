@@ -47,59 +47,59 @@ public class RegisterServlet extends HttpServlet {
 	{
 		boolean error = false;
 		if(name.matches(".*\\d.*")) {
-			request.setAttribute("NameError", "Er mag geen cijfer in uw voornaam zittten.");
+			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw voornaam zittten.");
 			error = true;
 		}
 		if(name.length() == 0) {
-			request.setAttribute("NameError", "U moet een voornaam invullen.");
+			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een voornaam invullen.");
 			error = true;
 		}
 		if(surname.matches(".*\\d.*")) {
-			request.setAttribute("SurnameError", "Er mag geen cijfer in uw achternaam zittten.");
+			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw achternaam zittten.");
 			error = true;
 		}
 		if(surname.length() == 0) {
-			request.setAttribute("SurnameError", "U moet een achternaam invullen.");
+			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een achternaam invullen.");
 			error = true;
 		}
 		if(address.length() == 0) {
-			request.setAttribute("AddressError", "U moet een adres invullen.");
+			request.setAttribute("AddressError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een adres invullen.");
 			error = true;
 		}
 		if(!address.matches(".*\\d.*")) {
-			request.setAttribute("AddressError", "U moet een huisnummer invullen.");
+			request.setAttribute("AddressError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een huisnummer invullen.");
 			error = true;
 		}
 		if(city.length() == 0) {
-			request.setAttribute("CityError", "U moet een woonplaats invullen.");
+			request.setAttribute("CityError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een woonplaats invullen.");
 			error = true;
 		}
 		if(postal.length() == 0) {
-			request.setAttribute("PostalError", "U moet een postcode invullen.");
+			request.setAttribute("PostalError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een postcode invullen.");
 			error = true;
 		}
 		if(!postal.matches(".*\\d.*")) {
-			request.setAttribute("PostalError", "Uw moet cijfers bevatten.");
+			request.setAttribute("PostalError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw postcode moet cijfers bevatten.");
 			error = true;
 		}
 		if(email.length() == 0) {
-			request.setAttribute("EmailError", "U moet een e-mailadres invullen.");
+			request.setAttribute("EmailError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een e-mailadres invullen.");
 			error = true;
 		}
 		if(!email.contains("@")) {
-			request.setAttribute("EmailError", "U moet een werkende e-mailadres invullen.");
+			request.setAttribute("EmailError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een werkend e-mailadres invullen.");
 			error = true;
 		}
 		if(!email.contains(".")) {
-			request.setAttribute("EmailError", "U moet een werkende e-mailadres invullen.");
+			request.setAttribute("EmailError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een werkend e-mailadres invullen.");
 			error = true;
 		}
 		if(pass.length() < 6) {
-			request.setAttribute("PassError", "Uw wachtwoord moet minstens 6 tekens lang zijn.");
+			request.setAttribute("PassError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw wachtwoord moet minstens 6 tekens bevatten.");
 			error = true;
 		}
 		if(!phone.matches(".*\\d.*")) {
-			request.setAttribute("PhoneError", "Uw moet een werkend telefoonnummer invullen.");
+			request.setAttribute("PhoneError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw moet een werkend telefoonnummer invullen.");
 			error = true;
 		}
 		if(error) {
@@ -126,7 +126,7 @@ public class RegisterServlet extends HttpServlet {
 			        while ( rs.next() ) {
 			            int numColumns = rs.getMetaData().getColumnCount();
 			            if(numColumns > 0) {
-			            	request.setAttribute("EmailError", "Dit e-mailadres is al in gebruik.");
+			            	request.setAttribute("EmailError", "<img src=\"http://www.clker.com/cliparts/D/0/R/b/X/W/red-cross-md.png\" height=\"14px;\" alt=\"ERROR:\"> Dit e-mailadres is al in gebruik.");
 			            	request.getRequestDispatcher("/register.jsp").forward(request, response);
 			            	return false;
 			            }
