@@ -15,7 +15,7 @@
     		<tr><td><td><font color="#E00000">${E-mailError}</font></td>
 			<tr><td style="padding-right:10px; padding-bottom:10px">E-mailadres:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="name" <% if(request.getParameter("name") != null) { %> value= <%= request.getParameter("name") %> <% } %> ></tr>
 			<tr><td><td><font color="#E00000">${PasswordError}</font></td>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Wachtwoord:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="surname" <% if(request.getParameter("surname") != null) { %> value= <%= request.getParameter("surname") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Wachtwoord:<td style="padding-right:10px; padding-bottom:10px"> <input type="password" name="pass"></tr>
 			</table>
 			<input type="submit" value="Submit">
 		</form></center><hr>

@@ -63,7 +63,7 @@ if(request.getAttribute("Search") != null)%>)
         <p>Techniek: <c:out value="${row.technique}"/></p>
         <p>Orientatie: <c:out value="${row.orientation}"/></p>
         <p>Beoordeling: <c:out value="${row.rating}"/></p>
-        <h3>Prijs: <c:out value="${row.price}"/>0 euro</h3>
+        <h3>Prijs: <c:out value="${row.price}"/> euro</h3>
         <p>Uitgeleend: <c:out value="${row.rented}"/></p>
         </div>
         <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Reserveer</a>

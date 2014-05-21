@@ -37,6 +37,9 @@ public class UserServlet extends HttpServlet {
 		String phone = getInfo("phone", request, response);
 		request.setAttribute("Telefoon", phone);
 		
+		String credit = getInfo("credit", request, response);
+		request.setAttribute("Tegoed", credit);
+		
 		request.getRequestDispatcher("/userinfo.jsp").forward(request, response);
 	}
 	

@@ -60,7 +60,7 @@
 					%>
 					Account <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a> <!--  -->
+						<li><a>
 							<form method="post" action=/concordia/login>
 								<table>
 									<tr><td><input type="text" name="email" placeholder="E-mail" id="un"></td></tr>
@@ -71,6 +71,7 @@
 						</a></li>
 					<li class="divider"></li>
 					<li><a href="registerpage">Registeren</a></li>
+					</ul>
 					<% 
 					}
 					else {
@@ -80,6 +81,7 @@
 						<li><a href="/concordia/userinfo">Gegevens</a></li>
             			<li><a href="#">Reserveringen</a></li>
             			<li><a href="#">Expositie</a></li>
+            			<li><a href="#">Abonnement</a></li>
             			<li class="divider"></li>
 						<li><a href="/concordia/loguit">Log uit</a></li>
 
