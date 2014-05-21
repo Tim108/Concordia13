@@ -3461,11 +3461,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
   padding: 10px 15px;
 }
+
+
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
   background-color: #eee;
 }
+
 .nav > li.disabled > a {
   color: #999;
 }
@@ -3476,6 +3479,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   cursor: not-allowed;
   background-color: transparent;
 }
+
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
@@ -3785,6 +3789,15 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-nav {
   margin: 7.5px -15px;
 }
+
+.navbar-nav > li > a:hover {
+	color: #fff !important;
+}
+
+.navbar-nav > li > a:active {
+	color: #000 !important;
+}
+
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
