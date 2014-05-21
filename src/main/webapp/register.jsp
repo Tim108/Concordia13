@@ -12,7 +12,7 @@
     	<center><h1>Registreren</h1><hr>
     	<form method="POST" action="/concordia/register">
     		<table>
-    		<tr><td><h4>Contactgegevens</h4></tr>
+    		<tr><td><h4>Contactgegevens</h4></td></tr>
     		<tr><td><td><font color="#E00000">${NameError}</font></tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">Voornaam:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="name" <% if(request.getParameter("name") != null) { %> value= <%= request.getParameter("name") %> <% } %> ></tr>
 			<tr><td><td><font color="#E00000">${SurnameError}</font></tr>
@@ -25,7 +25,7 @@
 			<tr><td style="padding-right:10px; padding-bottom:10px">Postcode: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="postal" <% if(request.getParameter("postal") != null) { %> value= <%= request.getParameter("postal") %> <% } %> ></tr>
 			<tr><td><td><font color="#E00000">${PhoneError}</font></tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">Telefoon: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="phone" <% if(request.getParameter("phone") != null) { %> value= <%= request.getParameter("phone") %> <% } %> ></tr>
-			<tr><td><h4>Inloggegevens</h4></tr>
+			<tr><td><h4>Inloggegevens</h4></td></tr>
 			<tr><td><td><font color="#E00000">${EmailError}</font></tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">E-Mail: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="email" <% if(request.getParameter("email") != null) { %> value= <%= request.getParameter("email") %> <% } %> ></tr>
 			<tr><td><td><font color="#E00000">${PassError}</font></tr>
