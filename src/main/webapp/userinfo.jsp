@@ -19,7 +19,7 @@
 			<tr><td style="padding-right:10px; padding-bottom:10px">Postcode: <td style="padding-right:10px; padding-bottom:10px">${Postcode}</tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">Telefoon: <td style="padding-right:10px; padding-bottom:10px">${Telefoon}</tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">E-mailadres: <td style="padding-right:10px; padding-bottom:10px">${Email}</tr>
-			<tr><td style="padding-right:10px;">Kunsttegoed: <td>${Tegoed}</td></tr>
+			<tr><td style="padding-right:10px;">Kunsttegoed: <td>&euro;${Tegoed}</td></tr>
 			</table>
 			</center><hr>
     </div>
