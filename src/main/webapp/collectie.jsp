@@ -15,7 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Collectie - Concordia</title>
     
-	<%@include file="main.jsp" %>
+	<jsp:include page="main.jsp">
+		<jsp:param name="currentpage" value="collection" />
+	</jsp:include>
  
  <sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
      url="jdbc:postgresql://localhost:5432/Kunstuitleen"
