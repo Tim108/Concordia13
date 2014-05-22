@@ -86,8 +86,15 @@ ORDER BY rating DESC;
 		<div id="advancedSearchDiv" class="hidden-element">
 			<div>
 			<table>
-			<tr> hoi </tr>
-			<tr> <td> koeien </td> <td> konijnen </td> </tr>
+			<tr> 
+			<td>Artiest</td>
+			<td>Afmetingen</td>
+			<td>Stijl</td>
+			<td>Techniek</td>
+			<td>Orientatie</td>
+			<td>Beoordeling</td>
+			
+			</tr>
 			</table>
 			</div>
 		</div>
