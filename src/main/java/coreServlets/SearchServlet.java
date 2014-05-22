@@ -36,9 +36,9 @@ public class SearchServlet extends HttpServlet {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
 		try (Connection conn = DriverManager.getConnection(
-			"jdbc:postgresql://localhost:5432/Kunstuitleen",
+			"jdbc:postgresql://localhost:5432/kunstuitleen",
 			"postgres",
-			"dude")) {
+			"timtim")) {
 			int width = 99999999;
 			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {
