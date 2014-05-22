@@ -24,6 +24,7 @@
 <sql:query dataSource="${snapshot}" var="artpieces">
 SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
+ORDER BY rating DESC;
 <%
 if(request.getAttribute("Search") != null) {
 	List<String> l = (List<String>)request.getAttribute("Search"); %>
