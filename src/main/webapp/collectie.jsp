@@ -26,7 +26,8 @@ String user = prop.getProperty("username");
 String pass1 = prop.getProperty("pass");
 String host = prop.getProperty("host");
 String port = prop.getProperty("port");
-String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen"; %>
+String dbname = prop.getProperty("dbname");
+String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname; %>
 
 <sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 	url="<%=url%>" user="<%=user%>"
