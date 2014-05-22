@@ -43,8 +43,10 @@ public class SearchServlet extends HttpServlet {
 			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {
 				if(srchterms[i].equals("by") || srchterms[i].equals("bij") || srchterms[i].equals("x")) {
-					width = Integer.parseInt(srchterms[i-1]);
-					heigth = Integer.parseInt(srchterms[i+1]);
+					if(srchterms.length != i+1 && i-1 > 0) {
+						width = Integer.parseInt(srchterms[i-1]);
+						heigth = Integer.parseInt(srchterms[i+1]);
+					}
 				}
 				try (PreparedStatement ps2 =
 						conn.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
