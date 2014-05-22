@@ -37,17 +37,9 @@ WHERE a.id=b.id
 %>
  OR a.name='<%=l.get(i)%>'
 <%
-<<<<<<< Updated upstream
-	}
-		}
-		if (request.getAttribute("Search") != null)
-%>)
-;
-=======
 }}
 if(request.getAttribute("Search") != null)%>)
 ORDER BY rating DESC;
->>>>>>> Stashed changes
 </sql:query>
 <CENTER>
 	<H1>Collectie</H1>

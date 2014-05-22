@@ -37,12 +37,6 @@ public class SearchServlet extends HttpServlet {
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
-<<<<<<< Updated upstream
-		try (Connection conn = DriverManager.getConnection(
-			"jdbc:postgresql://localhost:5432/kunstuitleen",
-			"postgres",
-			"timtim")) {
-=======
 		Properties prop = new Properties();
 		 String path = "res/dbprops.txt";
 		 try{
@@ -53,7 +47,6 @@ public class SearchServlet extends HttpServlet {
 		 String port = prop.getProperty("port");
 		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
->>>>>>> Stashed changes
 			int width = 99999999;
 			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {
