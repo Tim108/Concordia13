@@ -99,7 +99,7 @@ public class RegisterServlet extends HttpServlet {
 			error = true;
 		}
 		if(!phone.matches(".*\\d.*")) {
-			request.setAttribute("PhoneError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw moet een werkend telefoonnummer invullen.");
+			request.setAttribute("PhoneError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een werkend telefoonnummer invullen.");
 			error = true;
 		}
 		if(error) {
