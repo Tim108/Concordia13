@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				HttpSession s = request.getSession();
-				System.out.println(s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
+				System.out.println("LoginServlet.js: " + s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
 				s.setAttribute("Logged", id);
 				s.setAttribute("Name", name);
 				s.setAttribute("SurName", surname);
