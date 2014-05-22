@@ -62,7 +62,8 @@ public class UserServlet extends HttpServlet {
 		 String pass1 = prop.getProperty("pass");
 		 String host = prop.getProperty("host");
 		 String port = prop.getProperty("port");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
+		 String dbname = prop.getProperty("dbname");
+		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt

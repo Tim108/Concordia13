@@ -45,7 +45,8 @@ public class SearchServlet extends HttpServlet {
 		 String pass1 = prop.getProperty("pass");
 		 String host = prop.getProperty("host");
 		 String port = prop.getProperty("port");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
+		 String dbname = prop.getProperty("dbname");
+		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			int width = 99999999;
 			int heigth = 99999999;
