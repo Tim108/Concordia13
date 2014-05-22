@@ -7,12 +7,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Collectie - Concordia</title>
+    
 	<%@include file="main.jsp" %>
  
  <sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
@@ -48,13 +50,12 @@ if(request.getAttribute("Search") != null)%>)
 		if(request.getAttribute("Error") != null) { %>
 <h4><font color="FF0000"><%= request.getAttribute("Error") %></font></h4><br>
 <% } %>
-<% String euroteken = "\u20ac"; %>
 <div class="container">
 <div class="row">
   <c:forEach var="row" items="${artpieces.rows}">
     <div class="col-md-4">
   	    <div class="thumbnail">
-	  		<a href="img/${row.source}"><img src="img/${row.source}" alt="${row.source}" style="height:250px;"></a> <!-- http://fancybox.net/ -->
+	  	<a href="img/${row.source}"><img src="img/${row.source}" alt="${row.source}" style="height:250px;"/></a>
 	  	<div class="caption">
         <h3><c:out value="${row.name}"/></h3>
         <div><p>Artiest: <c:out value="${row.artist}"/></p>
@@ -63,7 +64,7 @@ if(request.getAttribute("Search") != null)%>)
         <p>Techniek: <c:out value="${row.technique}"/></p>
         <p>Orientatie: <c:out value="${row.orientation}"/></p>
         <p>Beoordeling: <c:out value="${row.rating}"/></p>
-        <h3>Prijs: <c:out value="${row.price}"/> euro</h3>
+        <h3>Prijs: &euro;<c:out value="${row.price}"/></h3>
         <p>Uitgeleend: <c:out value="${row.rented}"/></p>
         </div>
         <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Reserveer</a>
