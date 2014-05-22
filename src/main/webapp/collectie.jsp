@@ -53,8 +53,6 @@ ORDER BY rating DESC;
 </sql:query>
 <CENTER>
 	<H1>Collectie</H1>
-	<CENTER>
-
 		<script>
 			var advanced = false;
 		</script>
@@ -153,44 +151,35 @@ ORDER BY rating DESC;
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
-									<p>
-										Uitgeleend:
-										<c:out value="${row.rented}" />
-									</p>
+									     <c:choose>
+          									  <c:when test="${row.rented==true}">
+           									     <p><font color='red'>Beschikbaar over 13 weken</font></p>
+          									  </c:when>
+          								  <c:otherwise>
+            								    <p><font color='green'>Beschikbaar</font></p>
+            							</c:otherwise>
+     							   </c:choose>
 								</div>
 								<p>
-								<div class="btn-group">
-									<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+							 <c:choose>
+            					<c:when test="${row.rented==true}">
+             					   <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Reserveer</a>
+            					</c:when>
+            				<c:otherwise>
+             					   <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Huur direct!</a>
+            				</c:otherwise>
+        					</c:choose>
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu" role="menu">
 										<table>
-											<tr>
-												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://www.concordia.nl/kunstverhuur"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://www.concordia.nl/kunstverhuur&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://www.concordia.nl/kunstverhuur"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://www.concordia.nl/kunstverhuur"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-											</tr>
-											</a>
+											    <tr><td style="padding-right:10px; padding-bottom:10px"><a href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" style="height:50px;" /></a>
+    	<td style="padding-bottom:10px;"><a href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" style="height:50px;"/></a> </tr>
+    <tr><td style="padding-right:10px;"><a href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}" " target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/google.png" alt="Google" style="height:50px;"/></a>
+    	<td><a href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" style="height:50px;"/></a> </tr>
+
 										</table>
 
 										<li class="divider"></li>
@@ -206,7 +195,7 @@ ORDER BY rating DESC;
 				</c:forEach>
 			</div>
 		</div>
-
+	</CENTER>
 		</body>
 		<script>
 			function showDivContent() {
