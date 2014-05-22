@@ -24,6 +24,10 @@
 </style>
 
 </head>
+<% String currentpage = request.getParameter("currentpage");
+	if(currentpage==null){
+		currentpage="EMPTY";
+	}%>
 
 <body>
 	<BR>
@@ -46,8 +50,8 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="/concordia">Home</a></li>
-				<li><a href="collectie.jsp">Collectie</a></li>
+				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia">Home</a></li>
+				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="collectie.jsp">Collectie</a></li>
 				<li><a href="#">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>

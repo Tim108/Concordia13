@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 	{
 		boolean error = false;
 		if(name.matches(".*\\d.*")) {
-			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw voornaam zittten.");
+			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw voornaam zitten.");
 			error = true;
 		}
 		if(name.length() == 0) {
@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 			error = true;
 		}
 		if(surname.matches(".*\\d.*")) {
-			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw achternaam zittten.");
+			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw achternaam zitten.");
 			error = true;
 		}
 		if(surname.length() == 0) {
@@ -99,7 +99,7 @@ public class RegisterServlet extends HttpServlet {
 			error = true;
 		}
 		if(!phone.matches(".*\\d.*")) {
-			request.setAttribute("PhoneError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw moet een werkend telefoonnummer invullen.");
+			request.setAttribute("PhoneError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een werkend telefoonnummer invullen.");
 			error = true;
 		}
 		if(error) {

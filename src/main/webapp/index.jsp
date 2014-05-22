@@ -7,7 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Concordia</title>
-	<%@include file="main.jsp"%>
+	<jsp:include page="main.jsp">
+		<jsp:param name="currentpage" value="home" />
+	</jsp:include>
 	<div class="head">
 		<CENTER><H1>Populaire werken</H1></CENTER>
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
