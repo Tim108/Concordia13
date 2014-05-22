@@ -1,5 +1,6 @@
 package coreServlets;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,10 +37,23 @@ public class SearchServlet extends HttpServlet {
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
+<<<<<<< Updated upstream
 		try (Connection conn = DriverManager.getConnection(
 			"jdbc:postgresql://localhost:5432/kunstuitleen",
 			"postgres",
 			"timtim")) {
+=======
+		Properties prop = new Properties();
+		 String path = "res/dbprops.txt";
+		 try{
+		 prop.load(new FileInputStream(getServletContext().getRealPath(path)));}catch(Exception e){e.printStackTrace();}
+		 String user = prop.getProperty("username");
+		 String pass1 = prop.getProperty("pass");
+		 String host = prop.getProperty("host");
+		 String port = prop.getProperty("port");
+		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
+		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+>>>>>>> Stashed changes
 			int width = 99999999;
 			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {

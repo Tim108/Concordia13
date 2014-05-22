@@ -1,5 +1,6 @@
 package coreServlets;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Properties;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -115,10 +117,16 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
-		try (Connection conn = DriverManager.getConnection(
-			"jdbc:postgresql://localhost:5432/Kunstuitleen",
-			"postgres",
-			"dude")) {
+		Properties prop = new Properties();
+		 String path = "res/dbprops.txt";
+		 try{
+		 prop.load(new FileInputStream(getServletContext().getRealPath(path)));}catch(Exception e){e.printStackTrace();}
+		 String user = prop.getProperty("username");
+		 String pass1 = prop.getProperty("pass");
+		 String host = prop.getProperty("host");
+		 String port = prop.getProperty("port");
+		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
+		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (PreparedStatement ps2 =
 					conn.prepareStatement("SELECT name FROM Customer WHERE email=?;")){
 				ps2.setString(1, email);

@@ -1,11 +1,13 @@
 package coreServlets;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -52,9 +54,16 @@ public class UserServlet extends HttpServlet {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try (Connection conn = DriverManager.getConnection(
-				"jdbc:postgresql://localhost:5432/Kunstuitleen", "postgres",
-				"dude")) {
+		Properties prop = new Properties();
+		 String path = "res/dbprops.txt";
+		 try{
+		 prop.load(new FileInputStream(getServletContext().getRealPath(path)));}catch(Exception e){e.printStackTrace();}
+		 String user = prop.getProperty("username");
+		 String pass1 = prop.getProperty("pass");
+		 String host = prop.getProperty("host");
+		 String port = prop.getProperty("port");
+		 String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";
+		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt
 							.executeQuery("SELECT " + info + " FROM Customer WHERE id='"+ id + "';")) {
