@@ -18,11 +18,17 @@
 	<jsp:include page="main.jsp">
 		<jsp:param name="currentpage" value="collection" />
 	</jsp:include>
- 
+ <%Properties prop = new Properties();
+ String path = "res/dbprops.txt";
+ prop.load(new FileInputStream(getServletContext().getRealPath(path)));
+ String user = prop.getProperty("username");
+ String pass = prop.getProperty("pass");
+ String host = prop.getProperty("host");
+ String port = prop.getProperty("port");
+ String url = "jdbc:postgresql://" + host + ":" + port + "/Kunstuitleen";%>
  <sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
-     url="jdbc:postgresql://localhost:5432/Kunstuitleen"
-     user="postgres"  password="dude"/>
- 
+     url="<%=url%>"
+     user="<%=user%>"  password="<%=pass%>"/>
 <sql:query dataSource="${snapshot}" var="artpieces">
 SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
