@@ -38,7 +38,7 @@ if(request.getAttribute("Search") != null) {
 if(request.getAttribute("Search") != null)%>)
 ;
 </sql:query>
-<CENTER><H1>Collectie</H1><CENTER>
+<CENTER><H1>Collectie</H1>
 	 <div style="width:400px;">
 	 	  <form class="navbar-form" method="POST" action="/concordia/search">
         <div class="input-group">
@@ -68,9 +68,23 @@ if(request.getAttribute("Search") != null)%>)
         <p>Orientatie: <c:out value="${row.orientation}"/></p>
         <p>Beoordeling: <c:out value="${row.rating}"/></p>
         <h3>Prijs: &euro;<c:out value="${row.price}"/></h3>
-        <p>Uitgeleend: <c:out value="${row.rented}"/></p>
+         <c:choose>
+            <c:when test="${row.rented==true}">
+                <p><font color='red'>Beschikbaar over 13 weken</font></p>
+            </c:when>
+            <c:otherwise>
+                <p><font color='green'>Beschikbaar</font></p>
+            </c:otherwise>
+        </c:choose>
         </div>
-        <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Reserveer</a>
+        <c:choose>
+            <c:when test="${row.rented==true}">
+                <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Reserveer</a>
+            </c:when>
+            <c:otherwise>
+                <p>  <div class="btn-group"> <a href="#" class="btn btn-primary" role="button">Huur direct!</a>
+            </c:otherwise>
+        </c:choose>
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     Delen <span class="caret"></span>
   </button>
@@ -95,6 +109,6 @@ if(request.getAttribute("Search") != null)%>)
   	   	  	  </c:forEach>
   	   	  	  </div>
   	   	  	  </div>
- 
+ </CENTER>
  </body>
  </html>
