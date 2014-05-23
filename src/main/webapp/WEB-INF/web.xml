@@ -37,6 +37,15 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>SubscriptionServlet</servlet-name>
+    <servlet-class>coreServlets.SubscriptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubscriptionServlet</servlet-name>
+    <url-pattern>/subscriptions</url-pattern>
+  </servlet-mapping>
  
  <servlet>
     <servlet-name>UserServlet</servlet-name>
