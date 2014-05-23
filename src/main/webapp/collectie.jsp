@@ -12,12 +12,41 @@
 
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Collectie - Concordia</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Collectie - Concordia</title>
+    
+	<!-- Bootstrap -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+	<link href="res/css/bootstrap.min.css" rel="stylesheet">
+	<link href="res/css/carousel.css" rel="stylesheet">
 
-<%@include file="main.jsp"%>
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<meta content="width=320px, initial-scale=1, user-scalable=yes" name="viewport" />
+	<script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>
+	<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js"></script>
+	<style type="text/css">
+	.content {
+		width: 800px;
+		margin: auto;
+	}
+	</style>
+
+</head>
+<body>
+	<jsp:include page="main.jsp">
+		<jsp:param name="currentpage" value="collectie" />
+	</jsp:include>
 
 <%String path = "res/dbprops.txt";
 Properties prop = new Properties();
@@ -113,9 +142,9 @@ ORDER BY rating DESC;
 				<c:forEach var="row" items="${artpieces.rows}">
 					<div class="col-md-4">
 						<div class="thumbnail">
-							<a href="img/${row.source}"><img src="img/${row.source}"
-								alt="${row.source}" style="height: 250px;" /></a>
-							<div class="caption">
+							<a class="plaatje" rel="gallery" href="img/${row.source}" caption='${row.artist}<br>${row.width} x ${row.height}'
+	  							><img src="img/${row.source}" alt="${row.source}" style="height:250px;"/></a>
+	  							<div class="caption">
 								<h3>
 									<c:out value="${row.name}" />
 								</h3>
@@ -212,4 +241,31 @@ ORDER BY rating DESC;
 				}
 			}
 		</script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$(".plaatje").fancybox({
+				beforeLoad: function() {
+			    	this.title = $(this.element).attr('caption');
+			    },
+				openEffect: 'elastic',
+				closeEffect: 'elastic',
+				nextEffect: 'fade', // 'elastic', 'fade' or 'none'
+				prevEffect: 'fade', // 'elastic', 'fade' or 'none'
+				padding : 0,
+				type: "image",
+				helpers	: {
+					overlay: {
+						speedIn: 0,
+						speedOut: 0,
+						opacity: 0.6,
+						css: {
+							cursor: 'pointer',
+							'background-color': 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
+						},
+						closeClick: true
+					}
+				}
+			})	
+		});
+	</script>
 </html>

@@ -1,35 +1,7 @@
-<!-- Bootstrap -->
-<link href="res/css/bootstrap.min.css" rel="stylesheet">
-<link href="res/css/carousel.css" rel="stylesheet">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-<meta content="width=320px, initial-scale=1, user-scalable=yes"
-	name="viewport" />
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script type="text/javascript" src="custom.js"></script>
-<link type="text/css" rel="stylesheet" href="stylesheet.css" />
-
-<style type="text/css">
-.content {
-	width: 800px;
-	margin: auto;
-}
-</style>
-
-</head>
 <% String currentpage = request.getParameter("currentpage");
 	if(currentpage==null){
 		currentpage="EMPTY";
 	}%>
-
-<body>
 	<BR>
 	<CENTER>
 		<a href="/concordia"><img src="res/logo-concordia.jpg" alt="Concordia" /></a>
@@ -99,9 +71,5 @@
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
