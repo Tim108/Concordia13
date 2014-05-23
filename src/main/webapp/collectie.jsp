@@ -234,9 +234,8 @@ ORDER BY rating DESC;
 					<div class="col-md-4">
 						<div class="thumbnail">
 							<a class="plaatje" rel="gallery" href="img/${row.source}"
-								caption='${row.artist}<br>${row.width} x ${row.height}'><img
-								src="img/${row.source}" alt="${row.source}"
-								style="height: 250px;" /></a>
+								caption='<h5>${row.name}</h5>${row.artist}<br>${row.width} x ${row.height}<br>${row.rating}<br>&euro;${row.price}'
+								><img src="img/${row.source}" alt="${row.source}" style="height: 250px;" /></a>
 							<div class="caption">
 
 								<h3>
@@ -362,30 +361,33 @@ ORDER BY rating DESC;
 	}
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$(".plaatje").fancybox({
-			beforeLoad : function() {
-				this.title = $(this.element).attr('caption');
-			},
-			openEffect : 'elastic',
-			closeEffect : 'elastic',
-			nextEffect : 'fade', // 'elastic', 'fade' or 'none'
-			prevEffect : 'fade', // 'elastic', 'fade' or 'none'
-			padding : 0,
-			type : "image",
-			helpers : {
-				overlay : {
-					speedIn : 0,
-					speedOut : 0,
-					opacity : 0.6,
-					css : {
-						cursor : 'pointer',
-						'background-color' : 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
+		$(document).ready(function() {
+			$(".plaatje").fancybox({
+				beforeLoad: function() {
+			    	this.title = '<center>' + $(this.element).attr('caption');
+			    },
+				openEffect: 'elastic',
+				closeEffect: 'elastic',
+				nextEffect: 'fade', // 'elastic', 'fade' or 'none'
+				prevEffect: 'fade', // 'elastic', 'fade' or 'none'
+				padding : 0,
+				type: "image",
+				helpers	: {
+					title: {
+						type: 'outside',
 					},
-					closeClick : true
+					overlay: {
+						speedIn: 0,
+						speedOut: 0,
+						opacity: 0.6,
+						css: {
+							cursor: 'pointer',
+							'background-color': 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
+						},
+						closeClick: true
+					}
 				}
-			}
-		})
-	});
-</script>
+			})	
+		});
+	</script>
 </html>
