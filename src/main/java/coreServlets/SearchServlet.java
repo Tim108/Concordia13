@@ -22,8 +22,19 @@ public class SearchServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public List<Double> priceL = new ArrayList<Double>();
+	public List<Double> artistL = new ArrayList<Double>();
+	public List<Double> widthL = new ArrayList<Double>();
+	public List<Double> heightL = new ArrayList<Double>();
+	public List<Double> styleL = new ArrayList<Double>();
+	public List<Double> techL = new ArrayList<Double>();
+	public List<Double> orientsL = new ArrayList<Double>();
+	public List<Double> ratingL = new ArrayList<Double>();
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
+		
+		
 	
 		String srch = (String)request.getParameter("srch-term");
 		if(srch.equals("")) {
@@ -47,7 +58,59 @@ public class SearchServlet extends HttpServlet {
 		 String port = prop.getProperty("port");
 		 String dbname = prop.getProperty("dbname");
 		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		 
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+			// lists for collectie.jsp
+			PreparedStatement prices = conn.prepareStatement("SELECT DISTINCT price From artpiece");
+			PreparedStatement artists = conn.prepareStatement("SELECT DISTINCT artist From artpiece");
+			PreparedStatement widths = conn.prepareStatement("SELECT DISTINCT width From artpiece");
+			PreparedStatement heights = conn.prepareStatement("SELECT DISTINCT height From artpiece");
+			PreparedStatement styles = conn.prepareStatement("SELECT DISTINCT style From artpiece");
+			PreparedStatement techs = conn.prepareStatement("SELECT DISTINCT technique From artpiece");
+			PreparedStatement orients = conn.prepareStatement("SELECT DISTINCT orientation From artpiece");
+			PreparedStatement ratings = conn.prepareStatement("SELECT DISTINCT rating From artpiece");
+			
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			try(ResultSet rs = prices.executeQuery()) {
+				while(rs.next()){
+					priceL.add(rs.getDouble("price"));
+				}
+			}
+			
 			int width = 99999999;
 			int heigth = 99999999;
 			for(int i=0; i<srchterms.length; i++) {
