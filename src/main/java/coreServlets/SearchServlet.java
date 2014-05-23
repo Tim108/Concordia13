@@ -135,14 +135,14 @@ public class SearchServlet extends HttpServlet {
 		ratingL = new ArrayList<Double>();
 		// fill them up again
 		try{
-					PreparedStatement prices = conn.prepareStatement("SELECT DISTINCT price From artpiece");
-					PreparedStatement artists = conn.prepareStatement("SELECT DISTINCT artist From artpiece");
-					PreparedStatement widths = conn.prepareStatement("SELECT DISTINCT width From artpiece");
-					PreparedStatement heights = conn.prepareStatement("SELECT DISTINCT height From artpiece");
-					PreparedStatement styles = conn.prepareStatement("SELECT DISTINCT style From artpiece");
-					PreparedStatement techs = conn.prepareStatement("SELECT DISTINCT technique From artpiece");
-					PreparedStatement orients = conn.prepareStatement("SELECT DISTINCT orientation From artpiece");
-					PreparedStatement ratings = conn.prepareStatement("SELECT DISTINCT rating From artpiece");
+					PreparedStatement prices = conn.prepareStatement("SELECT DISTINCT price From artpiece ORDER BY price");
+					PreparedStatement artists = conn.prepareStatement("SELECT DISTINCT artist From artpiece ORDER BY artist");
+					PreparedStatement widths = conn.prepareStatement("SELECT DISTINCT width From artpiece ORDER BY width");
+					PreparedStatement heights = conn.prepareStatement("SELECT DISTINCT height From artpiece ORDER BY height");
+					PreparedStatement styles = conn.prepareStatement("SELECT DISTINCT style From artpiece ORDER BY style");
+					PreparedStatement techs = conn.prepareStatement("SELECT DISTINCT technique From artpiece ORDER BY technique");
+					PreparedStatement orients = conn.prepareStatement("SELECT DISTINCT orientation From artpiece ORDER BY orientation");
+					PreparedStatement ratings = conn.prepareStatement("SELECT DISTINCT rating From artpiece ORDER BY rating");
 					
 					try(ResultSet rs = prices.executeQuery()) {
 						while(rs.next()){
