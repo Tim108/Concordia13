@@ -48,7 +48,7 @@
 </head>
 <body>
 	<jsp:include page="main.jsp">
-		<jsp:param name="currentpage" value="collectie" />
+		<jsp:param name="currentpage" value="collection" />
 	</jsp:include>
 
 
