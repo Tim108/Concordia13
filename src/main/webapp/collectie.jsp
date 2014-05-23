@@ -116,8 +116,16 @@ ORDER BY rating DESC;
 
 		<p id="spot1"></p>
 
-
-
+		<%
+			List<Double> prices = (List<Double>) request.getAttribute("prices");
+				List<String> artists = (List<String>) request.getAttribute("artists");
+				List<Double> widths = (List<Double>) request.getAttribute("widths");
+				List<Double> heights = (List<Double>) request.getAttribute("heights");
+				List<String> styles = (List<String>) request.getAttribute("styles");
+				List<String> techs = (List<String>) request.getAttribute("techs");
+				List<String> orients = (List<String>) request.getAttribute("orients");
+				List<Double> ratings = (List<Double>) request.getAttribute("ratings");
+		%>
 
 		<div id="advancedSearchDiv" class="hidden-element">
 			<div class="table-responsive">
@@ -135,35 +143,76 @@ ORDER BY rating DESC;
 					<tr>
 						<td>
 							<table>
-
+								<tr><td><input type="text" placeholder="Minimale prijs"></td></tr>
+								<tr><td><input type="text" placeholder="Maximale prijs"></td></tr>
 							</table>
 						</td>
 						<td>
 							<table>
-
+								<%
+									for(int i = 0; i<artists.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox"><%=artists.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
 							</table>
 						</td>
 						<td>
 							<table>
-
+								<tr><td><input type="text" placeholder="Minimale breedte"></td></tr>
+								<tr><td><input type="text" placeholder="Maximale breedte"></td></tr>
+								<tr><td><input type="text" placeholder="Minimale hoogte"></td></tr>
+								<tr><td><input type="text" placeholder="Maximale hoogte"></td></tr>
 							</table>
 						</td>
 						<td>
 							<table>
-
+								<%
+									for(int i = 0; i<styles.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox"><%=styles.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
 							</table>
 						</td>
 						<td>
 							<table>
-
+								<%
+									for(int i = 0; i<techs.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox"><%=techs.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
 							</table>
 						</td>
 						<td>
 							<table>
-
+								<%
+									for(int i = 0; i<orients.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox"><%=orients.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
 							</table>
 						</td>
-
+						<td>
+							<table>
+								<tr><td><input type="text" placeholder="Minimale rating"></td></tr>
+								<tr><td><input type="text" placeholder="Maximale rating"></td></tr>
+							</table>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -312,31 +361,31 @@ ORDER BY rating DESC;
 		}
 	}
 </script>
-		<script type="text/javascript">
-		$(document).ready(function() {
-			$(".plaatje").fancybox({
-				beforeLoad: function() {
-			    	this.title = $(this.element).attr('caption');
-			    },
-				openEffect: 'elastic',
-				closeEffect: 'elastic',
-				nextEffect: 'fade', // 'elastic', 'fade' or 'none'
-				prevEffect: 'fade', // 'elastic', 'fade' or 'none'
-				padding : 0,
-				type: "image",
-				helpers	: {
-					overlay: {
-						speedIn: 0,
-						speedOut: 0,
-						opacity: 0.6,
-						css: {
-							cursor: 'pointer',
-							'background-color': 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
-						},
-						closeClick: true
-					}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".plaatje").fancybox({
+			beforeLoad : function() {
+				this.title = $(this.element).attr('caption');
+			},
+			openEffect : 'elastic',
+			closeEffect : 'elastic',
+			nextEffect : 'fade', // 'elastic', 'fade' or 'none'
+			prevEffect : 'fade', // 'elastic', 'fade' or 'none'
+			padding : 0,
+			type : "image",
+			helpers : {
+				overlay : {
+					speedIn : 0,
+					speedOut : 0,
+					opacity : 0.6,
+					css : {
+						cursor : 'pointer',
+						'background-color' : 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
+					},
+					closeClick : true
 				}
-			})	
-		});
-	</script>
+			}
+		})
+	});
+</script>
 </html>
