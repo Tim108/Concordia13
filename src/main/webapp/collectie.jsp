@@ -233,9 +233,11 @@ ORDER BY rating DESC;
 				<c:forEach var="row" items="${artpieces.rows}">
 					<div class="col-md-4">
 						<div class="thumbnail">
+							<div style="height:250px;">
 							<a class="plaatje" rel="gallery" href="img/${row.source}"
-								caption='<h5>${row.name}</h5>${row.artist}<br>${row.width} x ${row.height}<br>${row.rating}<br>&euro;${row.price}'
-								><img src="img/${row.source}" alt="${row.source}" style="height: 250px;" /></a>
+								caption='${row.artist}<br>${row.width} x ${row.height}'><img
+								src="img/${row.source}" alt="${row.source}"
+								style="max-height:100%; max-width:100%;"/></a></div>
 							<div class="caption">
 
 								<h3>
