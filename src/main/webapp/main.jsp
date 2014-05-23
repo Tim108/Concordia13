@@ -23,7 +23,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia">Home</a></li>
-				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="collectie.jsp">Collectie</a></li>
+				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search">Collectie</a></li>
 				<li><a href="#">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>
@@ -57,7 +57,7 @@
 						<li><a href="/concordia/userinfo">Gegevens</a></li>
             			<li><a href="#">Reserveringen</a></li>
             			<li><a href="#">Expositie</a></li>
-            			<li><a href="#">Abonnement</a></li>
+            			<li><a href="/concordia/subscriptions">Abonnement</a></li>
             			<li class="divider"></li>
 						<li><a href="/concordia/loguit">Log uit</a></li>
 

@@ -44,7 +44,7 @@
      		 </ol>
       	<div class="carousel-inner">
         	<div class="item active">
-        	  <img src="img/frontpage/header1.png" style="height:200px;">
+        	  <img src="img/frontpage/header1.png" style="width:100%;">
         	  <div class="container">
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities.</h1>
@@ -55,7 +55,7 @@
         	  </div>
         	<div class="item">
         	<div>
-        	  <img src="img/frontpage/header2.png" style="height:200px;">
+        	  <img src="img/frontpage/header2.png" style="width:100%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>1.734 werken die je kunt huren.</h1>
@@ -66,7 +66,7 @@
         </div>
         </div>
         <div class="item">
-          <img src="img/frontpage/header3.png" style="height:200px;">
+          <img src="img/frontpage/header3.png" style="width:100%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>Slechts 7,50 euro per maand</h1>
