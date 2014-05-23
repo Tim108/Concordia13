@@ -54,14 +54,14 @@
 
 	<%
 		String path = "res/dbprops.txt";
-		Properties prop = new Properties();
-		prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
+			String user = prop.getProperty("username");
+			String pass1 = prop.getProperty("pass");
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String dbname = prop.getProperty("dbname");
+			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 	%>
 
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
@@ -72,8 +72,8 @@ SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.or
 WHERE a.id=b.id
 <%
 		if (request.getAttribute("Search") != null) {
-			List<String> l = (List<String>) request
-			.getAttribute("Search");
+		List<String> l = (List<String>) request
+		.getAttribute("Search");
 	%>
  AND (a.name='<%=l.get(0)%>'
 	<%
@@ -82,7 +82,7 @@ WHERE a.id=b.id
  OR a.name='<%=l.get(i)%>'
 <%
 		}}
-		if(request.getAttribute("Search") != null)
+			if(request.getAttribute("Search") != null)
 	%>)
 ORDER BY rating DESC;
 </sql:query>
@@ -143,8 +143,12 @@ ORDER BY rating DESC;
 					<tr>
 						<td>
 							<table>
-								<tr><td><input type="text" placeholder="Minimale prijs"></td></tr>
-								<tr><td><input type="text" placeholder="Maximale prijs"></td></tr>
+								<tr>
+									<td><input type="text" placeholder="Minimale prijs"></td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="Maximale prijs"></td>
+								</tr>
 							</table>
 						</td>
 						<td>
@@ -162,10 +166,18 @@ ORDER BY rating DESC;
 						</td>
 						<td>
 							<table>
-								<tr><td><input type="text" placeholder="Minimale breedte"></td></tr>
-								<tr><td><input type="text" placeholder="Maximale breedte"></td></tr>
-								<tr><td><input type="text" placeholder="Minimale hoogte"></td></tr>
-								<tr><td><input type="text" placeholder="Maximale hoogte"></td></tr>
+								<tr>
+									<td><input type="text" placeholder="Minimale breedte"></td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="Maximale breedte"></td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="Minimale hoogte"></td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="Maximale hoogte"></td>
+								</tr>
 							</table>
 						</td>
 						<td>
@@ -209,8 +221,12 @@ ORDER BY rating DESC;
 						</td>
 						<td>
 							<table>
-								<tr><td><input type="text" placeholder="Minimale rating"></td></tr>
-								<tr><td><input type="text" placeholder="Maximale rating"></td></tr>
+								<tr>
+									<td><input type="text" placeholder="Minimale rating"></td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="Maximale rating"></td>
+								</tr>
 							</table>
 						</td>
 					</tr>
@@ -233,11 +249,13 @@ ORDER BY rating DESC;
 				<c:forEach var="row" items="${artpieces.rows}">
 					<div class="col-md-4">
 						<div class="thumbnail">
-							<div style="height:250px;">
-							<a class="plaatje" rel="gallery" href="img/${row.source}"
-								caption='${row.artist}<br>${row.width} x ${row.height}'><img
-								src="img/${row.source}" alt="${row.source}"
-								style="max-height:100%; max-width:100%;"/></a></div>
+							<div style="height: 250px;">
+								<a class="plaatje" rel="gallery" href="img/${row.source}"
+									caption='<h5>${row.name}</h5>${row.artist}<br>${row.width} x ${row.height}<br>${row.rating}<br>&euro;${row.price}'>
+									<img src="img/${row.source}" alt="${row.source}"
+									style="max-height: 100%; max-width: 100%;" />
+								</a>
+							</div>
 							<div class="caption">
 
 								<h3>
@@ -363,33 +381,33 @@ ORDER BY rating DESC;
 	}
 </script>
 <script type="text/javascript">
-		$(document).ready(function() {
-			$(".plaatje").fancybox({
-				beforeLoad: function() {
-			    	this.title = '<center>' + $(this.element).attr('caption');
-			    },
-				openEffect: 'elastic',
-				closeEffect: 'elastic',
-				nextEffect: 'fade', // 'elastic', 'fade' or 'none'
-				prevEffect: 'fade', // 'elastic', 'fade' or 'none'
-				padding : 0,
-				type: "image",
-				helpers	: {
-					title: {
-						type: 'outside',
+	$(document).ready(function() {
+		$(".plaatje").fancybox({
+			beforeLoad : function() {
+				this.title = '<center>' + $(this.element).attr('caption');
+			},
+			openEffect : 'elastic',
+			closeEffect : 'elastic',
+			nextEffect : 'fade', // 'elastic', 'fade' or 'none'
+			prevEffect : 'fade', // 'elastic', 'fade' or 'none'
+			padding : 0,
+			type : "image",
+			helpers : {
+				title : {
+					type : 'outside',
+				},
+				overlay : {
+					speedIn : 0,
+					speedOut : 0,
+					opacity : 0.6,
+					css : {
+						cursor : 'pointer',
+						'background-color' : 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
 					},
-					overlay: {
-						speedIn: 0,
-						speedOut: 0,
-						opacity: 0.6,
-						css: {
-							cursor: 'pointer',
-							'background-color': 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
-						},
-						closeClick: true
-					}
+					closeClick : true
 				}
-			})	
-		});
-	</script>
+			}
+		})
+	});
+</script>
 </html>
