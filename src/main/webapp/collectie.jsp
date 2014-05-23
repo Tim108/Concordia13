@@ -96,7 +96,7 @@ ORDER BY rating DESC;
 					<td align="center">Techniek</td>
 					<td align="center">Orientatie</td>
 					<td align="center">Beoordeling</td>
-
+ 
 				</tr>
 				<tr>
 					<td>
