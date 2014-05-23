@@ -124,6 +124,16 @@ public class SearchServlet extends HttpServlet {
 	
 	private void createLists(Connection conn, HttpServletRequest request){
 		// lists for collectie.jsp
+		// first empty all lists
+		priceL = new ArrayList<Double>();
+		artistL = new ArrayList<String>();
+		widthL = new ArrayList<Double>();
+		heightL = new ArrayList<Double>();
+		styleL = new ArrayList<String>();
+		techL = new ArrayList<String>();
+		orientL = new ArrayList<String>();
+		ratingL = new ArrayList<Double>();
+		// fill them up again
 		try{
 					PreparedStatement prices = conn.prepareStatement("SELECT DISTINCT price From artpiece");
 					PreparedStatement artists = conn.prepareStatement("SELECT DISTINCT artist From artpiece");
@@ -174,6 +184,16 @@ public class SearchServlet extends HttpServlet {
 							ratingL.add(rs.getDouble("rating"));
 						}
 					}
+					
+					request.removeAttribute("prices");
+					request.removeAttribute("artists");
+					request.removeAttribute("widths");
+					request.removeAttribute("heights");
+					request.removeAttribute("styles");
+					request.removeAttribute("techs");
+					request.removeAttribute("orients");
+					request.removeAttribute("ratings");
+					
 					
 					request.setAttribute("prices", priceL);
 					request.setAttribute("artists", artistL);
