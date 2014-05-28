@@ -62,10 +62,7 @@ public class SearchServlet extends HttpServlet {
 		
 	
 		String srch = (String)request.getParameter("srch-term");
-		if(srch.equals("")) {
-			request.getRequestDispatcher("/collectie.jsp").forward(request, response);
-			return;
-		}
+		
 		srch = srch.toLowerCase();
 		String[] srchterms = srch.split(" ");
 		List<String> attributes = new ArrayList<String>();

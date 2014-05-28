@@ -126,20 +126,21 @@ ORDER BY rating DESC;
 				List<String> orients = (List<String>) request.getAttribute("orients");
 				List<Double> ratings = (List<Double>) request.getAttribute("ratings");
 		%>
-
+<form>
 		<div id="advancedSearchDiv" class="hidden-element">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>
-						<td align="center">Prijs</td>
-						<td align="center">Artiest</td>
-						<td align="center">Afmetingen</td>
-						<td align="center">Stijl</td>
-						<td align="center">Techniek</td>
-						<td align="center">Orientatie</td>
-						<td align="center">Beoordeling</td>
+						<td>Prijs</td>
+						<td>Artiest</td>
+						<td>Afmetingen</td>
+						<td>Stijl</td>
+						<td>Techniek</td>
+						<td>Orientatie</td>
+						<td>Beoordeling</td>
 
 					</tr>
+					
 					<tr>
 						<td>
 							<table>
@@ -233,6 +234,7 @@ ORDER BY rating DESC;
 				</table>
 			</div>
 		</div>
+		</form>
 
 		<%
 			if (request.getAttribute("Error") != null) {
