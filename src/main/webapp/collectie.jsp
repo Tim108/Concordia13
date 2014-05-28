@@ -100,7 +100,7 @@ ORDER BY rating DESC;
 						name="srch-term" id="srch-term">
 					<div class="input-group-btn">
 						<button class="btn btn-default" style="height: 34px;"
-							type="button" onklick=<% %>>
+							type="submit">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</div>
@@ -145,10 +145,10 @@ ORDER BY rating DESC;
 						<td>
 							<table>
 								<tr>
-									<td><input type="text" placeholder="Minimale prijs"></td>
+									<td><input type="text" id="minPrice" placeholder="Minimale prijs"></td>
 								</tr>
 								<tr>
-									<td><input type="text" placeholder="Maximale prijs"></td>
+									<td><input type="text" id="maxPrice" placeholder="Maximale prijs"></td>
 								</tr>
 							</table>
 						</td>
