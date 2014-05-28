@@ -100,7 +100,7 @@ ORDER BY rating DESC;
 						name="srch-term" id="srch-term">
 					<div class="input-group-btn">
 						<button class="btn btn-default" style="height: 34px;"
-							type="button">
+							type="button" onklick=<% %>>
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</div>
@@ -158,7 +158,7 @@ ORDER BY rating DESC;
 									for(int i = 0; i<artists.size();i++){
 								%>
 								<tr>
-									<td><input type="checkbox"><%=artists.get(i)%></td>
+									<td><input type="checkbox" id=<%="artist:" + artists.get(i)%>><%=artists.get(i)%></td>
 								</tr>
 								<%
 									}
@@ -187,7 +187,7 @@ ORDER BY rating DESC;
 									for(int i = 0; i<styles.size();i++){
 								%>
 								<tr>
-									<td><input type="checkbox"><%=styles.get(i)%></td>
+									<td><input type="checkbox" id=<%="style:" + styles.get(i)%>><%=styles.get(i)%></td>
 								</tr>
 								<%
 									}
@@ -200,7 +200,7 @@ ORDER BY rating DESC;
 									for(int i = 0; i<techs.size();i++){
 								%>
 								<tr>
-									<td><input type="checkbox"><%=techs.get(i)%></td>
+									<td><input type="checkbox" id=<%="tech:" + techs.get(i)%>><%=techs.get(i)%></td>
 								</tr>
 								<%
 									}
@@ -213,7 +213,7 @@ ORDER BY rating DESC;
 									for(int i = 0; i<orients.size();i++){
 								%>
 								<tr>
-									<td><input type="checkbox"><%=orients.get(i)%></td>
+									<td><input type="checkbox" id=<%="orient:" + orients.get(i)%>><%=orients.get(i)%></td>
 								</tr>
 								<%
 									}
