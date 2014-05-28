@@ -65,8 +65,17 @@ public class SearchServlet extends HttpServlet {
 		
 		srch = srch.toLowerCase();
 		String[] srchterms = srch.split(" ");
+		double[] prices = new double[2];
+		List<String> Artists = new ArrayList<String>();
+		double[] sizes = new double[4];
+		List<String> styles = new ArrayList<String>();
+		List<String> techs = new ArrayList<String>();
+		List<String> Orients = new ArrayList<String>();
+		double[] rates = new double[2];
+		
 		List<String> attributes = new ArrayList<String>();
 		
+		//sql inloggen
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
@@ -80,7 +89,7 @@ public class SearchServlet extends HttpServlet {
 		 String port = prop.getProperty("port");
 		 String dbname = prop.getProperty("dbname");
 		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		 
+		 //--
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			createLists(conn, request);
 			
