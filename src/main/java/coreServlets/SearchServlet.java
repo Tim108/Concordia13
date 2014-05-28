@@ -73,6 +73,16 @@ public class SearchServlet extends HttpServlet {
 		List<String> Orients = new ArrayList<String>();
 		double[] rates = new double[2];
 		
+		request.getParameter("");
+		
+		if(prices.length>1){
+		System.out.println("van: " + prices[0]);
+		System.out.println("tot: " + prices[0]);
+		}
+		else{
+			System.out.println(" nope");
+		}
+		
 		List<String> attributes = new ArrayList<String>();
 		
 		//sql inloggen

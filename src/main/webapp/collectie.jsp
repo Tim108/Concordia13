@@ -100,7 +100,7 @@ ORDER BY rating DESC;
 						name="srch-term" id="srch-term">
 					<div class="input-group-btn">
 						<button class="btn btn-default" style="height: 34px;"
-							type="submit">
+							type="button">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</div>
