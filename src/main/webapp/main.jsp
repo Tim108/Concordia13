@@ -27,7 +27,7 @@
 				<li><a href="#">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 				<% HttpSession s = request.getSession();
-				if((Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+				if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
 				<li><a href="admin.jsp">Controle Paneel</a></li>
 				<% } %>
 			</ul>
