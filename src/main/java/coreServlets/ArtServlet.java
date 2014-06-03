@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginServlet extends HttpServlet {
+public class ArtServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -26,9 +26,16 @@ public class LoginServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		String email = (String) request.getParameter("email");
-		String pass = (String) request.getParameter("password");
+		String title = (String)request.getAttribute("title");
+		String artist = (String)request.getAttribute("artist");
+		String width = (String)request.getAttribute("width");
+		String heigth = (String)request.getAttribute("heigth");
+		String technique = (String)request.getAttribute("technique");
+		String orientation = (String)request.getAttribute("orientation");
+		String file = (String)request.getAttribute("file");
 
+		System.out.println(file);
+		
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) {
@@ -44,31 +51,12 @@ public class LoginServlet extends HttpServlet {
 		 String dbname = prop.getProperty("dbname");
 		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			try (Statement stmt = conn.createStatement();
-					ResultSet rs = stmt
-							.executeQuery("SELECT id,pass,name,surname,isadmin FROM Customer WHERE email='"+ email + "';")) {
-				if(!rs.next()) {
-					response.sendRedirect("/concordia/login.jsp");
-					return;
-				}
-				String savedPass = rs.getString("pass");
+			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Art (name, source) VALUES(?,?);")){
+				ps.setString(1, title);
+				ps.setString(2, file);
+			}
+			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (artist, heigth, width, style, technique, orientation, price, rating) VALUES (????????);")) {
 				
-				if(!savedPass.equals(RegisterServlet.hashThis(pass))){
-					System.out.println("NIET INLOGGUH!");
-					response.sendRedirect("/concordia/login.jsp");
-					return;
-				}
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				HttpSession s = request.getSession();
-				System.out.println("LoginServlet.js: " + s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
-				s.setAttribute("Logged", id);
-				s.setAttribute("isAdmin", rs.getBoolean("isAdmin"));
-				s.setAttribute("Name", name);
-				s.setAttribute("SurName", surname);
-				response.sendRedirect("");
-				return;
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();

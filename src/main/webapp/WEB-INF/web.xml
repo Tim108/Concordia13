@@ -57,6 +57,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>ArtServlet</servlet-name>
+    <servlet-class>coreServlets.ArtServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArtServlet</servlet-name>
+    <url-pattern>/voegtoe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
   	<servlet-name>register</servlet-name>
   	<jsp-file>/register.jsp</jsp-file>
   </servlet>

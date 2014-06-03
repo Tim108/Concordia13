@@ -26,12 +26,15 @@
 				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search">Collectie</a></li>
 				<li><a href="#">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
+				<% HttpSession s = request.getSession();
+				if((Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+				<li><a href="admin.jsp">Controle Paneel</a></li>
+				<% } %>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
 					<% 
-					HttpSession s = request.getSession();
 					if(s.getAttribute("Logged") == null) {
 					%>
 					Account <b class="caret"></b></a>
