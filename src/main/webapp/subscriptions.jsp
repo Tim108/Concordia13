@@ -6,6 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ page import="java.util.*, java.text.*"%>
 <title>Concordia | Gegevens</title>
 <!-- Bootstrap -->
 <link href="res/css/bootstrap.min.css" rel="stylesheet">
@@ -37,33 +38,26 @@
 			<hr>
 			<table>
 				</b>
-				<tr>
-					<td>ID</td>
-					<td>Start datum</td>
-					<td>Eind datum</td>
-					<td>Premium</td>
+				<tr style="font-weight:bold;">
+					<td style="padding-right:10px;">ID</td>
+					<td style="padding-right:10px;">Start datum</td>
+					<td style="padding-right:10px;">Eind datum</td>
+					<td style="padding-right:10px;">Spaarabonnement</td>
 				</tr>
 				<%
-					int identifier = 0;
-					String idin = "id";
-					String startin = "start";
-					String eindin = "eind";
-					String premiumin = "premium";
-					for (int i = 0; i < Integer.parseInt(""
-							+ request.getAttribute("rowcount")); i++) {
-						idin = "id" + "" + Integer.toString(identifier);
-						startin = "start" + "" + Integer.toString(identifier);
-						eindin = "eind" + "" + Integer.toString(identifier);
-						premiumin = "premium" + "" + Integer.toString(identifier);
-						System.out.println(idin + startin + eindin + premiumin);
-						out.println("<tr>");
-						out.println("<td>" + request.getAttribute(idin).toString());
-						out.println("<td>" + request.getAttribute(startin).toString());
-						out.println("<td>" + request.getAttribute(eindin).toString());
-						out.println("<td>" + request.getAttribute(premiumin).toString());
-						out.println("</tr>");
-						identifier++;
-					}
+				SimpleDateFormat datum = new SimpleDateFormat("d MMM yyyy");
+				List<String> allIDs = (List<String>)request.getAttribute("ids");
+				List<Date> allBeginDates = (List<Date>)request.getAttribute("starts");
+				List<Date> allEndDates = (List<Date>)request.getAttribute("einds");
+				List<Boolean> allPremiums = (List<Boolean>)request.getAttribute("premiums");
+				for(int i = 0; i < allIDs.size(); i++){
 				%>
+				<tr>
+					<td style="padding-right:10px;"><%= allIDs.get(i).toString() %></td>
+					<td style="padding-right:10px;"><%= datum.format(allBeginDates.get(i)) %></td>
+					<td style="padding-right:10px;"><%= datum.format(allEndDates.get(i)) %></td>
+					<td style="padding-right:10px;"><% if(!allPremiums.get(i)){ %>Nee<% }else{ %> Ja<% } %></td>
+				</tr>
+				<% } %>
 			</table>
 	</div>

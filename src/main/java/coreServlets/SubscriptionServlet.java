@@ -23,8 +23,11 @@ public class SubscriptionServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		HttpSession s = request.getSession();
-		int idint = (Integer) s.getAttribute("Logged");
-		int count = 0;
+		int id = (Integer) s.getAttribute("Logged");
+		List<String> allIDs = new ArrayList<String>();
+		List<Date> allBeginDates = new ArrayList<Date>();
+		List<Date> allEndDates = new ArrayList<Date>();
+		List<Boolean> allPremiums = new ArrayList<Boolean>();
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) {
@@ -48,18 +51,19 @@ public class SubscriptionServlet extends HttpServlet {
 					ResultSet rs = stmt
 							.executeQuery("SELECT * FROM subscription s, pays_a p "
 									+ "WHERE p.customer= '"
-									+ idint
+									+ id
 									+ "'"
 									+ " AND s.id = p.subscription;")) {
 				while (rs.next()) {
-					request.setAttribute("id" + "" +Integer.toString(count), rs.getString("id"));
-					request.setAttribute("start" + "" +Integer.toString(count), rs.getDate("startingdata"));
-					request.setAttribute("eind" + "" +Integer.toString(count), rs.getDate("endingdate"));
-					request.setAttribute("premium" + "" +Integer.toString(count), rs.getBoolean("premium"));
-					System.out.println("id"+ Integer.toString(count));
-					count++;
-					request.setAttribute("rowcount", count);
+					allIDs.add(rs.getString("id"));
+					allBeginDates.add(rs.getDate("startingdata"));
+					allEndDates.add(rs.getDate("endingdate"));
+					allPremiums.add(rs.getBoolean("premium"));
 				}
+				request.setAttribute("ids", allIDs);
+				request.setAttribute("starts", allBeginDates);
+				request.setAttribute("einds", allEndDates);
+				request.setAttribute("premiums", allPremiums);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
