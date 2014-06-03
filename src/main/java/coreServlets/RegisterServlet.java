@@ -48,16 +48,16 @@ public class RegisterServlet extends HttpServlet {
 	public boolean ValidateInput(HttpServletRequest request, HttpServletResponse response, String name, String surname, String address, String city, String postal, String email, String pass, String phone)
 	{
 		boolean error = false;
-		if(name.matches(".*\\d.*")) {
-			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw voornaam zitten.");
+		if(!name.matches("[A-Z][a-zA-Z]*")) {
+			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw voornaam mag alleen letters bevatten.");
 			error = true;
 		}
 		if(name.length() == 0) {
 			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> U moet een voornaam invullen.");
 			error = true;
 		}
-		if(surname.matches(".*\\d.*")) {
-			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Er mag geen cijfer in uw achternaam zitten.");
+		if(!surname.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+			request.setAttribute("SurnameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw achternaam mag alleen letters bevatten.");
 			error = true;
 		}
 		if(surname.length() == 0) {
