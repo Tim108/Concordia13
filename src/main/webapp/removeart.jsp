@@ -32,12 +32,13 @@
 <body>
 	<jsp:include page="main.jsp"/>
 	<center>
-	<h3>Concordia Controle Paneel</h3>
-	<input type="submit" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';"/><br><br>
-	<input type="submit" value="Verwijder een werk" onclick="window.location='/concordia/removeart.jsp';"/><br><br>
-	<input type="submit" value="Vraag gegevens van een klant op" onclick="window.location='/concordia/klanten.jsp';"/><br><br>
-	<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='/concordia/exposities.jsp';"/><br><br>
-	<input type="submit" value="Bekijk gegevens van de site" onclick="window.location='/concordia/stats.jsp';"/>
+		<form action="/haalweg">
+			<select>
+  				<option value="choose">Kies een werk</option>
+  				<option value="werk1">Pi No</option>
+			</select>
+			<input type="submit" value="Haal weg"/>
+		</form>
 	</center>
 </body>
 </html>
