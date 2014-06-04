@@ -32,13 +32,7 @@
 <body>
 	<jsp:include page="main.jsp"/>
 	<center>
-		<form action="/haalweg">
-			<select>
-  				<option value="choose">Kies een werk</option>
-  				<option value="werk1">Pi No</option>
-			</select>
-			<input type="submit" value="Haal weg"/>
-		</form>
+		
 	</center>
 </body>
 </html>

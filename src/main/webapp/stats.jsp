@@ -32,12 +32,14 @@
 <body>
 	<jsp:include page="main.jsp"/>
 	<center>
-	<h3>Concordia Controle Paneel</h3>
-	<input type="submit" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';"/><br><br>
-	<input type="submit" value="Verwijder een werk" onclick="window.location='/concordia/removeart.jsp';"/><br><br>
-	<input type="submit" value="Vraag gegevens van een klant op" onclick="window.location='/concordia/klanten.jsp';"/><br><br>
-	<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='/concordia/exposities.jsp';"/><br><br>
-	<input type="submit" value="Bekijk gegevens van de site" onclick="window.location='/concordia/stats';"/>
+		<h3>Gegevens van de site</h3>
+		<table>
+		<tr><td style="padding-right:10px">Aantal gebruikers: <td>${users}</tr>
+		<tr><td style="padding-right:10px">Aantal betalende klanten: <td>${subscribers}</tr>
+		<tr><td style="padding-right:10px">Aantal werken: <td>${artpieces}</tr>
+		<tr><td style="padding-right:10px">Aantal verhuurde werken: <td>${rented}</tr>
+		<tr><td style="padding-right:10px">Aantal gereserveerde werken: <td>${reservations}</tr>
+		</table>
 	</center>
 </body>
 </html>
