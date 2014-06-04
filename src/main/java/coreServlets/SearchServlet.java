@@ -77,11 +77,18 @@ public class SearchServlet extends HttpServlet {
 		List<String> Orients = new ArrayList<String>();
 		double[] ratings = new double[2];
 
+			//prices
 			prices[0] = Double.parseDouble(request.getParameter("minPrice"));
 			prices[1] = Double.parseDouble(request.getParameter("maxPrice"));
+			//sizes
+			sizes[0] = Double.parseDouble(request.getParameter("minBred"));
+			sizes[1] = Double.parseDouble(request.getParameter("maxBred"));
+			sizes[2] = Double.parseDouble(request.getParameter("minHoog"));
+			sizes[3] = Double.parseDouble(request.getParameter("maxHoog"));
+			//ratings
+			ratings[0] = Double.parseDouble(request.getParameter("minRat"));
+			ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
 		
-			System.out.println("van: " + prices[0]);
-			System.out.println("tot: " + prices[1]);
 		
 
 		List<String> attributes = new ArrayList<String>();
