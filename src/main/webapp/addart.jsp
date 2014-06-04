@@ -38,15 +38,17 @@
     	<tr><td><td><font color="#E00000">${TitleError}</font></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px">Titel:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="title"></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px">Artiest:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="artist"></tr>
-		<tr><td style="padding-right:10px; padding-bottom:10px">Breedte:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="width"></tr>
-		<tr><td style="padding-right:10px; padding-bottom:10px">Hoogte:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="heigth"></tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px">Breedte:<td style="padding-right:10px; padding-bottom:10px"> <input type="number" name="width"></tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px">Hoogte:<td style="padding-right:10px; padding-bottom:10px"> <input type="number" name="heigth"></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px">Techniek:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="technique"></tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px">Stijl:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="style"></tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px">Prijs:<td style="padding-right:10px; padding-bottom:10px"> <input type="number" name="price"></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="portret"> Portret</tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="landscape"> Landschap</tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="square"> Vierkant</tr>
 	</table><br>
 	<input type="file" name="file" id="file"><br>
-	<input type="submit" value="Submit">
+	<input type="submit" value="Voeg toe">
 	</form></center><hr>
 </body>
 </html>
