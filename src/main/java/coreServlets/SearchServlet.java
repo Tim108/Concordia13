@@ -74,22 +74,57 @@ public class SearchServlet extends HttpServlet {
 		double[] sizes = new double[4];
 		List<String> styles = new ArrayList<String>();
 		List<String> techs = new ArrayList<String>();
-		List<String> Orients = new ArrayList<String>();
+		List<String> orients = new ArrayList<String>();
 		double[] ratings = new double[2];
 
-			//prices
-			prices[0] = Double.parseDouble(request.getParameter("minPrice"));
-			prices[1] = Double.parseDouble(request.getParameter("maxPrice"));
-			//sizes
-			sizes[0] = Double.parseDouble(request.getParameter("minBred"));
-			sizes[1] = Double.parseDouble(request.getParameter("maxBred"));
-			sizes[2] = Double.parseDouble(request.getParameter("minHoog"));
-			sizes[3] = Double.parseDouble(request.getParameter("maxHoog"));
-			//ratings
-			ratings[0] = Double.parseDouble(request.getParameter("minRat"));
-			ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
-		
-		
+		// prices
+		prices[0] = Double.parseDouble(request.getParameter("minPrice"));
+		prices[1] = Double.parseDouble(request.getParameter("maxPrice"));
+		// sizes
+		sizes[0] = Double.parseDouble(request.getParameter("minBred"));
+		sizes[1] = Double.parseDouble(request.getParameter("maxBred"));
+		sizes[2] = Double.parseDouble(request.getParameter("minHoog"));
+		sizes[3] = Double.parseDouble(request.getParameter("maxHoog"));
+		// ratings
+		ratings[0] = Double.parseDouble(request.getParameter("minRat"));
+		ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
+		//artists
+		System.out.println("here");
+		for (int i = 0; i < artistL.size(); i++) {
+			String artist = artistL.get(i);
+			boolean isChecked = Boolean.parseBoolean(request
+					.getParameter("artist:" + artist));
+			if (isChecked)
+				Artists.add(artist);
+		}
+		System.out.println("1");
+		//styles
+		for (int i = 0; i < styleL.size(); i++) {
+			String style = styleL.get(i);
+			boolean isChecked = Boolean.parseBoolean(request
+					.getParameter("style:" + style));
+			if (isChecked)
+				styles.add(style);
+		}
+		System.out.println("2");
+		//techs
+		for (int i = 0; i < techL.size(); i++) {
+			String tech = techL.get(i);
+			boolean isChecked = Boolean.parseBoolean(request
+					.getParameter("tech:" + tech));
+			if (isChecked)
+				techs.add(tech);
+		}
+		System.out.println("3");
+		//orients
+		for (int i = 0; i < orientL.size(); i++) {
+			String orient = orientL.get(i);
+			boolean isChecked = Boolean.parseBoolean(request
+					.getParameter("orient:" + orient));
+			if (isChecked)
+				orients.add(orient);
+		}
+		System.out.println("4");
 
 		List<String> attributes = new ArrayList<String>();
 
