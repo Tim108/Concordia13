@@ -73,6 +73,7 @@ public class ArtServlet extends HttpServlet {
 					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art")) {
 				if(rs.next()) {
 					int num = rs.getInt("count");
+					num++;
 					fileName = "kunst" + num + ".jpg"; 
 				}
 			}
@@ -83,7 +84,7 @@ public class ArtServlet extends HttpServlet {
 					System.out.println("Query Executed!");
 				}
 			}
-			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (artist, heigth, width, style, technique, orientation, price) VALUES (???????);")) {
+			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (artist, height, width, style, technique, orientation, price, rating) VALUES (?,?,?,?,?,?,?,?);")) {
 				ps.setString(1, artist);
 				ps.setDouble(2, heigth);
 				ps.setDouble(3, width);
@@ -91,6 +92,8 @@ public class ArtServlet extends HttpServlet {
 				ps.setString(5, technique);
 				ps.setString(6, orientation);
 				ps.setDouble(7, price);
+				ps.setInt(8, 0);
+				System.out.println(ps.toString());
 				if(ps.execute()) {
 					System.out.println("Query Executed!");
 				}
@@ -99,7 +102,7 @@ public class ArtServlet extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-
+		
 	    OutputStream out = null;
 	    InputStream filecontent = null;
 	    final PrintWriter writer = response.getWriter();
