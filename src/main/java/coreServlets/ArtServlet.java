@@ -48,11 +48,7 @@ public class ArtServlet extends HttpServlet {
 		
 		final Part filePart = request.getPart("file");
 	    String fileName = getFileName(filePart);
-	    System.out.println(title + " " + artist + " " + width + " " + heigth + " " + technique + " " + style + " " + orientation + " " + price);
-	    if(!fileName.contains(".jpg")) {
-	    	System.out.println("NOPE! NO JPG IN " + fileName + " " + price + " " + orientation);
-	    	return;
-	    }
+	    String fileExt = fileName.substring(fileName.indexOf('.'));
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -74,7 +70,7 @@ public class ArtServlet extends HttpServlet {
 				if(rs.next()) {
 					int num = rs.getInt("count");
 					num++;
-					fileName = "kunst" + num + ".jpg"; 
+					fileName = "kunst" + num + fileExt; 
 				}
 			}
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Art (name, source) VALUES(?,?);")){
@@ -126,6 +122,7 @@ public class ArtServlet extends HttpServlet {
 	                + "location.");
 	        writer.println("<br/> ERROR: " + fne.getMessage());
 	    } finally {
+	    	response.sendRedirect("search");
 	        if (out != null) {
 	            out.close();
 	        }
