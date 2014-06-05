@@ -203,7 +203,7 @@ WHERE a.id=b.id
 										Delen <span class="caret"></span>
 									</button>
 
-									<ul class="dropdown-menu" role="menu">
+									<ul class="dropdown-menu pull-right" role="menu">
 										<table>
 											<tr>
 												<td style="padding-right: 10px; padding-bottom: 10px"><a
