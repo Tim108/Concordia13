@@ -29,6 +29,13 @@ public class UserServlet extends HttpServlet {
 		HttpSession s = request.getSession();
 		int id = (Integer) s.getAttribute("Logged");
 		response.setContentType("text/html");
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
 		Properties prop = new Properties();
 		String path = "res/dbprops.txt";
 		try {
