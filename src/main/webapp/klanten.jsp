@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.ResultSet, java.util.List, java.util.ArrayList, java.sql.Connection"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -33,11 +34,33 @@
 <body>
 	<jsp:include page="main.jsp"/>
 	<center>
-	<h3>Concordia Controle Paneel</h3>
-	<input type="submit" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';"/><br><br>
-	<input type="submit" value="Vraag gegevens van een klant op" onclick="window.location='/concordia/klanten.jsp';"/><br><br>
-	<!--<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='/concordia/exposities.jsp';"/><br><br> -->
-	<input type="submit" value="Bekijk gegevens van de site" onclick="window.location='/concordia/stats';"/>
+		<form action="klantservlet" method="post">
+			<h4>-
+			<% for(int i=0; i<26; i++) { %>
+			<button style="padding: 0; border: none; background: none;" type="submit" name="letter" value="<%= "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(i) %>"><%= "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(i) %></button> -
+			<% } %>
+			</h4>
+		</form>
+		
+		<%
+		List<String> name = (List<String>)request.getAttribute("name");
+		List<String> surname = (List<String>)request.getAttribute("surname");
+		List<String> address = (List<String>)request.getAttribute("address");
+		List<String> city = (List<String>)request.getAttribute("city");
+		List<String> postal = (List<String>)request.getAttribute("postal");
+		List<String> tel = (List<String>)request.getAttribute("tel");
+		List<Double> credit = (List<Double>)request.getAttribute("credit");
+		List<Boolean> newsl = (List<Boolean>)request.getAttribute("newsl");
+		if(name != null) {
+			for(int i=0; i<name.size(); i++) {%>
+				<b><%=name.get(i) %> <%=surname.get(i) %><br></b>
+				Adres: <%=address.get(i)%><br>
+				Stad en Postcode: <%=city.get(i)%>, <%=postal.get(i)%><br>
+				Telefoon: <%=tel.get(i)%><br>
+				Credits: <%=credit.get(i)%><br>
+				Nieuwsletter: <%=newsl.get(i)%><hr>
+			<%}
+		}%>
 	</center>
 </body>
 </html>

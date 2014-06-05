@@ -73,7 +73,8 @@
 			Date exp = cal.getTime();
 				if (abonnement != null) { %>
 					<hr>
-					<% if (abonnement.equals("regulier")) {
+					<% 
+					if (abonnement.equals("regulier")) {
 			%>
 			<h2>Regulier</h2>
 			Weet u zeker dat u een <b>regulier abonnement</b> wilt afsluiten?<br>
@@ -103,6 +104,10 @@
 				</td>
 			</tr>
 			</table>
+			<form action="subscriptions" method="post">
+			<input type="hidden" name="ideal" value="regulier">
+			<input type="image" src="img/iDEAL-klein.jpg">
+			</form>
 			<%
 				} else {
 			%>
@@ -134,6 +139,10 @@
 				</td>
 			</tr>
 			</table>
+			<form action="subscriptions" method="post">
+			<input type="hidden" name="ideal" value="spaar">
+			<input type="image" src="img/iDEAL-klein.jpg">
+			</form>
 			<%
 				}
 				}

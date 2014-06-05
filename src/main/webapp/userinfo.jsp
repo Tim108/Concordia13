@@ -113,11 +113,12 @@
 			<tr style="font-weight: bold; text-alignment: center;">
 				<td colspan="2" style="text-align: center; vertical-align: top">
 					<input type="button" value="Nieuw abonnement afsluiten"
-					onclick="window.location='/concordia/subscriptions';">
+					onclick="window.location='/concordia/subscription';">
 				</td>
 			</tr>
 			<%
 			IDcheck.clear();
+			int count = 1;
 				for (int i = 0; i < allIDs.size(); i++) {
 					if (!IDcheck.contains(allIDs.get(i).toString()))
 						IDcheck.add(allIDs.get(i).toString());
@@ -126,7 +127,7 @@
 				
 			%>
 			<tr style="font-weight: bold;">
-				<td style="padding-right: 10px;">Abonnement <%=allIDs.get(i).toString()%></td>
+				<td style="padding-right: 10px;">Abonnement <%=count%></td>
 			</tr>
 			<tr>
 				<td style="padding-right: 10px;">Start datum:</td>
@@ -148,6 +149,7 @@
 					%>
 				</td>
 				<%
+				count++;
 					}
 				allIDs.clear();
 				allBeginDates.clear();

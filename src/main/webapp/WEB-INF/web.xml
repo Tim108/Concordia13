@@ -46,6 +46,15 @@
     <servlet-name>SubscriptionServlet</servlet-name>
     <url-pattern>/subscriptions</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CustomerServlet</servlet-name>
+    <servlet-class>coreServlets.CustomerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerServlet</servlet-name>
+    <url-pattern>/klantservlet</url-pattern>
+  </servlet-mapping>
  
  <servlet>
     <servlet-name>UserServlet</servlet-name>
@@ -81,6 +90,15 @@
   <servlet-mapping>
     <servlet-name>ArtServlet</servlet-name>
     <url-pattern>/voegtoe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>subscription</servlet-name>
+  	<jsp-file>/subscriptions.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>subscription</servlet-name>
+  	<url-pattern>/subscription</url-pattern>
   </servlet-mapping>
   
   <servlet>
