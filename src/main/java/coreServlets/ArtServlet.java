@@ -77,7 +77,6 @@ public class ArtServlet extends HttpServlet {
 				ps.setString(1, title);
 				ps.setString(2, fileName);
 				if(ps.execute()) {
-					System.out.println("Query Executed!");
 				}
 			}
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (artist, height, width, style, technique, orientation, price, rating, rented) VALUES (?,?,?,?,?,?,?,?,?);")) {
@@ -90,7 +89,6 @@ public class ArtServlet extends HttpServlet {
 				ps.setDouble(7, price);
 				ps.setInt(8, 0);
 				ps.setBoolean(9, false);
-				System.out.println(ps.toString());
 				if(ps.execute()) {
 					System.out.println("Query Executed!");
 				}

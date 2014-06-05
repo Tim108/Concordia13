@@ -47,35 +47,30 @@ public class StatServlet extends HttpServlet {
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Customer;")) {
 				rs.next();
 				int count = rs.getInt(1);
-				System.out.println(count);
 				request.setAttribute("users", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art;")) {
 				rs.next();
 				int count = rs.getInt(1);
-				System.out.println(count);
 				request.setAttribute("artpieces", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Rent;")) {
 				rs.next();
 				int count = rs.getInt(1);
-				System.out.println(count);
 				request.setAttribute("rented", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Reservation;")) {
 				rs.next();
 				int count = rs.getInt(1);
-				System.out.println(count);
 				request.setAttribute("reservations", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT customer) FROM pays_a;")) {
 				rs.next();
 				int count = rs.getInt(1);
-				System.out.println(count);
 				request.setAttribute("subscribers", count);
 			}
 		} catch (SQLException e1) { e1.printStackTrace(); }
