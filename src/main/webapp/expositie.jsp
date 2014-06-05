@@ -258,8 +258,8 @@ WHERE a.id=b.id
 
    <div class="customNavigation">
    <CENTER>
-  <button type="button" class="btn btn-default btn-lg"><a class="btn play"><span class="glyphicon glyphicon-play"></span> Autoplay</a></button>
-   <button type="button" class="btn btn-default btn-lg"><a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a></button>
+  	<a class="btn play"><span class="glyphicon glyphicon-play"></span> Autoplay</a>
+    <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
   </CENTER>
 </div>
 
