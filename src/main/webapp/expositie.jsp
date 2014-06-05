@@ -70,7 +70,12 @@
 			String dbname = prop.getProperty("dbname");
 			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 	%>
-
+	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
+		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
+	<sql:query dataSource="${snapshot}" var="artpieces">
+SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
+WHERE a.id=b.id
+	</sql:query>	
 
 	<div id="title">
       <div class="container">
@@ -83,84 +88,146 @@
       </div>
     </div>
 
-      <div id="demo">
+       <div id="demo">
         <div class="container">
           <div class="row">
             <div class="span12">
 
               <div id="owl-demo" class="owl-carousel owl-theme">
+ 	<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
-<div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>1</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-	                
-                </div>
-                <div class="item">
-	              <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>2</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>  
-	                
-                </div>
-                <div class="item">
-	                <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>3</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-                </div>
-                <div class="item">
-	                <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>4</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-                </div>
-                <div class="item">
-	                <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-                </div>
-                <div class="item">
-	                <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-                </div>
-                <div class="item">
-	                <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-                </div>
+                <CENTER>
+						<div class="thumbnail">
+							<div style="height: 250px;">
+								<a class="plaatje" rel="gallery" href="img/${row.source}"
+									caption='<h5>${row.name}</h5>${row.artist}<br>${row.width} x ${row.height}<br>${row.rating}<br>&euro;${row.price}'>
+									<img src="img/${row.source}" alt="${row.source}"
+									style="max-height: 100%; max-width: 100%;" />
+								</a>
+							</div>
+							<div class="caption">
+
+								<h3>
+									<c:out value="${row.name}" />
+								</h3>
+								<div>
+									<p>
+										Artiest:
+										<c:out value="${row.artist}" />
+									</p>
+									<p>
+										Afmetingen:
+										<c:out value="${row.width}" />
+										x
+										<c:out value="${row.height}" />
+										px
+									</p>
+									<p>
+										Stijl:
+										<c:out value="${row.style}" />
+									</p>
+									<p>
+										Techniek:
+										<c:out value="${row.technique}" />
+									</p>
+									<p>
+										Orientatie:
+										<c:out value="${row.orientation}" />
+									</p>
+									<p>
+										Beoordeling:
+										<c:out value="${row.rating}" />
+									</p>
+									<h3>
+										Prijs: &euro;
+										<c:out value="${row.price}" />
+									</h3>
+									<c:choose>
+										<c:when test="${row.rented==true}">
+											<p>
+												<font color='red'>Beschikbaar over 13 weken</font>
+											</p>
+										</c:when>
+										<c:otherwise>
+											<p>
+												<font color='green'>Beschikbaar</font>
+											</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<p>
+									<c:choose>
+										<c:when test="${row.rented==true}">
+											<p>
+
+												<div class="btn-group">
+												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+												</div>
+											</p>
+										</c:when>
+										<c:otherwise>
+											<p>
+											
+											
+											<div class="btn-group">
+												<a href="#" class="btn btn-primary" role="button">Huur
+													direct!</a>
+										</div>
+										</p>
+										
+										</c:otherwise>
+									</c:choose>
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										Delen <span class="caret"></span>
+									</button>
+								
+								
+								<ul class="dropdown-menu" role="menu">
+									<table>
+										<tr>
+											<td style="padding-right: 10px; padding-bottom: 10px"><a
+												href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+												target="_blank"><img
+													src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+													alt="Facebook" style="height: 50px;" /></a>
+											
+											
+											<td style="padding-bottom: 10px;"><a
+												href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+												target="_blank"><img
+													src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+													alt="Twitter" style="height: 50px;" /></a>
+										
+										
+										</tr>
+										<tr>
+											<td style="padding-right: 10px;"><a
+												href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+												" target="_blank">
+									<img
+													src="http://www.simplesharebuttons.com/images/somacro/google.png"
+													alt="Google" style="height: 50px;" /></a>
+												<td><a
+													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														src="http://www.simplesharebuttons.com/images/somacro/email.png"
+														alt="Email" style="height: 50px;" /></a></tr>
+
+									
+						
+																	
+											</table>
+
+									<li class="divider"></li>
+									<li><a href="#">Voeg toe aan expositie.</a></li>
+								</ul>
+								</p>
+							</div>			
+						</div>
+						</CENTER>
+					</div>
+			</c:forEach>
+                
                 </div>
 
             </div>
@@ -168,6 +235,7 @@
         </div>
 
     </div>
+
 
  <!-- Rest of scripts -->
  
@@ -182,6 +250,7 @@
     $(document).ready(function() {
 
       $("#owl-demo").owlCarousel({
+   	items: 4,
     pagination: false,
     navigation: true,
     navigationText: [
