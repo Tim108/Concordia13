@@ -162,8 +162,8 @@ ORDER BY rating DESC;
 										for(int i = 0; i<artists.size();i++){
 									%>
 									<tr>
-										<td><input type="checkbox" name=<%=artists.get(i)%>
-											id=<%=artists.get(i)%>><%=artists.get(i)%></td>
+										<td><input type="checkbox" name=\"<%=artists.get(i)%>\"
+											id=\"<%=artists.get(i)%>\"><%=artists.get(i)%></td>
 									</tr>
 									<%
 										}
@@ -196,8 +196,8 @@ ORDER BY rating DESC;
 										for(int i = 0; i<styles.size();i++){
 									%>
 									<tr>
-										<td><input type="checkbox" name=<%=styles.get(i)%>
-											id=<%=styles.get(i)%>><%=styles.get(i)%></td>
+										<td><input type="checkbox" name=\"<%=styles.get(i)%>\"
+											id=\"<%=styles.get(i)%>\"><%=styles.get(i)%></td>
 									</tr>
 									<%
 										}
@@ -210,7 +210,7 @@ ORDER BY rating DESC;
 										for(int i = 0; i<techs.size();i++){
 									%>
 									<tr>
-										<td><input type="checkbox" name=<%=techs.get(i)%> id=<%=techs.get(i)%>><%=techs.get(i)%></td>
+										<td><input type="checkbox" name=\"<%=techs.get(i)%>\" id=\"<%=techs.get(i)%>\"><%=techs.get(i)%></td>
 									</tr>
 									<%
 										}
@@ -223,8 +223,8 @@ ORDER BY rating DESC;
 										for(int i = 0; i<orients.size();i++){
 									%>
 									<tr>
-										<td><input type="checkbox" name=<%=orients.get(i)%>
-											id=<%=orients.get(i)%>><%=orients.get(i)%></td>
+										<td><input type="checkbox" name=\"<%=orients.get(i)%>\"
+											id=\"<%=orients.get(i)%>\"><%=orients.get(i)%></td>
 									</tr>
 									<%
 										}
@@ -331,46 +331,37 @@ ORDER BY rating DESC;
 								</div>
 								<p>
 									<%
-										HttpSession s = request.getSession();
-																if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
-									%>
-								
-								<p>
-								<div class="btn-group">
-									<a onClick="popUp()" id="${id}" class="btn btn-primary"
-										role="button">Verwijder</a>
-									<%
-										//request.setAttribute("removing", );
-									%>
-
-									<script>
+									HttpSession s = request.getSession();
+									if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+										<p>
+										
+										<form name="myForm" action="remove" onsubmit="return popUp()" method="post">
+											<input type="hidden" name="removing" value="${row.id}">
+											<div class="btn-group">
+											<input type="submit" class="btn btn-primary" role="button" value="Verwijder">
+										</form>
+										
+										<script>
 										function popUp() {
-											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-											if (r == true) {
-												location.href = '/concordia/remove';
-											}
+											var r=confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+											return r;
 										}
-									</script>
-
-									<%
-										} else {
-									%>
-									<c:choose>
-										<c:when test="${row.rented==true}">
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-										</c:when>
-										<c:otherwise>
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Huur
-													direct!</a>
-										</c:otherwise>
-									</c:choose>
-									<%
-										}
-									%>
+										</script>	
+									<%} else { %>
+										<c:choose>
+											<c:when test="${row.rented==true}">
+												<p>
+													<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+											</c:when>
+											<c:otherwise>
+												<p>
+												<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Huur
+														direct!</a>
+											</c:otherwise>
+										</c:choose>
+									<% } %>
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
