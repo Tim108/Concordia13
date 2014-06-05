@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Amai!</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <center>
 <h1>Amai! Het is een web pagina</h1>
 </center>
