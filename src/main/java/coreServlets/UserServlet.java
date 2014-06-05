@@ -28,7 +28,6 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession s = request.getSession();
 		int id = (Integer) s.getAttribute("Logged");
-		System.out.println("ID in userservlet: " + id);
 		response.setContentType("text/html");
 		
 		try {

@@ -162,8 +162,13 @@ ORDER BY rating DESC;
 										for(int i = 0; i<artists.size();i++){
 									%>
 									<tr>
+<<<<<<< HEAD
 										<td><input type="checkbox" name=\"<%=artists.get(i)%>\"
 											id=\"<%=artists.get(i)%>\"><%=artists.get(i)%></td>
+=======
+										<td><input type="checkbox" name="<%=artists.get(i)%>"
+											id="<%=artists.get(i)%>"><%=artists.get(i)%></td>
+>>>>>>> FETCH_HEAD
 									</tr>
 									<%
 										}
@@ -196,8 +201,13 @@ ORDER BY rating DESC;
 										for(int i = 0; i<styles.size();i++){
 									%>
 									<tr>
+<<<<<<< HEAD
 										<td><input type="checkbox" name=\"<%=styles.get(i)%>\"
 											id=\"<%=styles.get(i)%>\"><%=styles.get(i)%></td>
+=======
+										<td><input type="checkbox" name="<%=styles.get(i)%>"
+											id="<%=styles.get(i)%>"><%=styles.get(i)%></td>
+>>>>>>> FETCH_HEAD
 									</tr>
 									<%
 										}
@@ -210,7 +220,11 @@ ORDER BY rating DESC;
 										for(int i = 0; i<techs.size();i++){
 									%>
 									<tr>
+<<<<<<< HEAD
 										<td><input type="checkbox" name=\"<%=techs.get(i)%>\" id=\"<%=techs.get(i)%>\"><%=techs.get(i)%></td>
+=======
+										<td><input type="checkbox" name="<%=techs.get(i)%>" id="<%=techs.get(i)%>"><%=techs.get(i)%></td>
+>>>>>>> FETCH_HEAD
 									</tr>
 									<%
 										}
@@ -223,8 +237,13 @@ ORDER BY rating DESC;
 										for(int i = 0; i<orients.size();i++){
 									%>
 									<tr>
+<<<<<<< HEAD
 										<td><input type="checkbox" name=\"<%=orients.get(i)%>\"
 											id=\"<%=orients.get(i)%>\"><%=orients.get(i)%></td>
+=======
+										<td><input type="checkbox" name="<%=orients.get(i)%>"
+											id="<%=orients.get(i)%>"><%=orients.get(i)%></td>
+>>>>>>> FETCH_HEAD
 									</tr>
 									<%
 										}

@@ -34,31 +34,108 @@
 	<jsp:include page="main.jsp" />
 	<div class="head">
 		<center>
-			<h1>Uw Abonnementen</h1>
-			<hr>
+			<form action="subscriptions.jsp" method="get">
+				<h1>Uw Abonnementen</h1>
+				<hr>
+				<table width="500">
+					<tr style="font-weight: bold;">
+						<td style="padding-right: 10px; text-align: center;" width="50%">
+							Regulier abonnement</td>
+						<td style="padding-right: 10px; text-align: center;" width="50%">
+							Spaarabonnement</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">7,50 euro per maand</td>
+						<td style="text-align: center;">14,50 euro per maand<br>
+							<i>Hiervan is 7,50 euro voor het abonnement en wordt er 7,00
+								per maand weggelegd als spaartegoed.</i>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-aligN: center;">
+							<button type="submit" name="abonnement" value="regulier">Sluit
+								regulier abonnement af</button>
+						</td>
+						<td style="text-align: center;">
+							<button type="submit" name="abonnement" value="spaar">Sluit
+								spaarabonnement af</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<%
+				String abonnement = request.getParameter("abonnement");
+			DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+			Calendar cal = Calendar.getInstance();
+			Date now = cal.getTime();
+			cal.add(Calendar.MONTH, 6);
+			Date exp = cal.getTime();
+				if (abonnement != null) { %>
+					<hr>
+					<% if (abonnement.equals("regulier")) {
+			%>
+			<h2>Regulier</h2>
+			Weet u zeker dat u een <b>regulier abonnement</b> wilt afsluiten?<br>
 			<table>
-				</b>
-				<tr style="font-weight:bold;">
-					<td style="padding-right:10px;">ID</td>
-					<td style="padding-right:10px;">Start datum</td>
-					<td style="padding-right:10px;">Eind datum</td>
-					<td style="padding-right:10px;">Spaarabonnement</td>
-				</tr>
-				<%
-				SimpleDateFormat datum = new SimpleDateFormat("d MMM yyyy");
-				List<String> allIDs = (List<String>)request.getAttribute("ids");
-				List<Date> allBeginDates = (List<Date>)request.getAttribute("starts");
-				List<Date> allEndDates = (List<Date>)request.getAttribute("einds");
-				List<Boolean> allPremiums = (List<Boolean>)request.getAttribute("premiums");
-				for(int i = 0; i < allIDs.size(); i++){
-				%>
-				<tr>
-					<td style="padding-right:10px;"><%= allIDs.get(i).toString() %></td>
-					<td style="padding-right:10px;"><%= datum.format(allBeginDates.get(i)) %></td>
-					<td style="padding-right:10px;"><%= datum.format(allEndDates.get(i)) %></td>
-					<td style="padding-right:10px;"><% if(!allPremiums.get(i)){ %>Nee<% }else{ %> Ja<% } %></td>
-				</tr>
-				<% }
-				%>
+			<tr>
+				<td style="padding-right: 10px;">
+				Begindatum
+				</td>
+				<td style="padding-left: 10px;"> 
+				<%= dateFormat.format(now) %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">
+				Einddatum
+				</td>
+				<td style="padding-left: 10px;">
+				<%= dateFormat.format(exp) %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">
+				Kosten per maand
+				</td>
+				<td style="padding-left: 10px;">
+				7,50
+				</td>
+			</tr>
 			</table>
+			<%
+				} else {
+			%>
+			<h2>Spaar</h2>
+			Weet u zeker dat u een <b>spaarabonnement</b> wilt afsluiten?<br>
+			<table>
+			<tr>
+				<td style="padding-right: 10px;">
+				Begindatum
+				</td>
+				<td style="padding-left: 10px;"> 
+				<%= dateFormat.format(now) %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">
+				Einddatum
+				</td>
+				<td style="padding-left: 10px;">
+				<%= dateFormat.format(exp) %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">
+				Kosten per maand
+				</td>
+				<td style="padding-left: 10px;">
+				14,50
+				</td>
+			</tr>
+			</table>
+			<%
+				}
+				}
+			%>
+		
 	</div>

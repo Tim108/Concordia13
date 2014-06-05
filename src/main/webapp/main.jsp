@@ -60,7 +60,7 @@
 						<li><a href="/concordia/userinfo">Gegevens</a></li>
             			<li><a href="#">Reserveringen</a></li>
             			<li><a href="#">Expositie</a></li>
-            			<li><a href="/concordia/subscriptions">Abonnement</a></li>
+            			<li><a href="/concordia/subscriptions">Abonnement afsluiten</a></li>
             			<li class="divider"></li>
 						<li><a href="/concordia/loguit">Log uit</a></li>
 

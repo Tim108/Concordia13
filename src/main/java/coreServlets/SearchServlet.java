@@ -57,12 +57,18 @@ public class SearchServlet extends HttpServlet {
 		request.getRequestDispatcher("/collectie.jsp").forward(request,
 				response);
 	}
+	
+	private void printList(List list){
+		System.out.println("list");
+		for(int i = 0; i < list.size(); i++){
+			System.out.println("Element " + i + ": " + list.get(i));
+		}
+	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-
-		System.out.println("SearchServlet!");
+		
 		String srch = (String) request.getParameter("srch-term");
 		if (srch == null)
 			srch = "";
@@ -70,7 +76,7 @@ public class SearchServlet extends HttpServlet {
 
 		String[] srchterms = srch.split(" ");
 		double[] prices = new double[2];
-		List<String> Artists = new ArrayList<String>();
+		List<String> artists = new ArrayList<String>();
 		double[] sizes = new double[4];
 		List<String> styles = new ArrayList<String>();
 		List<String> techs = new ArrayList<String>();
@@ -89,42 +95,45 @@ public class SearchServlet extends HttpServlet {
 		ratings[0] = Double.parseDouble(request.getParameter("minRat"));
 		ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
 		//artists
-		System.out.println("here");
+		
 		for (int i = 0; i < artistL.size(); i++) {
 			String artist = artistL.get(i);
-			boolean isChecked = Boolean.parseBoolean(request
-					.getParameter("artist:" + artist));
+			String param = request
+					.getParameter(artist);
+			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
-				Artists.add(artist);
+				artists.add(artist);
 		}
-		System.out.println("1");
+		
 		//styles
 		for (int i = 0; i < styleL.size(); i++) {
 			String style = styleL.get(i);
-			boolean isChecked = Boolean.parseBoolean(request
-					.getParameter("style:" + style));
+			String param = request
+					.getParameter(style);
+			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				styles.add(style);
 		}
-		System.out.println("2");
+		
 		//techs
 		for (int i = 0; i < techL.size(); i++) {
 			String tech = techL.get(i);
-			boolean isChecked = Boolean.parseBoolean(request
-					.getParameter("tech:" + tech));
+			String param = request
+					.getParameter(tech);
+			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				techs.add(tech);
 		}
-		System.out.println("3");
+		
 		//orients
 		for (int i = 0; i < orientL.size(); i++) {
 			String orient = orientL.get(i);
-			boolean isChecked = Boolean.parseBoolean(request
-					.getParameter("orient:" + orient));
+			String param = request
+					.getParameter(orient);
+			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				orients.add(orient);
 		}
-		System.out.println("4");
 
 		List<String> attributes = new ArrayList<String>();
 
