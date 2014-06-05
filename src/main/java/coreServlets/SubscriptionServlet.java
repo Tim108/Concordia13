@@ -79,9 +79,9 @@ public class SubscriptionServlet extends HttpServlet {
 		    		){
 			 ps.setInt(1, id);
 			   ps.setInt(2, addedID);
-			   ps.executeQuery();
+			   ps.execute();
 		 }
-			
+			request.setAttribute("done", request.getParameter("ideal"));
 	}
 		
 		} catch (SQLException e) {
