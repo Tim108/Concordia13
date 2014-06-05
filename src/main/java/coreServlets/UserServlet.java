@@ -28,6 +28,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession s = request.getSession();
 		int id = (Integer) s.getAttribute("Logged");
+		System.out.println("ID in userservlet: " + id);
 		response.setContentType("text/html");
 		
 		try {
@@ -73,7 +74,7 @@ public class UserServlet extends HttpServlet {
 
 			String credit = getInfo("credit", request, response, conn, id);
 			request.setAttribute("Tegoed", credit);
-
+			System.out.println("id = " + id);
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt
 							.executeQuery("SELECT * FROM subscription s, pays_a p "

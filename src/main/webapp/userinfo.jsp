@@ -42,96 +42,120 @@
 		List<String> IDcheck = new ArrayList<String>();
 	%>
 	<jsp:include page="main.jsp" />
-	<div class="head">
-		<center>
-			<h1>Gegevens</h1>
-			<hr>
+	<center>
+		<h1>Gegevens</h1>
+		<hr>
 
-			<table style="display: inline-block;">
-				<tr style="font-weight: bold;">
-					<td colspan="2" style="text-align:center;font-size:20px;">Contactgegevens</td>
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Voornaam:
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Naam}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Achternaam:
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Achternaam}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Adres:
-					<td style="padding-right: 10px; padding-bottom: 10px">
-						${Adres}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Woonplaats:
+		<table
+			style="display: inline-block; vertical-align: top; margin-right: 10px;">
+			<tr style="font-weight: bold;">
+				<td colspan="2"
+					style="text-align: center; font-size: 20px; vertical-align: top">Contactgegevens</td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Voornaam:
 
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Woonplaats}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Postcode:
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Naam}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Achternaam:
 
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Postcode}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">Telefoon:
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Achternaam}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Adres:
+				<td style="padding-right: 10px; padding-bottom: 10px">${Adres}
+				
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Woonplaats:
 
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Telefoon}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px; padding-bottom: 10px">E-mailadres:
 
-					
-					<td style="padding-right: 10px; padding-bottom: 10px">${Email}
-				</tr>
-				<tr>
-					<td style="padding-right: 10px;">Kunsttegoed:
-					<td>&euro;${Tegoed}</td>
-				</tr>
-			</table>
-			<table style="display: inline-block;">
-				<tr style="font-weight:bold;text-alignment:center;">
-					<td colspan="2" style="text-align:center;font-size:20px;">Abonnementgegevens</td>
-				</tr>
-				<%
-					for (int i = 0; i < allIDs.size(); i++) {
-						if (!IDcheck.contains(allIDs.get(i).toString())) {
-							IDcheck.add(allIDs.get(i).toString());
-				%>
-				<tr style="font-weight: bold;">
-					<td style="padding-right: 10px;">Abonnement <%=allIDs.get(i).toString()%></td>
-				</tr>
-				<tr>
-					<td style="padding-right: 10px;">Start datum</td>
-					<td style="padding-right: 10px;"><%=datum.format(allBeginDates.get(i))%></td>
-				</tr>
-				<tr>
-					<td style="padding-right: 10px;">Eind datum</td>
-					<td style="padding-right: 10px;"><%=datum.format(allEndDates.get(i))%></td>
-				</tr>
-				<tr>
-					<td style="padding-right: 10px;">Spaarabonnement</td>
-					<td style="padding-right: 10px;">
-						<%
-							if (!allPremiums.get(i)) {
-						%>Nee<%
-							} else {
-						%> Ja<%
-							}
-						%>
-					</td>
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Woonplaats}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Postcode:
+
+
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Postcode}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Telefoon:
+
+
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Telefoon}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">E-mailadres:
+
+
+				
+				<td style="padding-right: 10px; padding-bottom: 10px">${Email}
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">Kunsttegoed:
+				<td>&euro;${Tegoed}</td>
+			</tr>
+		</table>
+
+		<table
+			style="display: inline-block; vertical-align: top; margin-left: 10px;">
+			<tr style="font-weight: bold; text-alignment: center;">
+				<td colspan="2"
+					style="text-align: center; font-size: 20px; vertical-align: top">Abonnementgegevens</td>
+			</tr>
+			<tr style="font-weight: bold; text-alignment: center;">
+				<td colspan="2" style="text-align: center; vertical-align: top">
+					<input type="button" value="Nieuw abonnement afsluiten"
+					onclick="window.location='/concordia';">
+				</td>
+			</tr>
+			<%
+			IDcheck.clear();
+			System.out.println(IDcheck.size());
+				for (int i = 0; i < allIDs.size(); i++) {
+					if (!IDcheck.contains(allIDs.get(i).toString()))
+						IDcheck.add(allIDs.get(i).toString());
+				}
+				System.out.println(IDcheck.size());
+				for (int i = 0; i < IDcheck.size(); i++) {
+				
+			%>
+			<tr style="font-weight: bold;">
+				<td style="padding-right: 10px;">Abonnement <%=allIDs.get(i).toString()%></td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">Start datum:</td>
+				<td style="padding-right: 10px;"><%=datum.format(allBeginDates.get(i))%></td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px;">Eind datum:</td>
+				<td style="padding-right: 10px;"><%=datum.format(allEndDates.get(i))%></td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px; padding-bottom: 10px">Spaarabonnement:</td>
+				<td style="padding-right: 10px; padding-bottom: 10px">
 					<%
-						}
+						if (!allPremiums.get(i)) {
+					%>Nee <%
+						} else {
+					%> Ja <%
 						}
 					%>
-				</tr>
-			</table>
-		</center>
-		<hr>
-	</div>
+				</td>
+				<%
+					}
+				allIDs.clear();
+				allBeginDates.clear();
+				allEndDates.clear();
+				allPremiums.clear();
+				%>
+			</tr>
+		</table>
+	</center>
+	<hr>

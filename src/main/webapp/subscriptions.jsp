@@ -58,6 +58,7 @@
 					<td style="padding-right:10px;"><%= datum.format(allEndDates.get(i)) %></td>
 					<td style="padding-right:10px;"><% if(!allPremiums.get(i)){ %>Nee<% }else{ %> Ja<% } %></td>
 				</tr>
-				<% } %>
+				<% }
+				%>
 			</table>
 	</div>
