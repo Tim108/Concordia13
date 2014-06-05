@@ -51,11 +51,12 @@
 		List<String> tel = (List<String>)request.getAttribute("tel");
 		List<Double> credit = (List<Double>)request.getAttribute("credit");
 		List<Boolean> newsl = (List<Boolean>)request.getAttribute("newsl");
-		if(name != null) {
+		if(name != null) {%><hr><% 
 			for(int i=0; i<name.size(); i++) {%>
-				<b><%=name.get(i) %> <%=surname.get(i) %><br></b>
+				<b><%=name.get(i) %> <%=surname.get(i)%></b><br>
 				Adres: <%=address.get(i)%><br>
-				Stad en Postcode: <%=city.get(i)%>, <%=postal.get(i)%><br>
+				Stad: <%=city.get(i)%><br>
+				Postcode: <%=postal.get(i)%><br>
 				Telefoon: <%=tel.get(i)%><br>
 				Credits: <%=credit.get(i)%><br>
 				Nieuwsletter: <%=newsl.get(i)%><hr>
