@@ -4,10 +4,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -19,15 +23,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SubscriptionServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Datums nog even netjes doen via attributes via GET ipv in servlet
 		response.setContentType("text/html");
 		HttpSession s = request.getSession();
+		
+		Calendar cal = Calendar.getInstance();
+		java.sql.Date sqlnow = new java.sql.Date(cal.getTime().getTime());
+		
+		cal.add(Calendar.MONTH, 6);
+		java.sql.Date sqlexp = new java.sql.Date(cal.getTime().getTime());
+		
 		int id = (Integer) s.getAttribute("Logged");
-		List<String> allIDs = new ArrayList<String>();
-		List<Date> allBeginDates = new ArrayList<Date>();
-		List<Date> allEndDates = new ArrayList<Date>();
-		List<Boolean> allPremiums = new ArrayList<Boolean>();
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) {
@@ -46,31 +54,40 @@ public class SubscriptionServlet extends HttpServlet {
 		String port = prop.getProperty("port");
 		String dbname = prop.getProperty("dbname");
 		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		int addedID = 0;
+		boolean premium = false;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			try (Statement stmt = conn.createStatement();
-					ResultSet rs = stmt
-							.executeQuery("SELECT * FROM subscription s, pays_a p "
-									+ "WHERE p.customer= '"
-									+ id
-									+ "'"
-									+ " AND s.id = p.subscription;")) {
-				while (rs.next()) {
-					allIDs.add(rs.getString("id"));
-					allBeginDates.add(rs.getDate("startingdata"));
-					allEndDates.add(rs.getDate("endingdate"));
-					allPremiums.add(rs.getBoolean("premium"));
-				}
-				request.setAttribute("ids", allIDs);
-				request.setAttribute("starts", allBeginDates);
-				request.setAttribute("einds", allEndDates);
-				request.setAttribute("premiums", allPremiums);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+		if (request.getParameter("ideal")!=null) {
+			if (request.getParameter("ideal").equals("spaar")) {
+				premium = true;
 			}
+				try( PreparedStatement ps = conn.prepareStatement("INSERT INTO subscription (startingdata, endingdate, premium)"
+				    		+ " VALUES(?,?,?) RETURNING id;")
+				    		){
+					 ps.setDate(1, sqlnow);
+					   ps.setDate(2, sqlexp);
+					   ps.setBoolean(3, premium);
+					   try(ResultSet rs = ps.executeQuery()){
+						   if(rs.next()){
+							   addedID = rs.getInt("id");
+						   }
+					   }
+				 }
+			
+			try( PreparedStatement ps = conn.prepareStatement("INSERT INTO pays_a (customer, subscription)"
+		    		+ " VALUES((SELECT id FROM customer WHERE id=?), (SELECT id FROM subscription WHERE id=?));")
+		    		){
+			 ps.setInt(1, id);
+			   ps.setInt(2, addedID);
+			   ps.executeQuery();
+		 }
+			
+	}
+		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-		request.getRequestDispatcher("/subscriptions.jsp").forward(request, response);
+		}
+		request.getRequestDispatcher("/subscriptions.jsp").forward(request,
+				response);
 	}
 }

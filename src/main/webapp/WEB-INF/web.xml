@@ -84,6 +84,15 @@
   </servlet-mapping>
   
   <servlet>
+  	<servlet-name>subscription</servlet-name>
+  	<jsp-file>/subscriptions.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>subscription</servlet-name>
+  	<url-pattern>/subscription</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
   	<servlet-name>register</servlet-name>
   	<jsp-file>/register.jsp</jsp-file>
   </servlet>
