@@ -112,17 +112,15 @@
 			<tr style="font-weight: bold; text-alignment: center;">
 				<td colspan="2" style="text-align: center; vertical-align: top">
 					<input type="button" value="Nieuw abonnement afsluiten"
-					onclick="window.location='/concordia';">
+					onclick="window.location='/concordia/subscriptions';">
 				</td>
 			</tr>
 			<%
 			IDcheck.clear();
-			System.out.println(IDcheck.size());
 				for (int i = 0; i < allIDs.size(); i++) {
 					if (!IDcheck.contains(allIDs.get(i).toString()))
 						IDcheck.add(allIDs.get(i).toString());
 				}
-				System.out.println(IDcheck.size());
 				for (int i = 0; i < IDcheck.size(); i++) {
 				
 			%>
