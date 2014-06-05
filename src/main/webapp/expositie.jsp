@@ -96,6 +96,7 @@ WHERE a.id=b.id
               <div id="owl-demo" class="owl-carousel owl-theme">
  	<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
+                <CENTER>
 						<div class="thumbnail">
 							<div style="height: 250px;">
 								<a class="plaatje" rel="gallery" href="img/${row.source}"
@@ -161,8 +162,8 @@ WHERE a.id=b.id
 
 												<div class="btn-group">
 												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-										
-										
+												</div>
+											</p>
 										</c:when>
 										<c:otherwise>
 											<p>
@@ -171,7 +172,8 @@ WHERE a.id=b.id
 											<div class="btn-group">
 												<a href="#" class="btn btn-primary" role="button">Huur
 													direct!</a>
-										
+										</div>
+										</p>
 										
 										</c:otherwise>
 									</c:choose>
@@ -219,10 +221,10 @@ WHERE a.id=b.id
 									<li class="divider"></li>
 									<li><a href="#">Voeg toe aan expositie.</a></li>
 								</ul>
-
-							</div>
-							</p>
+								</p>
+							</div>			
 						</div>
+						</CENTER>
 					</div>
 			</c:forEach>
                 
@@ -248,6 +250,7 @@ WHERE a.id=b.id
     $(document).ready(function() {
 
       $("#owl-demo").owlCarousel({
+   	items: 4,
     pagination: false,
     navigation: true,
     navigationText: [
