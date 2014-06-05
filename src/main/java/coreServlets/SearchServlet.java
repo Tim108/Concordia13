@@ -57,10 +57,10 @@ public class SearchServlet extends HttpServlet {
 		request.getRequestDispatcher("/collectie.jsp").forward(request,
 				response);
 	}
-	
-	private void printList(List list){
+
+	private void printList(List list) {
 		System.out.println("list");
-		for(int i = 0; i < list.size(); i++){
+		for (int i = 0; i < list.size(); i++) {
 			System.out.println("Element " + i + ": " + list.get(i));
 		}
 	}
@@ -68,8 +68,9 @@ public class SearchServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		
-		String srch = (String) request.getParameter("srch-term");
+
+		String srch = request.getParameter("srch-term");
+		System.out.println(srch);
 		if (srch == null)
 			srch = "";
 		srch = srch.toLowerCase();
@@ -94,42 +95,39 @@ public class SearchServlet extends HttpServlet {
 		// ratings
 		ratings[0] = Double.parseDouble(request.getParameter("minRat"));
 		ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
-		//artists
-		
+		// artists
+
 		for (int i = 0; i < artistL.size(); i++) {
 			String artist = artistL.get(i);
-			String param = request
-					.getParameter(artist);
+			String param = request.getParameter(artist);
 			boolean isChecked = (param != null) && param.equals("on");
-			if (isChecked)
+			if (isChecked) {
 				artists.add(artist);
+			}
 		}
-		
-		//styles
+
+		// styles
 		for (int i = 0; i < styleL.size(); i++) {
 			String style = styleL.get(i);
-			String param = request
-					.getParameter(style);
+			String param = request.getParameter(style);
 			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				styles.add(style);
 		}
-		
-		//techs
+
+		// techs
 		for (int i = 0; i < techL.size(); i++) {
 			String tech = techL.get(i);
-			String param = request
-					.getParameter(tech);
+			String param = request.getParameter(tech);
 			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				techs.add(tech);
 		}
-		
-		//orients
+
+		// orients
 		for (int i = 0; i < orientL.size(); i++) {
 			String orient = orientL.get(i);
-			String param = request
-					.getParameter(orient);
+			String param = request.getParameter(orient);
 			boolean isChecked = (param != null) && param.equals("on");
 			if (isChecked)
 				orients.add(orient);
@@ -157,21 +155,38 @@ public class SearchServlet extends HttpServlet {
 		String dbname = prop.getProperty("dbname");
 		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		// --
+
+		System.out.println("1");
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			createLists(conn, request);
 
-			int width = 99999999;
-			int heigth = 99999999;
+			// generate statement for artist
+			String artistStatement = generateStatement(artists, "ap.artist");
+
+			// generate statement for style
+			String styleStatement = generateStatement(styles, "ap.style");
+
+			// generate statement for tech
+			String techStatement = generateStatement(techs, "ap.technique");
+
+			// generate statement for orient
+			String orientStatement = generateStatement(orients,
+					"ap.orientation");
+
+			System.out.println("2");
+			if(!srchterms[0].equals("") && srchterms.length == 1){
 			for (int i = 0; i < srchterms.length; i++) {
-				if (srchterms[i].equals("by") || srchterms[i].equals("bij")
-						|| srchterms[i].equals("x")) {
-					if (srchterms.length != i + 1 && i - 1 > 0) {
-						width = Integer.parseInt(srchterms[i - 1]);
-						heigth = Integer.parseInt(srchterms[i + 1]);
-					}
-				}
 				try (PreparedStatement ps2 = conn
 						.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
+
+								+ artistStatement
+
+								+ styleStatement
+
+								+ techStatement
+
+								+ orientStatement
+
 								+ "AND (LOWER(a.name) LIKE '%"
 								+ srchterms[i]
 								+ "%' "
@@ -183,19 +198,41 @@ public class SearchServlet extends HttpServlet {
 								+ "%'"
 								+ "OR LOWER(ap.style) LIKE '%"
 								+ srchterms[i]
-								+ "%'"
-								+ "OR ( (ap.width)>'"
-								+ width
-								+ "'"
-								+ "AND  (ap.height)>'" + heigth + "')" + ");")) {
+								+ "%'" + ");")) {
 					try (ResultSet rs = ps2.executeQuery()) {
+						System.out.println(ps2);
+						while (rs.next()) {
+							attributes.add(rs.getString("name"));
+						}
+					}
+				}
+			}}
+
+			else{
+				try (PreparedStatement ps2 = conn
+						.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
+
+								+ artistStatement
+
+								+ styleStatement
+
+								+ techStatement
+
+								+ orientStatement 
+								
+								+ ";")) {
+					try (ResultSet rs = ps2.executeQuery()) {
+						System.out.println("--" + ps2);
 						while (rs.next()) {
 							attributes.add(rs.getString("name"));
 						}
 					}
 				}
 			}
+
+			System.out.println("3");
 			if (attributes.isEmpty()) {
+				System.out.println("4");
 				request.setAttribute("Error", "Niks gevonden!");
 				request.getRequestDispatcher("/collectie.jsp").forward(request,
 						response);
@@ -207,6 +244,22 @@ public class SearchServlet extends HttpServlet {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
+		System.out.println("5");
+	}
+
+	private String generateStatement(List list, String element) {
+		String statement = "";
+		if (list.size() != 0) {
+			for (int i = 0; i < list.size(); i++) {
+				if (i == 0)
+					statement += "AND ( " + element + "='" + list.get(i) + "' ";
+				else
+					statement += "OR " + element + "='" + list.get(i) + "' ";
+			}
+			statement += ") ";
+		}
+
+		return statement;
 	}
 
 	private void createLists(Connection conn, HttpServletRequest request) {

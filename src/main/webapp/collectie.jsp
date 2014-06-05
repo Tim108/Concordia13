@@ -16,7 +16,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Collectie - Concordia</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
 <!-- Bootstrap -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -55,14 +55,14 @@
 
 	<%
 		String path = "res/dbprops.txt";
-		Properties prop = new Properties();
-		prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
+			String user = prop.getProperty("username");
+			String pass1 = prop.getProperty("pass");
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String dbname = prop.getProperty("dbname");
+			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 	%>
 
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
@@ -73,8 +73,8 @@ SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique
 WHERE a.id=b.id
 <%
 		if (request.getAttribute("Search") != null) {
-			List<String> l = (List<String>) request
-			.getAttribute("Search");
+		List<String> l = (List<String>) request
+		.getAttribute("Search");
 	%>
  AND (a.name='<%=l.get(0)%>'
 	<%
@@ -83,7 +83,7 @@ WHERE a.id=b.id
  OR a.name='<%=l.get(i)%>'
 <%
 		}}
-		if(request.getAttribute("Search") != null)
+			if(request.getAttribute("Search") != null)
 	%>)
 ORDER BY rating DESC;
 </sql:query>
@@ -93,10 +93,9 @@ ORDER BY rating DESC;
 		<script>
 			var advanced = false;
 		</script>
-
-		<div style="width: 400px;">
-			<form class="navbar-form" id="srcTrm" method="POST"
-				action="/concordia/search">
+		<form class="navbar-form" id="search" method="POST"
+			action="/concordia/search">
+			<div style="width: 400px;">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="zoeken"
 						name="srch-term" id="srch-term">
@@ -113,7 +112,7 @@ ORDER BY rating DESC;
 						</button>
 					</div>
 				</div>
-			</form>
+		
 		</div>
 
 		<p id="spot1"></p>
@@ -129,135 +128,137 @@ ORDER BY rating DESC;
 				List<Double> ratings = (List<Double>) request.getAttribute("ratings");
 		%>
 		<div id="advancedSearchDiv" class="hidden-element">
-			<form id="advancedOpt" method="POST" action="/concordia/search">
+			<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
 
-				<div class="table-responsive">
-					<table class="table table-condensed">
-						<tr>
-							<td>Prijs</td>
-							<td>Artiest</td>
-							<td>Afmetingen</td>
-							<td>Stijl</td>
-							<td>Techniek</td>
-							<td>Orientatie</td>
-							<td>Beoordeling</td>
+			<div class="table-responsive">
+				<table class="table table-condensed">
+					<tr>
+						<td>Prijs</td>
+						<td>Artiest</td>
+						<td>Afmetingen</td>
+						<td>Stijl</td>
+						<td>Techniek</td>
+						<td>Orientatie</td>
+						<td>Beoordeling</td>
 
-						</tr>
+					</tr>
 
-						<tr>
-							<td>
-								<table>
-									<tr>
-										<td><input type="number" name="minPrice" id="minPrice"
-											placeholder="Minimale prijs" value="0"></td>
-									</tr>
-									<tr>
-										<td><input type="number" name="maxPrice" id="maxPrice"
-											placeholder="Maximale prijs" value="0"></td>
-									</tr>
-								</table>
-							</td>
-							<td>
-								<table>
-									<%
-										for(int i = 0; i<artists.size();i++){
-									%>
-									<tr>
-										<td><input type="checkbox" name=\"<%=artists.get(i)%>\"
-											id=\"<%=artists.get(i)%>\"><%=artists.get(i)%></td>
-									</tr>
-									<%
-										}
-									%>
-								</table>
-							</td>
-							<td>
-								<table>
-									<tr>
-										<td><input type="number" name="minBred" id="minBred"
-											placeholder="Minimale breedte" value="0"></td>
-									</tr>
-									<tr>
-										<td><input type="number" name="maxBred" id="maxBred"
-											placeholder="Maximale breedte" value="0"></td>
-									</tr>
-									<tr>
-										<td><input type="number" name="minHoog" id="minHoog"
-											placeholder="Minimale hoogte" value="0"></td>
-									</tr>
-									<tr>
-										<td><input type="number" name="maxHoog" id="maxHoog"
-											placeholder="Maximale hoogte" value="0"></td>
-									</tr>
-								</table>
-							</td>
-							<td>
-								<table>
-									<%
-										for(int i = 0; i<styles.size();i++){
-									%>
-									<tr>
-										<td><input type="checkbox" name=\"<%=styles.get(i)%>\"
-											id=\"<%=styles.get(i)%>\"><%=styles.get(i)%></td>
-									</tr>
-									<%
-										}
-									%>
-								</table>
-							</td>
-							<td>
-								<table>
-									<%
-										for(int i = 0; i<techs.size();i++){
-									%>
-									<tr>
-										<td><input type="checkbox" name=\"<%=techs.get(i)%>\" id=\"<%=techs.get(i)%>\"><%=techs.get(i)%></td>
-									</tr>
-									<%
-										}
-									%>
-								</table>
-							</td>
-							<td>
-								<table>
-									<%
-										for(int i = 0; i<orients.size();i++){
-									%>
-									<tr>
-										<td><input type="checkbox" name=\"<%=orients.get(i)%>\"
-											id=\"<%=orients.get(i)%>\"><%=orients.get(i)%></td>
-									</tr>
-									<%
-										}
-									%>
-								</table>
-							</td>
-							<td>
-								<table>
-									<tr>
-										<td><input type="number" name="minRat" id="minRat"
-											placeholder="Minimale rating" value="0"></td>
-									</tr>
-									<tr>
-										<td><input type="number" name="maxRat" id="maxRat"
-											placeholder="Maximale rating" value="0"></td>
-									</tr>
-									<tr>
-										<td></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<!--
+					<tr>
+						<td>
+							<table>
+								<tr>
+									<td><input type="number" name="minPrice" id="minPrice"
+										placeholder="Minimale prijs" value="0"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="maxPrice" id="maxPrice"
+										placeholder="Maximale prijs" value="0"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<%
+									for(int i = 0; i<artists.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox" name="<%=artists.get(i)%>"
+										id="<%=artists.get(i)%>"><%=artists.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td><input type="number" name="minBred" id="minBred"
+										placeholder="Minimale breedte" value="0"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="maxBred" id="maxBred"
+										placeholder="Maximale breedte" value="0"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="minHoog" id="minHoog"
+										placeholder="Minimale hoogte" value="0"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="maxHoog" id="maxHoog"
+										placeholder="Maximale hoogte" value="0"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<%
+									for(int i = 0; i<styles.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox" name="<%=styles.get(i)%>"
+										id="<%=styles.get(i)%>"><%=styles.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
+							</table>
+						</td>
+						<td>
+							<table>
+								<%
+									for(int i = 0; i<techs.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox" name="<%=techs.get(i)%>"
+										id="<%=techs.get(i)%>"><%=techs.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
+							</table>
+						</td>
+						<td>
+							<table>
+								<%
+									for(int i = 0; i<orients.size();i++){
+								%>
+								<tr>
+									<td><input type="checkbox" name="<%=orients.get(i)%>"
+										id="<%=orients.get(i)%>"><%=orients.get(i)%></td>
+								</tr>
+								<%
+									}
+								%>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td><input type="number" name="minRat" id="minRat"
+										placeholder="Minimale rating" value="0"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="maxRat" id="maxRat"
+										placeholder="Maximale rating" value="0"></td>
+								</tr>
+								<tr>
+									<td></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--
 				<div class="input-group-submit">
 					<input class="btn btn-default" style="height: 34px;" type="submit"
 						value="Vernieuwen"> <span class="glyphicon"></span> </input>
 				</div>
   -->
-			</form>
+
 		</div>
+		</form>
 		<%
 			if (request.getAttribute("Error") != null) {
 		%>
@@ -332,86 +333,91 @@ ORDER BY rating DESC;
 								</div>
 								<p>
 									<%
-									HttpSession s = request.getSession();
-									if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+										HttpSession s = request.getSession();
+																if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+									%>
+								
+								<p>
+								<form name="myForm" action="remove" onsubmit="return popUp()"
+									method="post">
+									<input type="hidden" name="removing" value="${row.id}">
+									<div class="btn-group">
+										<input type="submit" class="btn btn-primary" role="button"
+											value="Verwijder">
+								</form>
+
+								<script>
+									function popUp() {
+										var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+										return r;
+									}
+								</script>
+								<%
+									} else {
+								%>
+								<c:choose>
+									<c:when test="${row.rented==true}">
 										<p>
-										
-										<form name="myForm" action="remove" onsubmit="return popUp()" method="post">
-											<input type="hidden" name="removing" value="${row.id}">
-											<div class="btn-group">
-											<input type="submit" class="btn btn-primary" role="button" value="Verwijder">
-										</form>
-										
-										<script>
-										function popUp() {
-											var r=confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-											return r;
-										}
-										</script>	
-									<%} else { %>
-										<c:choose>
-											<c:when test="${row.rented==true}">
-												<p>
-													<div class="btn-group">
-													<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-											</c:when>
-											<c:otherwise>
-												<p>
-												<div class="btn-group">
-													<a href="#" class="btn btn-primary" role="button">Huur
-														direct!</a>
-											</c:otherwise>
-										</c:choose>
-									<% } %>
-									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown">
-										Delen <span class="caret"></span>
-									</button>
+										<div class="btn-group">
+											<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+									</c:when>
+									<c:otherwise>
+										<p>
+										<div class="btn-group">
+											<a href="#" class="btn btn-primary" role="button">Huur
+												direct!</a>
+									</c:otherwise>
+								</c:choose>
+								<%
+									}
+								%>
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown">
+									Delen <span class="caret"></span>
+								</button>
 
-									<ul class="dropdown-menu" role="menu">
-										<table>
-											<tr>
-												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
-													" target="_blank"> <img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-											</tr>
+								<ul class="dropdown-menu" role="menu">
+									<table>
+										<tr>
+											<td style="padding-right: 10px; padding-bottom: 10px"><a
+												href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+												target="_blank"><img
+													src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+													alt="Facebook" style="height: 50px;" /></a>
+											<td style="padding-bottom: 10px;"><a
+												href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+												target="_blank"><img
+													src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+													alt="Twitter" style="height: 50px;" /></a>
+										</tr>
+										<tr>
+											<td style="padding-right: 10px;"><a
+												href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+												" target="_blank"> <img
+													src="http://www.simplesharebuttons.com/images/somacro/google.png"
+													alt="Google" style="height: 50px;" /></a>
+											<td><a
+												href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+													src="http://www.simplesharebuttons.com/images/somacro/email.png"
+													alt="Email" style="height: 50px;" /></a>
+										</tr>
 
 
 
 
-										</table>
+									</table>
 
-										<li class="divider"></li>
-										<li><a href="#">Voeg toe aan expositie.</a></li>
-									</ul>
+									<li class="divider"></li>
+									<li><a href="#">Voeg toe aan expositie.</a></li>
+								</ul>
 
-								</div>
-								</p>
 							</div>
+							</p>
 						</div>
-
-
 					</div>
-				</c:forEach>
 			</div>
+			</c:forEach>
+		</div>
 		</div>
 	</CENTER>
 </body>
@@ -430,8 +436,7 @@ ORDER BY rating DESC;
 	}
 
 	function submitForms() {
-		document.getElementById("srcTrm").submit();
-		document.getElementById("advancedOpt").submit();
+		document.getElementById("search").submit();
 	}
 </script>
 <script type="text/javascript">
