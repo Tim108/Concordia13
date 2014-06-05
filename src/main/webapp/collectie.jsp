@@ -68,7 +68,7 @@
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 
 	<sql:query dataSource="${snapshot}" var="artpieces">
-SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
+SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
 <%
 		if (request.getAttribute("Search") != null) {
@@ -330,6 +330,24 @@ ORDER BY rating DESC;
 									</c:choose>
 								</div>
 								<p>
+									<%
+									HttpSession s = request.getSession();
+									if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+									<p>
+									<div class="btn-group">
+									<a onClick="popUp()" id="${id}" class="btn btn-primary" role="button">Verwijder</a>
+									<% //request.setAttribute("removing", ); %>
+									
+									<script>
+									function popUp() {
+										var r=confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+										if (r==true) {
+											location.href = '/concordia/remove';
+										}
+									}
+									</script>
+									
+									<% } else { %>
 									<c:choose>
 										<c:when test="${row.rented==true}">
 											<p>
@@ -350,11 +368,11 @@ ORDER BY rating DESC;
 										
 										</c:otherwise>
 									</c:choose>
+									<% } %>
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
 									</button>
-								
 								
 								<ul class="dropdown-menu" role="menu">
 									<table>

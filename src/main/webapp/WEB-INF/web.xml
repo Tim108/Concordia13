@@ -66,6 +66,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>RemoveServlet</servlet-name>
+    <servlet-class>coreServlets.RemoveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveServlet</servlet-name>
+    <url-pattern>/remove</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>ArtServlet</servlet-name>
     <servlet-class>coreServlets.ArtServlet</servlet-class>
   </servlet>
