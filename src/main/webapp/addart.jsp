@@ -43,9 +43,9 @@
 		<tr><td style="padding-right:10px; padding-bottom:10px">Techniek:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="technique"></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px">Stijl:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="style"></tr>
 		<tr><td style="padding-right:10px; padding-bottom:10px">Prijs:<td style="padding-right:10px; padding-bottom:10px"> <input type="number" name="price"></tr>
-		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="portret"> Portret</tr>
-		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="landscape"> Landschap</tr>
-		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="square"> Vierkant</tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="Portret"> Portret</tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="Landschap"> Landschap</tr>
+		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="Vierkant"> Vierkant</tr>
 	</table><br>
 	<input type="file" name="file" id="file"><br>
 	<input type="submit" value="Voeg toe">

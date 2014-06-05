@@ -26,6 +26,13 @@ public class StatServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession s = request.getSession();
 		response.setContentType("text/html");
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
 		Properties prop = new Properties();
 		String path = "res/dbprops.txt";
 		prop.load(new FileInputStream(getServletContext().getRealPath(path)));
@@ -38,33 +45,38 @@ public class StatServlet extends HttpServlet {
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Customer;")) {
-				int count = rs.getInt(0);
+				rs.next();
+				int count = rs.getInt(1);
 				System.out.println(count);
 				request.setAttribute("users", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art;")) {
-				int count = rs.getInt(0);
+				rs.next();
+				int count = rs.getInt(1);
 				System.out.println(count);
-				request.setAttribute("users", count);
+				request.setAttribute("artpieces", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Rent;")) {
-				int count = rs.getInt(0);
+				rs.next();
+				int count = rs.getInt(1);
 				System.out.println(count);
-				request.setAttribute("users", count);
+				request.setAttribute("rented", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Reservation;")) {
-				int count = rs.getInt(0);
+				rs.next();
+				int count = rs.getInt(1);
 				System.out.println(count);
-				request.setAttribute("users", count);
+				request.setAttribute("reservations", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT customer) FROM pays_a;")) {
-				int count = rs.getInt(0);
+				rs.next();
+				int count = rs.getInt(1);
 				System.out.println(count);
-				request.setAttribute("users", count);
+				request.setAttribute("subscribers", count);
 			}
 		} catch (SQLException e1) { e1.printStackTrace(); }
 		request.getRequestDispatcher("/stats.jsp").forward(request, response);
