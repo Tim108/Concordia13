@@ -24,7 +24,7 @@
 			<ul class="nav navbar-nav">
 				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia">Home</a></li>
 				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search">Collectie</a></li>
-				<li><a href="#">Expositie</a></li>
+				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="expositie.jsp">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 				<% HttpSession s = request.getSession();
 				if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
