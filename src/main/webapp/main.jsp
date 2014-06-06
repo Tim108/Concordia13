@@ -28,7 +28,7 @@
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 				<% HttpSession s = request.getSession();
 				if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
-				<li><a href="admin.jsp">Controle Paneel</a></li>
+				<li><a href="admin.jsp">Controlepaneel</a></li>
 				<% } %>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

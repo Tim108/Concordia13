@@ -48,7 +48,7 @@
         	  <img src="img/frontpage/header1.png" style="width:100%; min-height:100%;">
         	  <div class="container">
         	    <div class="carousel-caption">
-        	      <h1>Maak je eigen online exposities.</h1>
+        	      <h1>Maak je eigen online exposities</h1>
         	      <p></p>
         	      <p><a class="btn btn-lg btn-primary" href="expositie.jsp" role="button">Start</a></p>
         	    </div>
@@ -59,7 +59,7 @@
         	  <img src="img/frontpage/header2.png" style="width:100%; min-height:100%;">
           <div class="container">
             <div class="carousel-caption">
-              <h1>1.734 werken die je kunt huren.</h1>
+              <h1>9 werken die je kunt huren</h1>
               <p></p>
               <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
             </div>
@@ -70,7 +70,7 @@
           <img src="img/frontpage/header3.png" style="width:100%; min-height:100%;">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Slechts 7,50 euro per maand</h1>
+              <h1>Vanaf slechts 7,50 euro per maand</h1>
               <p></p>
               <p><a class="btn btn-lg btn-primary" href="subscriptions.jsp" role="button">Abonneer</a></p>
             </div>
@@ -80,8 +80,8 @@
       <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
       </div>
-	  <CENTER><h1>Welkom bij Concordia,</h1></CENTER>
-	  <CENTER><p>jouw portaal naar betaalbare kunst, begin gelijk met zoeken in 1.734 kunstwerken.</p></Center>
+	  <CENTER><h1>Welkom bij Concordia</h1></CENTER>
+	  <CENTER><p>Jouw portaal naar betaalbare kunst. Begin gelijk met zoeken in 9 kunstwerken.</p></Center>
 		<CENTER><div style="width:400px;">
 	 	  <form class="navbar-form" method="POST" action="/concordia/search">
         <div class="input-group">
