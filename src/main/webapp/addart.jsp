@@ -49,7 +49,7 @@
 		<tr><td style="padding-right:10px; padding-bottom:10px"><input type="radio" name="orientation" value="Vierkant"> Vierkant</tr>
 	</table><br>
 	<input type="file" name="file" id="file"><br>
-	<input type="submit" value="Voeg toe">
+	<input type="submit" value="Voeg toe" class="btn btn-default">
 	</form></center><hr>
 </body>
 </html>
