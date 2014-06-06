@@ -60,6 +60,7 @@ public class CustomerServlet extends HttpServlet {
 		List<String> tel = new ArrayList<String>();
 		List<Double> credit = new ArrayList<Double>();
 		List<Boolean> newsl = new ArrayList<Boolean>(); 
+		List<String> email = new ArrayList<String>();
 		List<Integer> id = new ArrayList<Integer>();
 		List<Integer> subs = new ArrayList<Integer>();
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
@@ -76,6 +77,7 @@ public class CustomerServlet extends HttpServlet {
 							tel.add(rs.getString("phone"));
 							credit.add(rs.getDouble("credit"));
 							newsl.add(rs.getBoolean("newsletter"));
+							email.add(rs.getString("email"));
 							try (PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM pays_a p WHERE p.customer = " + id.get(id.size()-1))) {
 								try(ResultSet rs2 = ps2.executeQuery()) {
 									if(rs2.next()) {
@@ -104,6 +106,7 @@ public class CustomerServlet extends HttpServlet {
 									tel.add(rs.getString("phone"));
 									credit.add(rs.getDouble("credit"));
 									newsl.add(rs.getBoolean("newsletter"));
+									email.add(rs.getString("email"));
 									try (PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM pays_a p WHERE p.customer = " + id.get(id.size()-1))) {
 										try(ResultSet rs2 = ps2.executeQuery()) {
 											if(rs2.next()) {
@@ -126,6 +129,7 @@ public class CustomerServlet extends HttpServlet {
 			request.setAttribute("credit", credit);
 			request.setAttribute("newsl", newsl);
 			request.setAttribute("subs", subs);
+			request.setAttribute("email", email);
 			conn.close();
 			request.getRequestDispatcher("klanten.jsp").forward(request, response);
 		} catch (SQLException e1) {
