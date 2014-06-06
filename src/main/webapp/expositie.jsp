@@ -21,6 +21,12 @@
 	<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">
 	<link href="res/css/carousel.css" rel="stylesheet">
+	
+<!-- Fancybox -->
+	<script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>
+	<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js"></script>
 
 <!--  OWL-contents -->
 	<link href="res/owl-carousel/owl.carousel.css" rel="stylesheet">
@@ -275,7 +281,32 @@ WHERE a.id=b.id
 	
 	<script>
     $(document).ready(function() {
-
+    	$(".plaatje").fancybox({
+			beforeLoad : function() {
+				this.title = '<center>' + $(this.element).attr('caption');
+			},
+			openEffect : 'elastic',
+			closeEffect : 'elastic',
+			nextEffect : 'fade', // 'elastic', 'fade' or 'none'
+			prevEffect : 'fade', // 'elastic', 'fade' or 'none'
+			padding : 0,
+			type : "image",
+			helpers : {
+				title : {
+					type : 'outside',
+				},
+				overlay : {
+					speedIn : 0,
+					speedOut : 0,
+					opacity : 0.6,
+					css : {
+						cursor : 'pointer',
+						'background-color' : 'rgba(0, 0, 0, 0.70)' //Browsers who don`t support rgba will fall back to default color value defined at CSS file
+					},
+					closeClick : true
+				}
+			}
+		});
     	var owl = $("#owl-demo");
     	
       $("#owl-demo").owlCarousel({
