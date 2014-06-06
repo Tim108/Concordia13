@@ -84,19 +84,45 @@ public class SearchServlet extends HttpServlet {
 		List<String> orients = new ArrayList<String>();
 		double[] ratings = new double[2];
 
-		// prices
-		prices[0] = Double.parseDouble(request.getParameter("minPrice"));
-		prices[1] = Double.parseDouble(request.getParameter("maxPrice"));
-		// sizes
-		sizes[0] = Double.parseDouble(request.getParameter("minBred"));
-		sizes[1] = Double.parseDouble(request.getParameter("maxBred"));
-		sizes[2] = Double.parseDouble(request.getParameter("minHoog"));
-		sizes[3] = Double.parseDouble(request.getParameter("maxHoog"));
-		// ratings
-		ratings[0] = Double.parseDouble(request.getParameter("minRat"));
-		ratings[1] = Double.parseDouble(request.getParameter("maxRat"));
-		// artists
+		String p0 = request.getParameter("minPrice");
+		String p1 = request.getParameter("maxPrice");
+		String s0 = request.getParameter("minBred");
+		String s1 = request.getParameter("maxBred");
+		String s2 = request.getParameter("minHoog");
+		String s3 = request.getParameter("maxHoog");
+		String r0 = request.getParameter("minRat");
+		String r1 = request.getParameter("maxRat");
 
+		if (p0 == null || p0.equals(""))
+			p0 = "0";
+		if (p1 == null || p1.equals(""))
+			p1 = "0";
+		if (s0 == null || s0.equals(""))
+			s0 = "0";
+		if (s1 == null || s1.equals(""))
+			s1 = "0";
+		if (s2 == null || s2.equals(""))
+			s2 = "0";
+		if (s3 == null || s3.equals(""))
+			s3 = "0";
+		if (r0 == null || r0.equals(""))
+			r0 = "0";
+		if (r1 == null || r1.equals(""))
+			r1 = "0";
+
+		// prices
+		prices[0] = Double.parseDouble(p0);
+		prices[1] = Double.parseDouble(p1);
+		// sizes
+		sizes[0] = Double.parseDouble(s0);
+		sizes[1] = Double.parseDouble(s1);
+		sizes[2] = Double.parseDouble(s2);
+		sizes[3] = Double.parseDouble(s3);
+		// ratings
+		ratings[0] = Double.parseDouble(r0);
+		ratings[1] = Double.parseDouble(r1);
+
+		// artists
 		for (int i = 0; i < artistL.size(); i++) {
 			String artist = artistL.get(i);
 			String param = request.getParameter(artist);
@@ -172,10 +198,77 @@ public class SearchServlet extends HttpServlet {
 			// generate statement for orient
 			String orientStatement = generateStatement(orients,
 					"ap.orientation");
+			
+			// generate statement for price
+			String priceStatement = "";
+			if(prices[0] != 0)
+				priceStatement += "AND ap.price>=" + prices[0] + " ";
+			if(prices[1] != 0)
+				priceStatement += "AND ap.price<=" + prices[1] + " ";
+			
+			System.out.println(prices[0] + " -- " + prices[1]);
+			System.out.println(priceStatement);
+			
+			// generate statement for size
+			String sizeStatement = "";
+			if(sizes[0] != 0)
+				sizeStatement += "AND ap.width>=" + sizes[0] + " ";
+			if(sizes[1] != 0)
+				sizeStatement += "AND ap.width<=" + sizes[1] + " ";
+			if(sizes[2] != 0)
+				sizeStatement += "AND ap.height>=" + sizes[2] + " ";
+			if(sizes[3] != 0)
+				sizeStatement += "AND ap.height<=" + sizes[3] + " ";
+			
+			// generate statement for rating
+			String rateStatement = "";
+			if(ratings[0] != 0)
+				sizeStatement += "AND ap.rating>=" + ratings[0] + " ";
+			if(ratings[1] != 0)
+				sizeStatement += "AND ap.rating<=" + ratings[1] + " ";
 
 			System.out.println("2");
-			if(!srchterms[0].equals("") && srchterms.length == 1){
-			for (int i = 0; i < srchterms.length; i++) {
+			if (!srchterms[0].equals("") && srchterms.length == 1) {
+				for (int i = 0; i < srchterms.length; i++) {
+					try (PreparedStatement ps2 = conn
+							.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
+
+									+ artistStatement
+
+									+ styleStatement
+
+									+ techStatement
+
+									+ orientStatement
+									
+									+ priceStatement
+									
+									+ sizeStatement
+									
+									+ rateStatement
+
+									+ "AND (LOWER(a.name) LIKE '%"
+									+ srchterms[i]
+									+ "%' "
+									+ "OR LOWER(ap.artist) LIKE '%"
+									+ srchterms[i]
+									+ "%' "
+									+ "OR LOWER(ap.technique) LIKE '%"
+									+ srchterms[i]
+									+ "%'"
+									+ "OR LOWER(ap.style) LIKE '%"
+									+ srchterms[i] + "%'" + ");")) {
+						try (ResultSet rs = ps2.executeQuery()) {
+							System.out.println(ps2);
+							while (rs.next()) {
+								attributes.add(rs.getString("name"));
+							}
+						}
+					}
+				}
+			}
+
+			else {
 				try (PreparedStatement ps2 = conn
 						.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
 
@@ -186,40 +279,13 @@ public class SearchServlet extends HttpServlet {
 								+ techStatement
 
 								+ orientStatement
-
-								+ "AND (LOWER(a.name) LIKE '%"
-								+ srchterms[i]
-								+ "%' "
-								+ "OR LOWER(ap.artist) LIKE '%"
-								+ srchterms[i]
-								+ "%' "
-								+ "OR LOWER(ap.technique) LIKE '%"
-								+ srchterms[i]
-								+ "%'"
-								+ "OR LOWER(ap.style) LIKE '%"
-								+ srchterms[i]
-								+ "%'" + ");")) {
-					try (ResultSet rs = ps2.executeQuery()) {
-						System.out.println(ps2);
-						while (rs.next()) {
-							attributes.add(rs.getString("name"));
-						}
-					}
-				}
-			}}
-
-			else{
-				try (PreparedStatement ps2 = conn
-						.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
-
-								+ artistStatement
-
-								+ styleStatement
-
-								+ techStatement
-
-								+ orientStatement 
 								
+								+ priceStatement
+								
+								+ sizeStatement
+								
+								+ rateStatement
+
 								+ ";")) {
 					try (ResultSet rs = ps2.executeQuery()) {
 						System.out.println("--" + ps2);

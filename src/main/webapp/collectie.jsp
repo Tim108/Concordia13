@@ -148,11 +148,11 @@ ORDER BY rating DESC;
 							<table>
 								<tr>
 									<td><input type="number" name="minPrice" id="minPrice"
-										placeholder="Minimale prijs" value="0"></td>
+										placeholder="Minimale prijs"></td>
 								</tr>
 								<tr>
 									<td><input type="number" name="maxPrice" id="maxPrice"
-										placeholder="Maximale prijs" value="0"></td>
+										placeholder="Maximale prijs"></td>
 								</tr>
 							</table>
 						</td>
@@ -174,19 +174,19 @@ ORDER BY rating DESC;
 							<table>
 								<tr>
 									<td><input type="number" name="minBred" id="minBred"
-										placeholder="Minimale breedte" value="0"></td>
+										placeholder="Minimale breedte"></td>
 								</tr>
 								<tr>
 									<td><input type="number" name="maxBred" id="maxBred"
-										placeholder="Maximale breedte" value="0"></td>
+										placeholder="Maximale breedte"></td>
 								</tr>
 								<tr>
 									<td><input type="number" name="minHoog" id="minHoog"
-										placeholder="Minimale hoogte" value="0"></td>
+										placeholder="Minimale hoogte"></td>
 								</tr>
 								<tr>
 									<td><input type="number" name="maxHoog" id="maxHoog"
-										placeholder="Maximale hoogte" value="0"></td>
+										placeholder="Maximale hoogte"></td>
 								</tr>
 							</table>
 						</td>
@@ -236,11 +236,11 @@ ORDER BY rating DESC;
 							<table>
 								<tr>
 									<td><input type="number" name="minRat" id="minRat"
-										placeholder="Minimale rating" value="0"></td>
+										placeholder="Minimale rating"></td>
 								</tr>
 								<tr>
 									<td><input type="number" name="maxRat" id="maxRat"
-										placeholder="Maximale rating" value="0"></td>
+										placeholder="Maximale rating"></td>
 								</tr>
 								<tr>
 									<td></td>
