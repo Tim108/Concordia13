@@ -42,21 +42,19 @@ public class StatServlet extends HttpServlet {
 		String port = prop.getProperty("port");
 		String dbname = prop.getProperty("dbname");
 		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		int customers;
+		double customers;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Customer;")) {
 				rs.next();
 				customers = rs.getInt(1);
-				request.setAttribute("users", customers);
+				request.setAttribute("users", (int)customers);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art;")) {
 				rs.next();
 				int count = rs.getInt(1);
 				request.setAttribute("artpieces", count);
-				count = (count/customers)*100;
-				request.setAttribute("Cus/Sub", count);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Rent;")) {
@@ -73,8 +71,12 @@ public class StatServlet extends HttpServlet {
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT customer) FROM pays_a;")) {
 				rs.next();
-				int count = rs.getInt(1);
-				request.setAttribute("subscribers", count);
+				double count = rs.getInt(1);
+				request.setAttribute("subscribers", (int)count);
+				System.out.println(count);
+				count = (count/customers)*100;
+				System.out.println(count + "  " + customers);
+				request.setAttribute("CusSub", Math.round(count));
 			}
 		} catch (SQLException e1) { e1.printStackTrace(); }
 		request.getRequestDispatcher("/stats.jsp").forward(request, response);
