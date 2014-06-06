@@ -61,7 +61,7 @@
             <div class="carousel-caption">
               <h1>1.734 werken die je kunt huren.</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="collectie.jsp" role="button">Bekijk Collectie</a></p>
+              <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
             </div>
           </div>
         </div>
