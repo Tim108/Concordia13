@@ -83,7 +83,7 @@ WHERE a.id=b.id
         <div class="row">
           <div class="span12">
             <h1>Expositie - Mijn favorieten</h1>
-            <h4>"Geile expositie van Klaas-baas"
+            <h4>"door Klaas Sikkel"
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities.</h1>
         	      <p></p>
-        	      <p><a class="btn btn-lg btn-primary" href="#" role="button">Start</a></p>
+        	      <p><a class="btn btn-lg btn-primary" href="expositie.jsp" role="button">Start</a></p>
         	    </div>
         	  </div>
         	  </div>
@@ -61,7 +61,7 @@
             <div class="carousel-caption">
               <h1>1.734 werken die je kunt huren.</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="collectie.jsp" role="button">Bekijk Collectie</a></p>
+              <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="carousel-caption">
               <h1>Slechts 7,50 euro per maand</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Abonneer</a></p>
+              <p><a class="btn btn-lg btn-primary" href="subscriptions.jsp" role="button">Abonneer</a></p>
             </div>
           </div>
         </div>

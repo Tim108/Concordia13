@@ -108,10 +108,6 @@
 			<input type="hidden" name="ideal" value="regulier">
 			<input type="image" src="img/iDEAL-klein.jpg">
 			</form>
-			<form action="subscriptions" method="post">
-			<input type="hidden" name="paypal" value="regulier">
-			<input type="image" src="img/paypalknop.gif">
-			</form>
 			<%
 				} else {
 			%>
@@ -146,10 +142,6 @@
 			<form action="subscriptions" method="post">
 			<input type="hidden" name="ideal" value="spaar">
 			<input type="image" src="img/iDEAL-klein.jpg">
-			</form>
-			<form action="subscriptions" method="post">
-			<input type="hidden" name="paypal" value="spaar">
-			<input type="image" src="img/paypalknop.gif">
 			</form>
 			<%
 				}

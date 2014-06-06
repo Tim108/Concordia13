@@ -83,7 +83,7 @@ public class UserServlet extends HttpServlet {
 									+ " AND s.id = p.subscription;")) {
 				while (rs.next()) {
 					allIDs.add(rs.getString("id"));
-					allBeginDates.add(rs.getDate("startingdata"));
+					allBeginDates.add(rs.getDate("startingdate"));
 					allEndDates.add(rs.getDate("endingdate"));
 					allPremiums.add(rs.getBoolean("premium"));
 				}

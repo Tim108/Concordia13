@@ -23,11 +23,21 @@ public class CustomerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		String letter = (String)request.getParameter("letter");
-		
+		String letter = request.getParameter("letter");
+		String words[] = null;
+		if(letter == null) {
+				letter = request.getParameter("srch-term");
+				if(letter == null) letter = "";
+				words = letter.split(" ");
+		}
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) {
@@ -50,18 +60,60 @@ public class CustomerServlet extends HttpServlet {
 		List<String> tel = new ArrayList<String>();
 		List<Double> credit = new ArrayList<Double>();
 		List<Boolean> newsl = new ArrayList<Boolean>(); 
+		List<Integer> id = new ArrayList<Integer>();
+		List<Integer> subs = new ArrayList<Integer>();
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Customer c WHERE c.surname LIKE '" + letter + "%' ORDER BY c.surname")) {
-				try(ResultSet rs = ps.executeQuery()) {
-					while(rs.next()) {
-						name.add(rs.getString("name"));
-						surname.add(rs.getString("surname"));
-						address.add(rs.getString("address"));
-						city.add(rs.getString("city"));
-						postal.add(rs.getString("postal"));
-						tel.add(rs.getString("phone"));
-						credit.add(rs.getDouble("credit"));
-						newsl.add(rs.getBoolean("newsletter"));
+			if(words == null) {
+				try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Customer c WHERE c.surname LIKE '" + letter + "%' ORDER BY c.surname")) {
+					try(ResultSet rs = ps.executeQuery()) {
+						while(rs.next()) {
+							id.add(rs.getInt("id"));
+							name.add(rs.getString("name"));
+							surname.add(rs.getString("surname"));
+							address.add(rs.getString("address"));
+							city.add(rs.getString("city"));
+							postal.add(rs.getString("postal"));
+							tel.add(rs.getString("phone"));
+							credit.add(rs.getDouble("credit"));
+							newsl.add(rs.getBoolean("newsletter"));
+							try (PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM pays_a p WHERE p.customer = " + id.get(id.size()-1))) {
+								try(ResultSet rs2 = ps2.executeQuery()) {
+									if(rs2.next()) {
+										subs.add(rs2.getInt("count"));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				for(int i=0; i<words.length; i++) {
+					try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Customer c WHERE c.surname LIKE '" + words[i] + 
+																		"%' OR c.name LIKE '" + words[i] + 
+																		"%' ORDER BY c.surname")) {
+						try(ResultSet rs = ps.executeQuery()) {
+							while(rs.next()) {
+								if(!id.contains(rs.getInt("id"))) {
+									id.add(rs.getInt("id"));
+									name.add(rs.getString("name"));
+									surname.add(rs.getString("surname"));
+									address.add(rs.getString("address"));
+									city.add(rs.getString("city"));
+									postal.add(rs.getString("postal"));
+									tel.add(rs.getString("phone"));
+									credit.add(rs.getDouble("credit"));
+									newsl.add(rs.getBoolean("newsletter"));
+									try (PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM pays_a p WHERE p.customer = " + id.get(id.size()-1))) {
+										try(ResultSet rs2 = ps2.executeQuery()) {
+											if(rs2.next()) {
+												subs.add(rs2.getInt("count"));
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -73,6 +125,7 @@ public class CustomerServlet extends HttpServlet {
 			request.setAttribute("tel", tel);
 			request.setAttribute("credit", credit);
 			request.setAttribute("newsl", newsl);
+			request.setAttribute("subs", subs);
 			conn.close();
 			request.getRequestDispatcher("klanten.jsp").forward(request, response);
 		} catch (SQLException e1) {

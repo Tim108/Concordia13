@@ -41,7 +41,22 @@
 			<% } %>
 			</h4>
 		</form>
-		
+		<br>
+		<form class="navbar-form" id="search" method="POST"
+			action="klantservlet">
+			<div style="width: 400px;">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="zoeken"
+						name="srch-term" id="srch-term">
+					<div class="input-group-btn">
+						<button class="btn btn-default" style="height: 34px;"
+							type="submit">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
 		<%
 		List<String> name = (List<String>)request.getAttribute("name");
 		List<String> surname = (List<String>)request.getAttribute("surname");
@@ -51,6 +66,7 @@
 		List<String> tel = (List<String>)request.getAttribute("tel");
 		List<Double> credit = (List<Double>)request.getAttribute("credit");
 		List<Boolean> newsl = (List<Boolean>)request.getAttribute("newsl");
+		List<Integer> subs = (List<Integer>)request.getAttribute("subs");
 		if(name != null) {%><hr><% 
 			for(int i=0; i<name.size(); i++) {%>
 				<b><%=name.get(i) %> <%=surname.get(i)%></b><br>
@@ -58,8 +74,9 @@
 				Stad: <%=city.get(i)%><br>
 				Postcode: <%=postal.get(i)%><br>
 				Telefoon: <%=tel.get(i)%><br>
-				Credits: <%=credit.get(i)%><br>
-				Nieuwsletter: <%=newsl.get(i)%><hr>
+				Kooptegoed: <%=credit.get(i)%><br>
+				Nieuwsletter: <%=newsl.get(i)%><br>
+				Aantal abonnementen: <%=subs.get(i)%><hr>
 			<%}
 		}%>
 	</center>
