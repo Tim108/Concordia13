@@ -75,7 +75,7 @@
 				Postcode: <%=postal.get(i)%><br>
 				Telefoon: <%=tel.get(i)%><br>
 				Kooptegoed: <%=credit.get(i)%><br>
-				Nieuwsletter: <%=newsl.get(i)%><br>
+				Nieuwsbrief: <%=newsl.get(i)%><br>
 				Aantal abonnementen: <%=subs.get(i)%><hr>
 			<%}
 		}%>
