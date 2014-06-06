@@ -11,7 +11,7 @@
 <!-- Bootstrap -->
 <link href="res/css/bootstrap.min.css" rel="stylesheet">
 <link href="res/css/carousel.css" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,47 +66,38 @@
 			</form>
 			<%
 				String abonnement = request.getParameter("abonnement");
-			DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
-			Calendar cal = Calendar.getInstance();
-			Date now = cal.getTime();
-			cal.add(Calendar.MONTH, 6);
-			Date exp = cal.getTime();
-				if (abonnement != null) { %>
-					<hr>
-					<% 
-					if (abonnement.equals("regulier")) {
+				DateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+				Calendar cal = Calendar.getInstance();
+				Date now = cal.getTime();
+				cal.add(Calendar.MONTH, 6);
+				Date exp = cal.getTime();
+				if (abonnement != null) {
+			%>
+			<hr>
+			<%
+				if (abonnement.equals("regulier")) {
 			%>
 			<h2>Regulier</h2>
 			Weet u zeker dat u een <b>regulier abonnement</b> wilt afsluiten?<br>
 			<table>
-			<tr>
-				<td style="padding-right: 10px;">
-				Begindatum
-				</td>
-				<td style="padding-left: 10px;"> 
-				<%= dateFormat.format(now) %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding-right: 10px;">
-				Einddatum
-				</td>
-				<td style="padding-left: 10px;">
-				<%= dateFormat.format(exp) %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding-right: 10px;">
-				Kosten per maand
-				</td>
-				<td style="padding-left: 10px;">
-				7,50
-				</td>
-			</tr>
+				<tr>
+					<td style="padding-right: 10px;">Begindatum</td>
+					<td style="padding-left: 10px;"><%=dateFormat.format(now)%>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-right: 10px;">Einddatum</td>
+					<td style="padding-left: 10px;"><%=dateFormat.format(exp)%>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-right: 10px;">Kosten per maand</td>
+					<td style="padding-left: 10px;">7,50</td>
+				</tr>
 			</table>
 			<form action="subscriptions" method="post">
-			<input type="hidden" name="ideal" value="regulier">
-			<input type="image" src="img/iDEAL-klein.jpg">
+				<input type="hidden" name="ideal" value="regulier"> <input
+					type="image" src="img/iDEAL-klein.jpg">
 			</form>
 			<%
 				} else {
@@ -114,46 +105,46 @@
 			<h2>Spaar</h2>
 			Weet u zeker dat u een <b>spaarabonnement</b> wilt afsluiten?<br>
 			<table>
-			<tr>
-				<td style="padding-right: 10px;">
-				Begindatum
-				</td>
-				<td style="padding-left: 10px;"> 
-				<%= dateFormat.format(now) %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding-right: 10px;">
-				Einddatum
-				</td>
-				<td style="padding-left: 10px;">
-				<%= dateFormat.format(exp) %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding-right: 10px;">
-				Kosten per maand
-				</td>
-				<td style="padding-left: 10px;">
-				14,50
-				</td>
-			</tr>
+				<tr>
+					<td style="padding-right: 10px;">Begindatum</td>
+					<td style="padding-left: 10px;"><%=dateFormat.format(now)%>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-right: 10px;">Einddatum</td>
+					<td style="padding-left: 10px;"><%=dateFormat.format(exp)%>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-right: 10px;">Kosten per maand</td>
+					<td style="padding-left: 10px;">14,50</td>
+				</tr>
 			</table>
 			<form action="subscriptions" method="post">
-			<input type="hidden" name="ideal" value="spaar">
-			<input type="image" src="img/iDEAL-klein.jpg">
+				<input type="hidden" name="ideal" value="spaar"> <input
+					type="image" src="img/iDEAL-klein.jpg">
 			</form>
 			<%
 				}
 				}
-				if(request.getAttribute("done")!=null){ %>
-				<hr>
-					U heeft succesvol een <b> 
-			<% if(request.getAttribute("done").equals("regulier")){ %>
-					regulier abonnement 
-					<% } else { %>
-					spaarabonnement <% } %>
-					</b> afgesloten. <%
+				if (request.getAttribute("done") != null) {
+					if ((Boolean) request.getAttribute("done")) {
+			%>
+			<hr>
+			U heeft succesvol een <b> <%
+ 			if (request.getAttribute("ideal").equals("regulier")) {
+ 				%>
+				regulier abonnement <%
+ 				} else {
+ 			%> spaarabonnement <%
+ 			}
+ 				%>
+			</b> afgesloten.
+			<%
+				} else {
+					%> 
+					<hr> <img src="res/redCross.png" height="14px;" alt="ERROR:"><font color="red"> Er is iets mis gegaan, probeer het later opnieuw.</font> <%
+				}
 				}
 			%>
 		

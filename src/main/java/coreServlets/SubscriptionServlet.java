@@ -56,6 +56,7 @@ public class SubscriptionServlet extends HttpServlet {
 		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		int addedID = 0;
 		boolean premium = false;
+		boolean done = false;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 		if (request.getParameter("ideal")!=null) {
 			if (request.getParameter("ideal").equals("spaar")) {
@@ -71,22 +72,29 @@ public class SubscriptionServlet extends HttpServlet {
 						   if(rs.next()){
 							   addedID = rs.getInt("id");
 						   }
-					   }
+					  }
+					   
+					   try( PreparedStatement custSub = conn.prepareStatement("INSERT INTO pays_a (customer, subscription)"
+					    		+ " VALUES((SELECT id FROM customer WHERE id=?), (SELECT id FROM subscription WHERE id=?));")
+					    		){
+						 custSub.setInt(1, id);
+						   custSub.setInt(2, addedID);
+						   custSub.execute();
+						   done = true;
+						   }
+				 } catch (Exception e) { 
+					 e.printStackTrace();
+					 done = false;
 				 }
 			
-			try( PreparedStatement ps = conn.prepareStatement("INSERT INTO pays_a (customer, subscription)"
-		    		+ " VALUES((SELECT id FROM customer WHERE id=?), (SELECT id FROM subscription WHERE id=?));")
-		    		){
-			 ps.setInt(1, id);
-			   ps.setInt(2, addedID);
-			   ps.execute();
+			
 		 }
-			request.setAttribute("done", request.getParameter("ideal"));
-	}
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		request.setAttribute("done", done);
+		request.setAttribute("ideal", request.getParameter("ideal"));
 		request.getRequestDispatcher("/subscriptions.jsp").forward(request,
 				response);
 	}
