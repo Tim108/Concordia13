@@ -33,7 +33,12 @@
 				<li><a href="admin.jsp">Controlepaneel</a></li>
 				<% } %>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+					data-toggle="dropdown">
+					<%if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
+					<span class="glyphicon glyphicon-tower"></span>
+					<% } else{ %>
+					<span class="glyphicon glyphicon-user"></span>
+					<% } %>
 					<% 
 					if(s.getAttribute("Logged") == null) {
 					%>
