@@ -61,7 +61,7 @@ public class SubscriptionServlet extends HttpServlet {
 			if (request.getParameter("ideal").equals("spaar")) {
 				premium = true;
 			}
-				try( PreparedStatement ps = conn.prepareStatement("INSERT INTO subscription (startingdata, endingdate, premium)"
+				try( PreparedStatement ps = conn.prepareStatement("INSERT INTO subscription (startingdate, endingdate, premium)"
 				    		+ " VALUES(?,?,?) RETURNING id;")
 				    		){
 					 ps.setDate(1, sqlnow);
