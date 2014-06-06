@@ -55,7 +55,7 @@ public class StatServlet extends HttpServlet {
 				rs.next();
 				int count = rs.getInt(1);
 				request.setAttribute("artpieces", count);
-				request.setAttribute("Cus/Sub", count/customers);
+				request.setAttribute("Cus/Sub", (count/customers)*100);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Rent;")) {
