@@ -42,18 +42,20 @@ public class StatServlet extends HttpServlet {
 		String port = prop.getProperty("port");
 		String dbname = prop.getProperty("dbname");
 		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		int customers;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Customer;")) {
 				rs.next();
-				int count = rs.getInt(1);
-				request.setAttribute("users", count);
+				customers = rs.getInt(1);
+				request.setAttribute("users", customers);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art;")) {
 				rs.next();
 				int count = rs.getInt(1);
 				request.setAttribute("artpieces", count);
+				request.setAttribute("Cus/Sub", count/customers);
 			}
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Rent;")) {

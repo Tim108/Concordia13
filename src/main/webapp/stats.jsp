@@ -37,6 +37,7 @@
 		<table>
 		<tr><td style="padding-right:10px">Aantal gebruikers: <td>${users}</tr>
 		<tr><td style="padding-right:10px">Aantal betalende klanten: <td>${subscribers}</tr>
+		<tr><td style="padding-right:10px">Procent van betalende klanten onder de gebruikers: <td>${Cus/Sub}%</tr>
 		<tr><td style="padding-right:10px">Aantal werken: <td>${artpieces}</tr>
 		<tr><td style="padding-right:10px">Aantal verhuurde werken: <td>${rented}</tr>
 		<tr><td style="padding-right:10px">Aantal gereserveerde werken: <td>${reservations}</tr>

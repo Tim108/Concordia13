@@ -66,6 +66,7 @@
 		List<String> tel = (List<String>)request.getAttribute("tel");
 		List<Double> credit = (List<Double>)request.getAttribute("credit");
 		List<Boolean> newsl = (List<Boolean>)request.getAttribute("newsl");
+		List<Integer> subs = (List<Integer>)request.getAttribute("subs");
 		if(name != null) {%><hr><% 
 			for(int i=0; i<name.size(); i++) {%>
 				<b><%=name.get(i) %> <%=surname.get(i)%></b><br>
@@ -73,8 +74,9 @@
 				Stad: <%=city.get(i)%><br>
 				Postcode: <%=postal.get(i)%><br>
 				Telefoon: <%=tel.get(i)%><br>
-				Credits: <%=credit.get(i)%><br>
-				Nieuwsletter: <%=newsl.get(i)%><hr>
+				Kooptegoed: <%=credit.get(i)%><br>
+				Nieuwsletter: <%=newsl.get(i)%><br>
+				Aantal abonnementen: <%=subs.get(i)%><hr>
 			<%}
 		}%>
 	</center>
