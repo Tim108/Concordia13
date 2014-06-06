@@ -31,7 +31,9 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="main.jsp"/>
+	<jsp:include page="main.jsp">
+	<jsp:param name="currentpage" value="admin" />
+	</jsp:include>
 	<center>
 	<h3>Concordia Controlepaneel</h3>
 	<input type="submit" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';" class="btn btn-default"/><br><br>

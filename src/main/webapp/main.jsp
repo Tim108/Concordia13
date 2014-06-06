@@ -30,7 +30,7 @@
 			<ul class="nav navbar-nav navbar-right">
 			<% HttpSession s = request.getSession();
 				if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
-				<li><a href="admin.jsp">Controlepaneel</a></li>
+				<li<% if(currentpage.equals("admin")){ %> class="active" <% } %>><a href="admin.jsp">Controlepaneel</a></li>
 				<% } %>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">
