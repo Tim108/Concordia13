@@ -1,6 +1,12 @@
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="org.postgresql.Driver"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -34,6 +40,26 @@
 	<jsp:include page="main.jsp">
 		<jsp:param name="currentpage" value="home" />
 	</jsp:include>
+	
+	<%
+		String path = "res/dbprops.txt";
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
+			String user = prop.getProperty("username");
+			String pass1 = prop.getProperty("pass");
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String dbname = prop.getProperty("dbname");
+			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+	%>
+
+	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
+		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
+
+	<sql:query dataSource="${snapshot}" var="art">
+	SELECT COUNT(*) FROM Art
+	</sql:query>
+	
 	<div class="head">
 		<CENTER><H1>Populaire werken</H1></CENTER>
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -59,7 +85,9 @@
         	  <img src="img/frontpage/header2.png" style="width:100%; min-height:100%;">
           <div class="container">
             <div class="carousel-caption">
-              <h1>9 werken die je kunt huren</h1>
+            <c:forEach var="row" items="${art.rows}">
+              <h1>${row.count} werken die je kunt huren</h1>
+            </c:forEach>
               <p></p>
               <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
             </div>
@@ -81,7 +109,9 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
       </div>
 	  <CENTER><h1>Welkom bij Concordia</h1></CENTER>
-	  <CENTER><p>Jouw portaal naar betaalbare kunst. Begin gelijk met zoeken in 9 kunstwerken.</p></Center>
+	  <c:forEach var="row" items="${art.rows}">
+	  <CENTER><p>Jouw portaal naar betaalbare kunst. Begin gelijk met zoeken in ${row.count} kunstwerken.</p></Center>
+	  </c:forEach>
 		<CENTER><div style="width:400px;">
 	 	  <form class="navbar-form" method="POST" action="/concordia/search">
         <div class="input-group">
