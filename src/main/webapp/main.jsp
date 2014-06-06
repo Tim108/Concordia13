@@ -59,7 +59,8 @@
 					<ul class="dropdown-menu">
 						<li><a href="/concordia/userinfo">Gegevens</a></li>
             			<li><a href="#">Reserveringen</a></li>
-            			<li><a href="#">Expositie</a></li>
+            			<li><a href="/concordia/expositie.jsp">Expositie</a></li>
+            			<li><a href="/concordia/gehuurde.jsp">Mijn gehuurde werken</a></li>
             			<li><a href="/concordia/subscription">Abonnement afsluiten</a></li>
             			<li class="divider"></li>
 						<li><a href="/concordia/loguit">Log uit</a></li>
