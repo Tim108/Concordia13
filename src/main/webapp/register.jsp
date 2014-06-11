@@ -38,22 +38,24 @@
     		<table>
     		<tr><td><h4>Contactgegevens</h4></td></tr>
     		<tr><td><td><font color="#E00000">${NameError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Voornaam:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="name" <% if(request.getParameter("name") != null) { %> value= <%= request.getParameter("name") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Voornaam:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="name"></tr>
 			<tr><td><td><font color="#E00000">${SurnameError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Achternaam:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="surname" <% if(request.getParameter("surname") != null) { %> value= <%= request.getParameter("surname") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Achternaam:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="surname"></tr>
 			<tr><td><td><font color="#E00000">${AddressError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Adres: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="address" <% if(request.getParameter("address") != null) { %> value= <%= request.getParameter("address") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Adres: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="address"></tr>
+			<tr><td><td><font color="#E00000">${HouseNumberError}</font></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Huisnummer: <td style="padding-right:10px; padding-bottom:10px"><input type="number" name="housenumber"></tr>
 			<tr><td><td><font color="#E00000">${CityError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Woonplaats: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="city" <% if(request.getParameter("city") != null) { %> value= <%= request.getParameter("city") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Woonplaats: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="city"></tr>
 			<tr><td><td><font color="#E00000">${PostalError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Postcode: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="postal" <% if(request.getParameter("postal") != null) { %> value= <%= request.getParameter("postal") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Postcode: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="postal"></tr>
 			<tr><td><td><font color="#E00000">${PhoneError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Telefoon: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="phone" <% if(request.getParameter("phone") != null) { %> value= <%= request.getParameter("phone") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Telefoon: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="phone"></tr>
 			<tr><td><h4>Inloggegevens</h4></td></tr>
 			<tr><td><td><font color="#E00000">${EmailError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">E-Mail: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="email" <% if(request.getParameter("email") != null) { %> value= <%= request.getParameter("email") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">E-Mail: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="email"></tr>
 			<tr><td><td><font color="#E00000">${PassError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Password: <td style="padding-right:10px; padding-bottom:10px"><input type="password" name="pass" <% if(request.getParameter("pass") != null) { %> value= <%= request.getParameter("pass") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Password: <td style="padding-right:10px; padding-bottom:10px"><input type="password" name="pass"></tr>
 			</table><br>
 			<input type="checkbox" name="newsletter" checked=true> Ja, ik wil een maandelijkse nieuwsbrief ontvangen.<br>
 			<input type="submit" value="Submit">
