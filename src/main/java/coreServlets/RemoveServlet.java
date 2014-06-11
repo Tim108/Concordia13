@@ -40,13 +40,6 @@ public class RemoveServlet extends HttpServlet {
 		 String dbname = prop.getProperty("dbname");
 		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			try (PreparedStatement ps = conn.prepareStatement("DELETE FROM Artpiece WHERE id= ?")) {
-				ps.setInt(1, id);
-				if(ps.execute()) {
-					System.out.println("Query Executed!");
-				}
-			}
-			
 			try (PreparedStatement ps = conn.prepareStatement("DELETE FROM Art WHERE id=?;")) {
 				ps.setInt(1, id);
 				if(ps.execute()) {
