@@ -55,6 +55,15 @@
     <servlet-name>CustomerServlet</servlet-name>
     <url-pattern>/klantservlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ExpositionAddServlet</servlet-name>
+    <servlet-class>coreServlets.ExpositionAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpositionAddServlet</servlet-name>
+    <url-pattern>/voegToeExpositie</url-pattern>
+  </servlet-mapping>
  
  <servlet>
     <servlet-name>UserServlet</servlet-name>

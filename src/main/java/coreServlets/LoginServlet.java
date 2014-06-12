@@ -62,6 +62,14 @@ public class LoginServlet extends HttpServlet {
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				HttpSession s = request.getSession();
+				try(PreparedStatement ps = conn.prepareStatement("SELECT collection FROM has WHERE customer = ?;")) {
+					ps.setInt(1, id);
+					try(ResultSet rs2 = ps.executeQuery()) {
+						if(rs2.next()) {
+							s.setAttribute("hasExposition", rs2.getInt("collection"));
+						}
+					}
+				}
 				System.out.println("LoginServlet.js: " + s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
 				s.setAttribute("Logged", id);
 				s.setAttribute("isAdmin", rs.getBoolean("isAdmin"));

@@ -408,7 +408,12 @@ ORDER BY rating DESC;
 									</table>
 
 									<li class="divider"></li>
-									<li><a href="#">Voeg toe aan expositie.</a></li>
+									<li>
+										<form name="myForm" action="voegToeExpositie" method="post">
+											<input type="hidden" name="id" value="${row.id}">
+											<input type="submit" value="Voeg toe aan je expositie">
+										</form>
+									</li>
 								</ul>
 
 							</div>

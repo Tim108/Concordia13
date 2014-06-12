@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
 		String phone = (String)request.getParameter("phone");
 		
 		if(!ValidateInput(request, response, name, surname, address, hnum, city, postal, email, pass, phone)) return;
-		boolean succes = CreateAccount(request, response, name,surname,address,city,postal,email,pass,newsl,phone);
+		boolean succes = CreateAccount(request, response, name,surname,address,hnum,city,postal,email,pass,newsl,phone);
 		
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE HTML/><HEAD><TITLE>Stuff</TITLE></HEAD>\n<BODY>");
@@ -137,7 +137,7 @@ public class RegisterServlet extends HttpServlet {
 		return !error;
 	}
 	
-	public boolean CreateAccount(HttpServletRequest request, HttpServletResponse response, String name, String surname, String address, String city, String postal, String email, String pass, String newsl, String phone)
+	public boolean CreateAccount(HttpServletRequest request, HttpServletResponse response, String name, String surname, String address, String hnum, String city, String postal, String email, String pass, String newsl, String phone)
 	{
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -176,7 +176,7 @@ public class RegisterServlet extends HttpServlet {
 				    ps.setString(1, pass);
 				    ps.setString(2, name);
 				    ps.setString(3, surname);
-				    ps.setString(4, address);
+				    ps.setString(4, address + " " + hnum);
 				    ps.setString(5, city);
 				    ps.setString(6, postal);
 				    ps.setString(7, email);
