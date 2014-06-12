@@ -411,7 +411,7 @@ ORDER BY rating DESC;
 									<li>
 										<form name="myForm" action="voegToeExpositie" method="post">
 											<input type="hidden" name="id" value="${row.id}">
-											<input type="submit" value="Voeg toe aan je expositie">
+											<input type="submit" value="Voeg toe aan je expositie" class="btn btn-success">
 										</form>
 									</li>
 								</ul>

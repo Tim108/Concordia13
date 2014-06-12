@@ -58,6 +58,6 @@
 			<tr><td style="padding-right:10px; padding-bottom:10px">Password: <td style="padding-right:10px; padding-bottom:10px"><input type="password" name="pass"></tr>
 			</table><br>
 			<input type="checkbox" name="newsletter" checked=true> Ja, ik wil een maandelijkse nieuwsbrief ontvangen.<br>
-			<input type="submit" value="Submit">
+			<input type="submit" value="Submit" class="btn btn-default">
 		</form></center><hr>
     </div>

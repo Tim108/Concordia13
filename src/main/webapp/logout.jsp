@@ -37,5 +37,5 @@
 	<%s.removeAttribute("Logged");%>
     <div class="head">
     	<center><h4>Uitgelogd!</h4>
-    	<input type="button" value="Terug" onclick="window.location='/concordia';"></center>
+    	<input type="button" value="Terug" onclick="window.location='/concordia';" class="btn btn-default"></center>
     </div>
