@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -169,11 +168,11 @@ public class RegisterServlet extends HttpServlet {
 			}
 			
 			try (PreparedStatement ps =
-				    conn.prepareStatement("INSERT INTO Customer (pass,name,surname,address,city,postal,email,phone,newsletter)"
-				    		+ " VALUES(?,?,?,?,?,?,?,?,?);")
+				    conn.prepareStatement("INSERT INTO Customer (pass,name,surname,address,city,postal,email,phone,newsletter,activation)"
+				    		+ " VALUES(?,?,?,?,?,?,?,?,?,?);")
 				){
-					pass = hashThis(pass);
-				    ps.setString(1, pass);
+					String hashpass = hashThis(pass);
+				    ps.setString(1, hashpass);
 				    ps.setString(2, name);
 				    ps.setString(3, surname);
 				    ps.setString(4, address + " " + hnum);
@@ -181,12 +180,21 @@ public class RegisterServlet extends HttpServlet {
 				    ps.setString(6, postal);
 				    ps.setString(7, email);
 				    ps.setString(8, phone);
+				    
+				    RandomGenerator rg = new RandomGenerator();
+				    String activation = rg.createActivition();
+				    ps.setString(10, activation);
+				    SendEmailServlet sm = new SendEmailServlet();
+				    String fullname = name + " " + surname;
+				    sm.sendMail(email, "register", fullname, pass, activation);
+				    
 				    if(newsl == null) ps.setBoolean(9, false); 
 				    else ps.setBoolean(9, true);
 				    try {
-				    	ps.executeQuery();
+				    	ps.execute();
 				    }
 				    catch (SQLException e2) { 
+				    	e2.printStackTrace();
 				    }
 				    response.sendRedirect("");
 				    return true;
