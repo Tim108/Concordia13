@@ -54,30 +54,39 @@ public class ExpositionAddServlet extends HttpServlet {
 		int collID = 0;
 		int userID = (int)s.getAttribute("Logged");
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			if(s.getAttribute("hasExposition") == null) {
+			if((int)s.getAttribute("hasExposition") == 0) {
 				try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Collection (name) VALUES (?) RETURNING id;")) {
 					ps.setString(1, "Expositie");
 					try(ResultSet rs = ps.executeQuery()){
 						if(rs.next()){
 						   collID = rs.getInt("id");
-						   s.setAttribute("CollID", collID);
+						   s.setAttribute("hasExposition", collID);
 						}
 					}
 				}
 				try (PreparedStatement ps = conn.prepareStatement("INSERT INTO has (customer, collection) VALUES(?,?);")){
 					ps.setInt(1, userID);
 					ps.setInt(2, collID);
-					if(ps.execute()) {
-					}
+					ps.execute();
 				}
 			}
 			else collID = (int)s.getAttribute("hasExposition");
-			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO belongs_to (art, collection) VALUES(?,?);")){
+			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM belongs_to WHERE art = ? AND collection = ?")) 
+			{
 				ps.setInt(1, id);
 				ps.setInt(2, collID);
-				if(ps.execute()) {
+				try(ResultSet rs = ps.executeQuery()) {
+					if(!rs.next())  {
+						try (PreparedStatement ps2 = conn.prepareStatement("INSERT INTO belongs_to (art, collection) VALUES(?,?);")) {
+							ps2.setInt(1, id);
+							ps2.setInt(2, collID);
+							ps2.execute();
+						}
+					}
 				}
 			}
+			response.sendRedirect("/concordia/expositie?id=" + collID);
+			conn.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

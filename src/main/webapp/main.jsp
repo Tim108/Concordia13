@@ -1,7 +1,11 @@
 <% String currentpage = request.getParameter("currentpage");
 	if(currentpage==null){
 		currentpage="EMPTY";
-	}%>
+	}
+	if(session.getAttribute("hasExposition") == null) {
+		session.setAttribute("hasExposition",0);
+	}
+	%>
 	<BR>
 	<CENTER>
 		<a href="/concordia"><img src="res/logo-concordia.jpg" alt="Concordia" /></a>
@@ -24,7 +28,7 @@
 			<ul class="nav navbar-nav">
 				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia">Home</a></li>
 				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search">Collectie</a></li>
-				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="expositie.jsp">Expositie</a></li>
+				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -64,7 +68,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="/concordia/userinfo">Gegevens</a></li>
             			<li><a href="#">Reserveringen</a></li>
-            			<li><a href="/concordia/expositie.jsp">Expositie</a></li>
+            			<li><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>">Expositie</a></li>
             			<li><a href="/concordia/gehuurde.jsp">Mijn gehuurde werken</a></li>
             			<li><a href="/concordia/subscription">Abonnement afsluiten</a></li>
             			<li class="divider"></li>

@@ -84,6 +84,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>ExpositionServlet</servlet-name>
+    <servlet-class>coreServlets.ExpositionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpositionServlet</servlet-name>
+    <url-pattern>/expositie</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>RemoveServlet</servlet-name>
     <servlet-class>coreServlets.RemoveServlet</servlet-class>
   </servlet>

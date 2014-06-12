@@ -33,8 +33,10 @@
 </head>
 <body>
 	<jsp:include page="main.jsp"/>
-	<%HttpSession s = request.getSession(); %>
-	<%s.removeAttribute("Logged");%>
+	<%HttpSession s = request.getSession();
+	s.removeAttribute("Logged"); 
+	s.removeAttribute("hasExposition");
+	%>
     <div class="head">
     	<center><h4>Uitgelogd!</h4>
     	<input type="button" value="Terug" onclick="window.location='/concordia';" class="btn btn-default"></center>

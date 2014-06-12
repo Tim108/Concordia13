@@ -76,25 +76,47 @@
 			String port = prop.getProperty("port");
 			String dbname = prop.getProperty("dbname");
 			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+			
+		List<Integer> ids = (List<Integer>)request.getAttribute("Arts");
+		List<String> names = (List<String>)request.getAttribute("Names");
+		String error = (String)request.getAttribute("Error");
+		if(error == null) { 
 	%>
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 	<sql:query dataSource="${snapshot}" var="artpieces">
 SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
+AND (
+<%	for(int i=0; i<ids.size(); i++) { 
+System.out.println(ids.get(i));%>
+a.id = '<%=ids.get(i)%>' OR
+<% } %>
+a.id = '<%=ids.get(0)%>')
 ORDER BY rating DESC
 	</sql:query>	
-
+	
 	<div id="title">
       <div class="container">
         <div class="row">
           <div class="span12">
-            <h1>Expositie - Mijn favorieten</h1>
-            <h4>door Klaas Sikkel
+            <h1><%=names.get(0)%></h1>
+            <h4>door <%=names.get(1)%> <%=names.get(2)%>
           </div>
         </div>
       </div>
     </div>
+    <% } else { %>
+    <div id="title">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <h2><%=error%></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
 
        <div id="demo">
         <div class="container">
@@ -262,13 +284,14 @@ ORDER BY rating DESC
         </div>
 
     </div>
-
+	<%if(error == null) {  %>
    <div class="customNavigation">
    <CENTER>
   	<a class="btn play"><span class="glyphicon glyphicon-play"></span> Autoplay</a>
     <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
   </CENTER>
 </div>
+<% } %>
 
 
  <!-- Rest of scripts -->
