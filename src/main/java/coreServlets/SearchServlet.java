@@ -34,25 +34,8 @@ public class SearchServlet extends HttpServlet {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		try {
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
-			createLists(conn, request);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 
 		request.getRequestDispatcher("/collectie.jsp").forward(request,
 				response);
