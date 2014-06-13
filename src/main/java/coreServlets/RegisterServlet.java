@@ -168,8 +168,8 @@ public class RegisterServlet extends HttpServlet {
 			}
 			
 			try (PreparedStatement ps =
-				    conn.prepareStatement("INSERT INTO Customer (pass,name,surname,address,city,postal,email,phone,newsletter,activation)"
-				    		+ " VALUES(?,?,?,?,?,?,?,?,?,?);")
+				    conn.prepareStatement("INSERT INTO Customer (pass,name,surname,address,city,postal,email,phone,newsletter,activation) "
+				    		+ " VALUES(?,?,?,?,?,?,?,?,?,?) RETURNING id;")
 				){
 					String hashpass = hashThis(pass);
 				    ps.setString(1, hashpass);
@@ -186,12 +186,18 @@ public class RegisterServlet extends HttpServlet {
 				    ps.setString(10, activation);
 				    SendEmailServlet sm = new SendEmailServlet();
 				    String fullname = name + " " + surname;
-				    sm.sendMail(email, "register", fullname, pass, activation);
+				    
 				    
 				    if(newsl == null) ps.setBoolean(9, false); 
 				    else ps.setBoolean(9, true);
+				    ResultSet rs = null;
 				    try {
-				    	ps.execute();
+				    	rs = ps.executeQuery();
+				    	int id = -1;
+				    	while(rs.next()){
+				    	id = rs.getInt("id");
+				    	}
+				    	sm.sendMail(email, "register", fullname, pass, activation, id);
 				    }
 				    catch (SQLException e2) { 
 				    	e2.printStackTrace();

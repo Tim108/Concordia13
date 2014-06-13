@@ -36,6 +36,7 @@
 	<%HttpSession s = request.getSession();
 	s.removeAttribute("Logged"); 
 	s.removeAttribute("hasExposition");
+	s.removeAttribute("account");
 	%>
     <div class="head">
     	<center><h4>Uitgelogd!</h4>

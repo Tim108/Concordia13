@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt
-							.executeQuery("SELECT id,pass,name,surname,isadmin FROM Customer WHERE email='"+ email + "';")) {
+							.executeQuery("SELECT id,pass,name,surname,isadmin,activation FROM Customer WHERE email='"+ email + "';")) {
 				if(!rs.next()) {
 					response.sendRedirect("/concordia/login.jsp");
 					return;
@@ -61,6 +61,7 @@ public class LoginServlet extends HttpServlet {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
+				String activation = rs.getString("activation");
 				HttpSession s = request.getSession();
 				try(PreparedStatement ps = conn.prepareStatement("SELECT collection FROM has WHERE customer = ?;")) {
 					ps.setInt(1, id);
@@ -72,6 +73,7 @@ public class LoginServlet extends HttpServlet {
 				}
 				System.out.println("LoginServlet.js: " + s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
 				s.setAttribute("Logged", id);
+				s.setAttribute("account", activation);
 				s.setAttribute("isAdmin", rs.getBoolean("isAdmin"));
 				s.setAttribute("Name", name);
 				s.setAttribute("SurName", surname);

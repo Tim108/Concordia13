@@ -6,10 +6,10 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 public class SendEmailServlet {
-	public void sendMail(String email, String type, String user, String userpass, String activation) {
+	public void sendMail(String email, String type, String user, String userpass, String activation, int id) {
 			String to =email;
 			String subject = getSubject("register");
-			String content = getMailText(type, user, email, userpass, activation);
+			String content = getMailText(type, user, email, userpass, activation, id);
 			final String username = "con13cordia@gmail.com";
 			final String password = "concon13";
 
@@ -41,19 +41,21 @@ public class SendEmailServlet {
 			}
 	}
 	
-	public String getMailText(String type, String user, String usermail, String userpass, String activation) {
+	public String getMailText(String type, String user, String usermail, String userpass, String activation, int id) {
 		String email = "";
 		if(type.equals("register")){
 			email = 
-					"Hallo, " + user + "<br>"
+					"Hallo " + user + ",<br>"
 					+ "<br>"
 					+ "U heeft zich succesvol geregistreerd bij de kunstuitleen van Concordia.<br>"
 					+ "Uw inloggegevens zijn:<br>"
 					+ "Email: " + usermail + "<br>"
 					+ "Wachtwoord: " + userpass + "<br>"
 					+ "<br>"
-					+ "Uw account moet eerst geactiveerd worden. Dit kunt u doen door <a href=\"google.com\">hier</a> te klikken.<br>"
-					+ "Tevens is het mogelijk om uw account te activeren op de volgende link: url met code: " + activation + " <br>"
+					+ "Uw account moet eerst geactiveerd worden. Dit kunt u doen door <a href=\"http://localhost:8080/concordia/activateAccount?link="+activation+"&id="+id+"\">hier</a> te klikken.<br>"
+					+ "Tevens is het mogelijk om uw account te activeren op de volgende manier te activeren:<br>"
+					+ "Login op http://localhost:8080/concordia/ en ga vervolgens naar http://localhost:8080/concordia/activation.jsp<br>"
+					+ "Daar kunt u uw account bevestigen met de volgende code: <b>" + activation + "</b> <br>"
 					+ "<br>"
 					+ "Met vriendelijke groet, <br>"
 					+ "Concordia";

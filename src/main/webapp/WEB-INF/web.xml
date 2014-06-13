@@ -32,6 +32,17 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   
+      <servlet>
+    <description>Activation Servlet</description>
+    <display-name>ActivationServlet</display-name>
+    <servlet-name>ActivationServlet</servlet-name>
+    <servlet-class>coreServlets.ActivationServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>ActivationServlet</servlet-name>
+    <url-pattern>/activateAccount</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>coreServlets.RegisterServlet</servlet-class>
