@@ -13,6 +13,26 @@ public class UserInfo {
 
 	@Test
 	public void testUser() {
-		JWebUnit.clickButton("acc");
+		clickButton("acc");
+		assertLinkPresentWithExactText("Gegevens");
+		assertLinkPresentWithExactText("Reserveringen");
+		assertLinkPresentWithExactText("Expositie");
+		assertLinkPresentWithExactText("Mijn gehuurde werken");
+		assertLinkPresentWithExactText("Abonnement afsluiten");
+		assertLinkPresentWithExactText("Log uit");
+		
+		clickLinkWithExactText("Gegevens");
+		
+		assertLabelMatches("Gegevens");
+		assertLabelMatches("Contactgegevens");
+		
+		assertLabelMatches("Testy");
+		assertLabelMatches("Tester");
+		assertLabelMatches("Teststreet 8");
+		assertLabelMatches("Testercity");
+		assertLabelMatches("1122AB");
+		assertLabelMatches("1122334455");
+		assertLabelMatches("testy@testserver.com");
+		assertLabelMatches("€0");
 	}
 }
