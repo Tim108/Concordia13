@@ -48,7 +48,7 @@ public class UserInfo {
 		assertLinkPresent("exposition");
 		clickLink("exposition");
 		
-		JWebUnit.assertTextPresent("U hebt nog geen eigen Expositie! Maak hem hier!");
+		assertTextPresent("U hebt nog geen eigen Expositie! Maak hem hier!");
 	}
 	
 	/*@Test
@@ -66,6 +66,27 @@ public class UserInfo {
 		
 		assertButtonPresent("regulier");
 		assertButtonPresent("spaar");
+		
+		clickButton("regulier");
+		assertTextPresent("Weet u zeker dat u een regulier abonnement wilt afsluiten?");
+		assertElementPresentByXPath("//*[@id=\"ideal\"]");
+		
+		clickButton("spaar");
+		assertTextPresent("Weet u zeker dat u een spaarabonnement wilt afsluiten?");
+		assertElementPresentByXPath("//*[@id=\"ideal\"]");
+		
+		clickButton("regulier");
+		assertTextPresent("Weet u zeker dat u een regulier abonnement wilt afsluiten?");
+		assertElementPresentByXPath("//*[@id=\"ideal\"]");
+		
+		submit();
+		assertTextPresent("U heeft succesvol een regulier abonnement afgesloten.");
+		
+		clickElementByXPath("//*[@id=\"acc\"]");
+		clickLink("userinfo");
+		
+		assertTextPresent("Abonnement 1");
+		assertTextPresent("Nee");
 	}
 	
 	@Test
