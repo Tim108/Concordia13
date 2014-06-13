@@ -37,7 +37,7 @@
 				<li<% if(currentpage.equals("admin")){ %> class="active" <% } %>><a href="admin.jsp">Controlepaneel</a></li>
 				<% } %>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">
+					data-toggle="dropdown" id="acc">
 					<%if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
 					<span class="glyphicon glyphicon-tower"></span>
 					<% } else{ %>
