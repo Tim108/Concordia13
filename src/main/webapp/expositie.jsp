@@ -300,7 +300,6 @@ ORDER BY rating DESC
     <script src="res/owl-carousel/assets/bootstrap-transition.js"></script>
     <script src="res/owl-carousel/assets/bootstrap-tab.js"></script>
 
-    <script src="res/owl-carousel/assets/google-code-prettify/prettify.js"></script>
 	<script src="res/owl-carousel/assets/application.js"></script>
 	
 	<script>

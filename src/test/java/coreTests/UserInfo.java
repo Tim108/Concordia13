@@ -48,7 +48,7 @@ public class UserInfo {
 		assertLinkPresent("exposition");
 		clickLink("exposition");
 		
-		assertLabelMatches("U hebt nog geen eigen Expositie!");
+		JWebUnit.assertTextPresent("U hebt nog geen eigen Expositie! Maak hem hier!");
 	}
 	
 	/*@Test
