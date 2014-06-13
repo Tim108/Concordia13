@@ -12,7 +12,15 @@ public class Login {
 	}
 
 	@Test
-	public void testUser() {
-		JWebUnit.clickButton("acc");
+	public void testLogin() {
+		System.out.println("0");
+		beginAt("");
+		System.out.println("a");
+		assertElementPresent("acc");
+		clickElementByXPath("//*[@id=\"acc\"]");
+		setTextField("email", "testy@testserver.com");
+		setTextField("password", "notpassword");
+		submit();
+		JWebUnit.assertLinkPresent("Testy Tester");
 	}
 }
