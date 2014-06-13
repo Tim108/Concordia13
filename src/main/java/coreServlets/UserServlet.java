@@ -30,26 +30,8 @@ public class UserServlet extends HttpServlet {
 		int id = (Integer) s.getAttribute("Logged");
 		response.setContentType("text/html");
 		
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		try {
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			String name = getInfo("name", request, response, conn, id);
 			request.setAttribute("Naam", name);
 
@@ -95,7 +77,7 @@ public class UserServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -105,11 +87,6 @@ public class UserServlet extends HttpServlet {
 	public String getInfo(String info, HttpServletRequest request,
 			HttpServletResponse response, Connection conn, int id) {
 		String foundInfo = "Niet gevonden!";
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
 		try (Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT " + info
 						+ " FROM Customer WHERE id='" + id + "';")) {

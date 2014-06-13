@@ -29,21 +29,8 @@ public class LoginServlet extends HttpServlet {
 		String email = (String) request.getParameter("email");
 		String pass = (String) request.getParameter("password");
 
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		 String path = "res/dbprops.txt";
-		 prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		 String user = prop.getProperty("username");
-		 String pass1 = prop.getProperty("pass");
-		 String host = prop.getProperty("host");
-		 String port = prop.getProperty("port");
-		 String dbname = prop.getProperty("dbname");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
+		try{
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt
 							.executeQuery("SELECT id,pass,name,surname,isadmin,activation FROM Customer WHERE email='"+ email + "';")) {

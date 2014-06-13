@@ -25,28 +25,14 @@ public class RemoveServlet extends HttpServlet {
 		response.setContentType("text/html");
 		int id = Integer.parseInt((String)request.getParameter("removing"));
 		
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		 String path2 = "res/dbprops.txt";
-		 prop.load(new FileInputStream(getServletContext().getRealPath(path2)));
-		 String user = prop.getProperty("username");
-		 String pass1 = prop.getProperty("pass");
-		 String host = prop.getProperty("host");
-		 String port = prop.getProperty("port");
-		 String dbname = prop.getProperty("dbname");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (PreparedStatement ps = conn.prepareStatement("DELETE FROM Art WHERE id=?;")) {
 				ps.setInt(1, id);
 				if(ps.execute()) {
 					System.out.println("Query Executed!");
 				}
 			}
-			conn.close();
 			response.sendRedirect("search");
 		} catch (SQLException e1) {
 			e1.printStackTrace();

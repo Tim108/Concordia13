@@ -29,14 +29,16 @@ public class SearchServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
 
 		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 
+		try {
+			createLists(conn, request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 		request.getRequestDispatcher("/collectie.jsp").forward(request,
 				response);
 	}
@@ -145,28 +147,11 @@ public class SearchServlet extends HttpServlet {
 		List<String> attributes = new ArrayList<String>();
 
 		// sql inloggen
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		try {
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		// --
 
 		System.out.println("1");
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		try {
 			createLists(conn, request);
 
 			// generate statement for artist

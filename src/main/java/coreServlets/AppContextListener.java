@@ -25,7 +25,7 @@ public class AppContextListener implements ServletContextListener {
 	        try {
 	            con.close();
 	            System.out.println("DBDESTROY");
-	        } catch (SQLException e) {
+	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	}
@@ -36,11 +36,13 @@ public class AppContextListener implements ServletContextListener {
 		 String URL = ctx.getInitParameter("dbURL");
 		 String pass = ctx.getInitParameter("dbPassword");
 		 String user = ctx.getInitParameter("dbUser");
+		 System.out.println(URL + " - " + user + " - " + pass);
 		 
 		try{
 			DBConnectionManager connectionManager = new DBConnectionManager(URL,user,pass);
 			ctx.setAttribute("DBConnection", connectionManager.getConnection());
-			System.out.println("Database connectie aangemaakt");
+			if(ctx.getAttribute("DBConnection")!=null){
+			System.out.println("Database connectie aangemaakt");}
 		}catch(Exception e){e.printStackTrace();}
 	}
 

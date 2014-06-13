@@ -138,20 +138,8 @@ public class RegisterServlet extends HttpServlet {
 	
 	public boolean CreateAccount(HttpServletRequest request, HttpServletResponse response, String name, String surname, String address, String hnum, String city, String postal, String email, String pass, String newsl, String phone)
 	{
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) { e1.printStackTrace(); }
-		Properties prop = new Properties();
-		 String path = "res/dbprops.txt";
-		 try{
-		 prop.load(new FileInputStream(getServletContext().getRealPath(path)));}catch(Exception e){e.printStackTrace();}
-		 String user = prop.getProperty("username");
-		 String pass1 = prop.getProperty("pass");
-		 String host = prop.getProperty("host");
-		 String port = prop.getProperty("port");
-		 String dbname = prop.getProperty("dbname");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (PreparedStatement ps2 =
 					conn.prepareStatement("SELECT name FROM Customer WHERE email=?;")){
 				ps2.setString(1, email);

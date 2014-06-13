@@ -50,21 +50,8 @@ public class ArtServlet extends HttpServlet {
 	    String fileName = getFileName(filePart);
 	    String fileExt = fileName.substring(fileName.indexOf('.'));
 		
+	    Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		 String path2 = "res/dbprops.txt";
-		 prop.load(new FileInputStream(getServletContext().getRealPath(path2)));
-		 String user = prop.getProperty("username");
-		 String pass1 = prop.getProperty("pass");
-		 String host = prop.getProperty("host");
-		 String port = prop.getProperty("port");
-		 String dbname = prop.getProperty("dbname");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Art")) {
 				if(rs.next()) {
@@ -93,7 +80,6 @@ public class ArtServlet extends HttpServlet {
 					System.out.println("Query Executed!");
 				}
 			}
-			conn.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

@@ -35,18 +35,6 @@ public class ExpositionServlet  extends HttpServlet {
 		else {
 			id = Integer.parseInt(request.getParameter("id"));
 		}
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		try {
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 		if(id == 0) {
 			request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
@@ -54,16 +42,11 @@ public class ExpositionServlet  extends HttpServlet {
 			return;
 		}
 		
-		String user = prop.getProperty("username");
-		String pass = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		List<Integer> arts = new ArrayList<Integer>();
 		int userID = 0;
 		List<String> names = new ArrayList<String>();
-		try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+		try{
 			try(PreparedStatement ps = conn.prepareStatement("SELECT customer FROM has WHERE collection = ?")) {
 				ps.setInt(1, id);
 				try(ResultSet rs = ps.executeQuery()) {
@@ -97,7 +80,6 @@ public class ExpositionServlet  extends HttpServlet {
 			request.setAttribute("Arts", arts);
 			request.setAttribute("Names", names);
 			request.getRequestDispatcher("/expositie.jsp").forward(request, response);
-			conn.close();
 		} 
 		catch (SQLException e) { e.printStackTrace(); }
 	}

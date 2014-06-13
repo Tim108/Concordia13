@@ -27,23 +27,9 @@ public class StatServlet extends HttpServlet {
 		HttpSession s = request.getSession();
 		response.setContentType("text/html");
 		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		double customers;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		try {
 			try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Customer;")) {
 				rs.next();

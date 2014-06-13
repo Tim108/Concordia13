@@ -36,28 +36,11 @@ public class SubscriptionServlet extends HttpServlet {
 		java.sql.Date sqlexp = new java.sql.Date(cal.getTime().getTime());
 		
 		int id = (Integer) s.getAttribute("Logged");
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		String path = "res/dbprops.txt";
-		try {
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		int addedID = 0;
 		boolean premium = false;
 		boolean done = false;
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		try{
 		if (request.getParameter("ideal")!=null) {
 			if (request.getParameter("ideal").equals("spaar")) {
 				premium = true;
@@ -90,7 +73,7 @@ public class SubscriptionServlet extends HttpServlet {
 			
 		 }
 		
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		request.setAttribute("done", done);

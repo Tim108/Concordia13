@@ -38,20 +38,7 @@ public class CustomerServlet extends HttpServlet {
 				if(letter == null) letter = "";
 				words = letter.split(" ");
 		}
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		Properties prop = new Properties();
-		String path2 = "res/dbprops.txt";
-		prop.load(new FileInputStream(getServletContext().getRealPath(path2)));
-		String user = prop.getProperty("username");
-		String pass1 = prop.getProperty("pass");
-		String host = prop.getProperty("host");
-		String port = prop.getProperty("port");
-		String dbname = prop.getProperty("dbname");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		List<String> name = new ArrayList<String>();
 		List<String> surname = new ArrayList<String>();
 		List<String> address = new ArrayList<String>();
@@ -63,7 +50,7 @@ public class CustomerServlet extends HttpServlet {
 		List<String> email = new ArrayList<String>();
 		List<Integer> id = new ArrayList<Integer>();
 		List<Integer> subs = new ArrayList<Integer>();
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		try {
 			if(words == null) {
 				try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Customer c WHERE c.surname LIKE '" + letter + "%' ORDER BY c.surname")) {
 					try(ResultSet rs = ps.executeQuery()) {
@@ -130,7 +117,6 @@ public class CustomerServlet extends HttpServlet {
 			request.setAttribute("newsl", newsl);
 			request.setAttribute("subs", subs);
 			request.setAttribute("email", email);
-			conn.close();
 			request.getRequestDispatcher("klanten.jsp").forward(request, response);
 		} catch (SQLException e1) {
 			e1.printStackTrace();

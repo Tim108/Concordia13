@@ -36,24 +36,11 @@ public class ExpositionAddServlet extends HttpServlet {
 		response.setContentType("text/html");
 		int id = Integer.parseInt((String)request.getParameter("id"));
 		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
 		HttpSession s = request.getSession();
-		Properties prop = new Properties();
-		 String path2 = "res/dbprops.txt";
-		 prop.load(new FileInputStream(getServletContext().getRealPath(path2)));
-		 String user = prop.getProperty("username");
-		 String pass1 = prop.getProperty("pass");
-		 String host = prop.getProperty("host");
-		 String port = prop.getProperty("port");
-		 String dbname = prop.getProperty("dbname");
-		 String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		int collID = 0;
 		int userID = (int)s.getAttribute("Logged");
-		try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
+		try {
 			if((int)s.getAttribute("hasExposition") == 0) {
 				try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Collection (name) VALUES (?) RETURNING id;")) {
 					ps.setString(1, "Expositie");
@@ -86,7 +73,6 @@ public class ExpositionAddServlet extends HttpServlet {
 				}
 			}
 			response.sendRedirect("/concordia/expositie?id=" + collID);
-			conn.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
