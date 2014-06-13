@@ -49,7 +49,7 @@
 					Account <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a>
-							<form method="post" action=/concordia/login>
+							<form method="post" action=/concordia/login id="loginform">
 								<table>
 									<tr><td><input type="text" name="email" placeholder="E-mail" id="un"></td></tr>
 									<tr><td><input type="password" name="password" placeholder="Wachtwoord" id="pw"></td></tr>
@@ -66,13 +66,13 @@
 					%>
 					<%= session.getAttribute("Name") + " " + session.getAttribute("SurName") %> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/concordia/userinfo">Gegevens</a></li>
-            			<li><a href="#">Reserveringen</a></li>
-            			<li><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>">Expositie</a></li>
-            			<li><a href="/concordia/gehuurde.jsp">Mijn gehuurde werken</a></li>
-            			<li><a href="/concordia/subscription">Abonnement afsluiten</a></li>
+						<li><a href="/concordia/userinfo" id="userinfo">Gegevens</a></li>
+            			<li><a href="#" id="reservations">Reserveringen</a></li>
+            			<li><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>" id="exposition">Expositie</a></li>
+            			<li><a href="/concordia/gehuurde.jsp" id="rented">Mijn gehuurde werken</a></li>
+            			<li><a href="/concordia/subscription" id="subscription">Abonnement afsluiten</a></li>
             			<li class="divider"></li>
-						<li><a href="/concordia/loguit">Log uit</a></li>
+						<li><a href="/concordia/loguit" id="logout">Log uit</a></li>
 
 					</ul>
 					<%

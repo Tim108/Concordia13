@@ -100,7 +100,7 @@ ORDER BY rating DESC
       <div class="container">
         <div class="row">
           <div class="span12">
-            <h1><%=names.get(0)%></h1>
+            <h1><%=names.get(0)%></h1><span class="glyphicon glyphicon-edit"></span>
             <h4>door <%=names.get(1)%> <%=names.get(2)%>
           </div>
         </div>
