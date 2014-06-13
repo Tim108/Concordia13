@@ -54,11 +54,11 @@
 					</tr>
 					<tr>
 						<td style="text-aligN: center;">
-							<button type="submit" name="abonnement" value="regulier" class="btn btn-primary">Sluit
+							<button type="submit" name="abonnement" value="regulier" class="btn btn-primary" id="regulier">Sluit
 								regulier abonnement af</button>
 						</td>
 						<td style="text-align: center;">
-							<button type="submit" name="abonnement" value="spaar" class="btn btn-primary">Sluit
+							<button type="submit" name="abonnement" value="spaar" class="btn btn-primary" id="spaar">Sluit
 								spaarabonnement af</button>
 						</td>
 					</tr>

@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
 	public boolean ValidateInput(HttpServletRequest request, HttpServletResponse response, String name, String surname, String address, String hnum, String city, String postal, String email, String pass, String phone)
 	{
 		boolean error = false;
-		if(!name.matches("[A-Z][a-zA-Z]*")) {
+		if(!name.matches("[a-zA-Z]*")) {
 			request.setAttribute("NameError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw voornaam mag alleen letters bevatten.");
 			request.removeAttribute("name");
 			error = true;
@@ -73,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
 			request.removeAttribute("address");
 			error = true;
 		}
-		if(!address.matches("[A-Z][a-zA-Z]*")) {
+		if(!address.matches("[a-zA-Z]*")) {
 			request.setAttribute("AddressError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw adres mag alleen letters bevatten.");
 			request.removeAttribute("address");
 			error = true;
