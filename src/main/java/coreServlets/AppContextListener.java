@@ -24,7 +24,7 @@ public class AppContextListener implements ServletContextListener {
 		 Connection con = (Connection) arg0.getServletContext().getAttribute("DBConnection");
 	        try {
 	            con.close();
-	            System.out.println("DBDESTROY");
+	            System.out.println("Closing DB");
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -32,7 +32,7 @@ public class AppContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		ServletContext ctx = arg0.getServletContext();
+		 ServletContext ctx = arg0.getServletContext();
 		 String URL = ctx.getInitParameter("dbURL");
 		 String pass = ctx.getInitParameter("dbPassword");
 		 String user = ctx.getInitParameter("dbUser");
