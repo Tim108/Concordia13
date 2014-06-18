@@ -70,16 +70,18 @@ public class UserInfo {
 		clickButton("regulier");
 		assertTextPresent("Weet u zeker dat u een regulier abonnement wilt afsluiten?");
 		assertElementPresentByXPath("//*[@id=\"ideal\"]");
+		assertSubmitButtonPresent();
 		
 		clickButton("spaar");
 		assertTextPresent("Weet u zeker dat u een spaarabonnement wilt afsluiten?");
 		assertElementPresentByXPath("//*[@id=\"ideal\"]");
+		assertSubmitButtonPresent();
 		
 		clickButton("regulier");
 		assertTextPresent("Weet u zeker dat u een regulier abonnement wilt afsluiten?");
 		assertElementPresentByXPath("//*[@id=\"ideal\"]");
 		
-		submit();
+		clickElementByXPath("//*[@id=\"ideal\"]");
 		assertTextPresent("U heeft succesvol een regulier abonnement afgesloten.");
 		
 		clickElementByXPath("//*[@id=\"acc\"]");

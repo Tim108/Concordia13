@@ -122,7 +122,7 @@
 			</table>
 			<form action="subscriptions" method="post">
 				<input type="hidden" name="ideal" value="spaar"> <input
-					type="image" src="img/iDEAL-klein.jpg">
+					type="image" src="img/iDEAL-klein.jpg" id="ideal">
 			</form>
 			<%
 				}
