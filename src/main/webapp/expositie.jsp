@@ -100,8 +100,9 @@ ORDER BY rating DESC
       <div class="container">
         <div class="row">
           <div class="span12">
-            <h1><%=names.get(0)%></h1><span class="glyphicon glyphicon-edit"></span>
-            <h4>door <%=names.get(1)%> <%=names.get(2)%>
+          	<input type="text" readonly="readonly" id="name" style="font-size: 30px; border: 0px solid #000000;" onblur="makeReadOnly()" value="<%=names.get(0)%>">
+          	<button class="btn btn-default" style="height: 34px; padding:0; border:none; background:none;" type="button" id="nameButton"><span class="glyphicon glyphicon-edit"></span></button>
+            <h4>door <%=names.get(1)%> <%=names.get(2)%></h4>
           </div>
         </div>
       </div>
@@ -186,31 +187,6 @@ ORDER BY rating DESC
 									</c:choose>
 								</div>
 									<p>
-									<%
-										HttpSession s = request.getSession();
-																if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
-									%>
-								
-								<p>
-								<div class="btn-group">
-									<a onClick="popUp()" id="${id}" class="btn btn-primary"
-										role="button">Verwijder</a>
-									<%
-										//request.setAttribute("removing", );
-									%>
-
-									<script>
-										function popUp() {
-											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-											if (r == true) {
-												location.href = '/concordia/remove';
-											}
-										}
-									</script>
-
-									<%
-										} else {
-									%>
 									<c:choose>
 										<c:when test="${row.rented==true}">
 											<p>
@@ -224,9 +200,6 @@ ORDER BY rating DESC
 													direct!</a>
 										</c:otherwise>
 									</c:choose>
-									<%
-										}
-									%>
 									<div class="btn-group dropup">
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
@@ -265,7 +238,7 @@ ORDER BY rating DESC
 										</table>
 
 										<li class="divider"></li>
-										<li><a href="#">Voeg toe aan expositie.</a></li>
+										<li><a href="#">Verwijder uit de expositie.</a></li>
 									</ul>
 									</div>
 
@@ -303,6 +276,19 @@ ORDER BY rating DESC
 	<script src="res/owl-carousel/assets/application.js"></script>
 	
 	<script>
+	function makeReadOnly() {
+		document.getElementById('name').readOnly = true;
+	}
+	
+	document.getElementById('nameButton').onclick = function() {
+		if(document.getElementById('name').readOnly) {
+	    	document.getElementById('name').readOnly = false;
+	    	document.getElementById('name').focus();
+		}
+		else {
+			document.getElementById('name').readOnly = true;
+		}
+	};
     $(document).ready(function() {
     	$(".plaatje").fancybox({
 			beforeLoad : function() {
