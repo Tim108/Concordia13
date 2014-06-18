@@ -112,152 +112,152 @@ ORDER BY rating DESC;
 						</button>
 					</div>
 				</div>
-		
-		</div>
 
-		<p id="spot1"></p>
-
-		<%
-			List<Double> prices = (List<Double>) request.getAttribute("prices");
-				List<String> artists = (List<String>) request.getAttribute("artists");
-				List<Double> widths = (List<Double>) request.getAttribute("widths");
-				List<Double> heights = (List<Double>) request.getAttribute("heights");
-				List<String> styles = (List<String>) request.getAttribute("styles");
-				List<String> techs = (List<String>) request.getAttribute("techs");
-				List<String> orients = (List<String>) request.getAttribute("orients");
-				List<Double> ratings = (List<Double>) request.getAttribute("ratings");
-		%>
-		<div id="advancedSearchDiv" class="hidden-element">
-			<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
-
-			<div class="table-responsive">
-				<table class="table table-condensed">
-					<tr>
-						<td>Prijs</td>
-						<td>Artiest</td>
-						<td>Afmetingen</td>
-						<td>Stijl</td>
-						<td>Techniek</td>
-						<td>Orientatie</td>
-						<td>Beoordeling</td>
-
-					</tr>
-
-					<tr>
-						<td>
-							<table>
-								<tr>
-									<td><input type="number" name="minPrice" id="minPrice"
-										placeholder="Minimale prijs"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="maxPrice" id="maxPrice"
-										placeholder="Maximale prijs"></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table>
-								<%
-									for(int i = 0; i<artists.size();i++){
-								%>
-								<tr>
-									<td><input type="checkbox" name="<%=artists.get(i)%>"
-										id="<%=artists.get(i)%>"><%=artists.get(i)%></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td><input type="number" name="minBred" id="minBred"
-										placeholder="Minimale breedte"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="maxBred" id="maxBred"
-										placeholder="Maximale breedte"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="minHoog" id="minHoog"
-										placeholder="Minimale hoogte"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="maxHoog" id="maxHoog"
-										placeholder="Maximale hoogte"></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table>
-								<%
-									for(int i = 0; i<styles.size();i++){
-								%>
-								<tr>
-									<td><input type="checkbox" name="<%=styles.get(i)%>"
-										id="<%=styles.get(i)%>"><%=styles.get(i)%></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-						</td>
-						<td>
-							<table>
-								<%
-									for(int i = 0; i<techs.size();i++){
-								%>
-								<tr>
-									<td><input type="checkbox" name="<%=techs.get(i)%>"
-										id="<%=techs.get(i)%>"><%=techs.get(i)%></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-						</td>
-						<td>
-							<table>
-								<%
-									for(int i = 0; i<orients.size();i++){
-								%>
-								<tr>
-									<td><input type="checkbox" name="<%=orients.get(i)%>"
-										id="<%=orients.get(i)%>"><%=orients.get(i)%></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td><input type="number" name="minRat" id="minRat"
-										placeholder="Minimale rating"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="maxRat" id="maxRat"
-										placeholder="Maximale rating"></td>
-								</tr>
-								<tr>
-									<td></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
 			</div>
-			<!--
+
+			<p id="spot1"></p>
+
+			<%
+				List<Double> prices = (List<Double>) request.getAttribute("prices");
+						List<String> artists = (List<String>) request.getAttribute("artists");
+						List<Double> widths = (List<Double>) request.getAttribute("widths");
+						List<Double> heights = (List<Double>) request.getAttribute("heights");
+						List<String> styles = (List<String>) request.getAttribute("styles");
+						List<String> techs = (List<String>) request.getAttribute("techs");
+						List<String> orients = (List<String>) request.getAttribute("orients");
+						List<Double> ratings = (List<Double>) request.getAttribute("ratings");
+			%>
+			<div id="advancedSearchDiv" class="hidden-element">
+				<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
+
+				<div class="table-responsive">
+					<table class="table table-condensed">
+						<tr>
+							<td>Prijs</td>
+							<td>Artiest</td>
+							<td>Afmetingen</td>
+							<td>Stijl</td>
+							<td>Techniek</td>
+							<td>Orientatie</td>
+							<td>Beoordeling</td>
+
+						</tr>
+
+						<tr>
+							<td>
+								<table>
+									<tr>
+										<td><input type="number" name="minPrice" id="minPrice"
+											placeholder="Minimale prijs"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="maxPrice" id="maxPrice"
+											placeholder="Maximale prijs"></td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<%
+										for(int i = 0; i<artists.size();i++){
+									%>
+									<tr>
+										<td><input type="checkbox" name="<%=artists.get(i)%>"
+											id="<%=artists.get(i)%>"><%=artists.get(i)%></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td><input type="number" name="minBred" id="minBred"
+											placeholder="Minimale breedte"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="maxBred" id="maxBred"
+											placeholder="Maximale breedte"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="minHoog" id="minHoog"
+											placeholder="Minimale hoogte"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="maxHoog" id="maxHoog"
+											placeholder="Maximale hoogte"></td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<%
+										for(int i = 0; i<styles.size();i++){
+									%>
+									<tr>
+										<td><input type="checkbox" name="<%=styles.get(i)%>"
+											id="<%=styles.get(i)%>"><%=styles.get(i)%></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+							</td>
+							<td>
+								<table>
+									<%
+										for(int i = 0; i<techs.size();i++){
+									%>
+									<tr>
+										<td><input type="checkbox" name="<%=techs.get(i)%>"
+											id="<%=techs.get(i)%>"><%=techs.get(i)%></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+							</td>
+							<td>
+								<table>
+									<%
+										for(int i = 0; i<orients.size();i++){
+									%>
+									<tr>
+										<td><input type="checkbox" name="<%=orients.get(i)%>"
+											id="<%=orients.get(i)%>"><%=orients.get(i)%></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td><input type="number" name="minRat" id="minRat"
+											placeholder="Minimale rating"></td>
+									</tr>
+									<tr>
+										<td><input type="number" name="maxRat" id="maxRat"
+											placeholder="Maximale rating"></td>
+									</tr>
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--
 				<div class="input-group-submit">
 					<input class="btn btn-default" style="height: 34px;" type="submit"
 						value="Vernieuwen"> <span class="glyphicon"></span> </input>
 				</div>
   -->
 
-		</div>
+			</div>
 		</form>
 		<%
 			if (request.getAttribute("Error") != null) {
@@ -332,49 +332,63 @@ ORDER BY rating DESC;
 									</c:choose>
 								</div>
 								<p>
+								<center>
 									<%
 										HttpSession s = request.getSession();
-																if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
 									%>
-								
-								<p>
-								<form name="myForm" action="remove" onsubmit="return popUp()"
-									method="post">
-									<input type="hidden" name="removing" value="${row.id}">
-									<div class="btn-group">
-										<input type="submit" class="btn btn-primary" role="button"
-											value="Verwijder">
-								</form>
 
-								<script>
-									function popUp() {
-										var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-										return r;
-									}
-								</script>
-								<%
-									} else {
-								%>
-								<c:choose>
-									<c:when test="${row.rented==true}">
-										<p>
+									<p>
+									<form name="myForm" action="remove" onsubmit="return popUp()"
+										method="post">
+										<input type="hidden" name="removing" value="${row.id}">
 										<div class="btn-group">
-											<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-									</c:when>
-									<c:otherwise>
-										<p>
-										<div class="btn-group">
-											<a href="#" class="btn btn-primary" role="button">Huur
-												direct!</a>
-									</c:otherwise>
-								</c:choose>
-								<%
-									}
-								%>
-								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown">
-									Delen <span class="caret"></span>
-								</button>
+											<input type="submit" class="btn btn-primary" role="button"
+												value="Verwijder">
+									</form>
+
+									<script>
+										function popUp() {
+											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+											return r;
+										}
+									</script>
+									<%
+										} else {
+									%>
+									<c:choose>
+										<c:when test="${row.rented==true}">
+											<p>
+											<div class="btn-group">
+												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+										</c:when>
+										<c:otherwise>
+											<p>
+											<div class="btn-group">
+												<a href="#" class="btn btn-primary" role="button">Huur
+													direct!</a>
+										</c:otherwise>
+									</c:choose>
+									<%
+										}
+									%>
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										Delen <span class="caret"></span>
+									</button>
+								</center>
+
+								<form name="myForm" action="voegToeExpositie" method="post">
+									<input type="hidden" name="id" value="${row.id}"> <input
+										type="submit" value="Voeg toe aan expositie"
+										class="btn btn-success">
+								</form>
+								<!-- ##################################################################################### -->
+								<form name="rateForm" action="voegToeExpositie" method="post">
+									<input type="hidden" name="id" value="${row.id}"> <input
+										type="submit" value="Voeg toe aan expositie"
+										class="btn btn-success">
+								</form> 
 
 								<ul class="dropdown-menu" role="menu">
 									<table>
@@ -406,14 +420,6 @@ ORDER BY rating DESC;
 
 
 									</table>
-
-									<li class="divider"></li>
-									<li>
-										<form name="myForm" action="voegToeExpositie" method="post">
-											<input type="hidden" name="id" value="${row.id}">
-											<input type="submit" value="Voeg toe aan je expositie" class="btn btn-success">
-										</form>
-									</li>
 								</ul>
 
 							</div>
