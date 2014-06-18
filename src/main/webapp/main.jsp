@@ -26,9 +26,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia">Home</a></li>
-				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search">Collectie</a></li>
-				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>">Expositie</a></li>
+				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia" id="home">Home</a></li>
+				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search" id="collectie">Collectie</a></li>
+				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>" id="expositie">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
