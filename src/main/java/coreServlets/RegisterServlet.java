@@ -88,7 +88,7 @@ public class RegisterServlet extends HttpServlet {
 			request.removeAttribute("city");
 			error = true;
 		}
-		if(!city.matches("[A-Z][a-zA-Z]*")) {
+		if(!city.matches("[a-zA-Z]*")) {
 			request.setAttribute("CityError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Uw woonplaats mag alleen letters bevatten.");
 			request.removeAttribute("city");
 			error = true;
