@@ -30,7 +30,8 @@ public class SearchServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
+		Connection conn = (Connection) getServletContext().getAttribute(
+				"DBConnection");
 
 		try {
 			createLists(conn, request);
@@ -38,7 +39,6 @@ public class SearchServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
 		request.getRequestDispatcher("/collectie.jsp").forward(request,
 				response);
 	}
@@ -95,60 +95,67 @@ public class SearchServlet extends HttpServlet {
 		if (r1 == null || r1.equals(""))
 			r1 = "0";
 
-		// prices
-		prices[0] = Double.parseDouble(p0);
-		prices[1] = Double.parseDouble(p1);
-		// sizes
-		sizes[0] = Double.parseDouble(s0);
-		sizes[1] = Double.parseDouble(s1);
-		sizes[2] = Double.parseDouble(s2);
-		sizes[3] = Double.parseDouble(s3);
-		// ratings
-		ratings[0] = Double.parseDouble(r0);
-		ratings[1] = Double.parseDouble(r1);
-
-		// artists
-		for (int i = 0; i < artistL.size(); i++) {
-			String artist = artistL.get(i);
-			String param = request.getParameter(artist);
-			boolean isChecked = (param != null) && param.equals("on");
-			if (isChecked) {
-				artists.add(artist);
-			}
-		}
-
-		// styles
-		for (int i = 0; i < styleL.size(); i++) {
-			String style = styleL.get(i);
-			String param = request.getParameter(style);
-			boolean isChecked = (param != null) && param.equals("on");
-			if (isChecked)
-				styles.add(style);
-		}
-
-		// techs
-		for (int i = 0; i < techL.size(); i++) {
-			String tech = techL.get(i);
-			String param = request.getParameter(tech);
-			boolean isChecked = (param != null) && param.equals("on");
-			if (isChecked)
-				techs.add(tech);
-		}
-
-		// orients
-		for (int i = 0; i < orientL.size(); i++) {
-			String orient = orientL.get(i);
-			String param = request.getParameter(orient);
-			boolean isChecked = (param != null) && param.equals("on");
-			if (isChecked)
-				orients.add(orient);
-		}
-
-		List<String> attributes = new ArrayList<String>();
-
 		// sql inloggen
-		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
+		Connection conn = (Connection) getServletContext().getAttribute(
+			"DBConnection");
 		// --
+		
+		try {
+			// prices
+			prices[0] = Double.parseDouble(p0);
+			prices[1] = Double.parseDouble(p1);
+			// sizes
+			sizes[0] = Double.parseDouble(s0);
+			sizes[1] = Double.parseDouble(s1);
+			sizes[2] = Double.parseDouble(s2);
+			sizes[3] = Double.parseDouble(s3);
+			// ratings
+			ratings[0] = Double.parseDouble(r0);
+			ratings[1] = Double.parseDouble(r1);
+
+			// artists
+			for (int i = 0; i < artistL.size(); i++) {
+				String artist = artistL.get(i);
+				String param = request.getParameter(artist);
+				boolean isChecked = (param != null) && param.equals("on");
+				if (isChecked) {
+					artists.add(artist);
+				}
+			}
+
+			// styles
+			for (int i = 0; i < styleL.size(); i++) {
+				String style = styleL.get(i);
+				String param = request.getParameter(style);
+				boolean isChecked = (param != null) && param.equals("on");
+				if (isChecked)
+					styles.add(style);
+			}
+
+			// techs
+			for (int i = 0; i < techL.size(); i++) {
+				String tech = techL.get(i);
+				String param = request.getParameter(tech);
+				boolean isChecked = (param != null) && param.equals("on");
+				if (isChecked)
+					techs.add(tech);
+			}
+
+			// orients
+			for (int i = 0; i < orientL.size(); i++) {
+				String orient = orientL.get(i);
+				String param = request.getParameter(orient);
+				boolean isChecked = (param != null) && param.equals("on");
+				if (isChecked)
+					orients.add(orient);
+			}
+		} catch (NumberFormatException e) {
+			createLists(conn, request);
+			request.setAttribute("Error", "Niks gevonden!");
+			request.getRequestDispatcher("/collectie.jsp").forward(request, response);
+			return;
+		}
+		List<String> attributes = new ArrayList<String>();
 
 		System.out.println("1");
 		try {
@@ -166,33 +173,33 @@ public class SearchServlet extends HttpServlet {
 			// generate statement for orient
 			String orientStatement = generateStatement(orients,
 					"ap.orientation");
-			
+
 			// generate statement for price
 			String priceStatement = "";
-			if(prices[0] != 0)
+			if (prices[0] != 0)
 				priceStatement += "AND ap.price>=" + prices[0] + " ";
-			if(prices[1] != 0)
+			if (prices[1] != 0)
 				priceStatement += "AND ap.price<=" + prices[1] + " ";
-			
+
 			System.out.println(prices[0] + " -- " + prices[1]);
 			System.out.println(priceStatement);
-			
+
 			// generate statement for size
 			String sizeStatement = "";
-			if(sizes[0] != 0)
+			if (sizes[0] != 0)
 				sizeStatement += "AND ap.width>=" + sizes[0] + " ";
-			if(sizes[1] != 0)
+			if (sizes[1] != 0)
 				sizeStatement += "AND ap.width<=" + sizes[1] + " ";
-			if(sizes[2] != 0)
+			if (sizes[2] != 0)
 				sizeStatement += "AND ap.height>=" + sizes[2] + " ";
-			if(sizes[3] != 0)
+			if (sizes[3] != 0)
 				sizeStatement += "AND ap.height<=" + sizes[3] + " ";
-			
+
 			// generate statement for rating
 			String rateStatement = "";
-			if(ratings[0] != 0)
+			if (ratings[0] != 0)
 				sizeStatement += "AND ap.rating>=" + ratings[0] + " ";
-			if(ratings[1] != 0)
+			if (ratings[1] != 0)
 				sizeStatement += "AND ap.rating<=" + ratings[1] + " ";
 
 			System.out.println("2");
@@ -208,11 +215,11 @@ public class SearchServlet extends HttpServlet {
 									+ techStatement
 
 									+ orientStatement
-									
+
 									+ priceStatement
-									
+
 									+ sizeStatement
-									
+
 									+ rateStatement
 
 									+ "AND (LOWER(a.name) LIKE '%"
@@ -247,11 +254,11 @@ public class SearchServlet extends HttpServlet {
 								+ techStatement
 
 								+ orientStatement
-								
+
 								+ priceStatement
-								
+
 								+ sizeStatement
-								
+
 								+ rateStatement
 
 								+ ";")) {
