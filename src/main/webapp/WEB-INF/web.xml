@@ -95,6 +95,15 @@
     <servlet-name>ExpositionRemoveServlet</servlet-name>
     <url-pattern>/verwijderUitExpositie</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ExternalArtAddServlet</servlet-name>
+    <servlet-class>coreServlets.ExternalArtAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExternalArtAddServlet</servlet-name>
+    <url-pattern>/externUpload</url-pattern>
+  </servlet-mapping>
  
  <servlet>
     <servlet-name>UserServlet</servlet-name>

@@ -34,7 +34,11 @@ public class ExpositionAddServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		int id = Integer.parseInt((String)request.getParameter("id"));
+		int id = 0;
+		if(request.getParameter("id") != null)
+			id = Integer.parseInt((String)request.getParameter("id"));
+		else
+			id = (Integer)request.getAttribute("id");
 		
 		HttpSession s = request.getSession();
 		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");

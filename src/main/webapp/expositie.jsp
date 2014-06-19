@@ -88,12 +88,21 @@
 SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
 AND (
-<%	for(int i=0; i<ids.size(); i++) { 
-System.out.println(ids.get(i));%>
+<%	for(int i=0; i<ids.size(); i++) {%>
 a.id = '<%=ids.get(i)%>' OR
 <% } %>
 a.id = '<%=ids.get(0)%>')
 ORDER BY rating DESC
+	</sql:query>	
+	
+	<sql:query dataSource="${snapshot}" var="externals">
+SELECT a.id, a.name, a.source, b.website FROM art a, external_picture b
+WHERE a.id=b.id
+AND (
+<%	for(int i=0; i<ids.size(); i++) { %>
+a.id = '<%=ids.get(i)%>' OR
+<% } %>
+a.id = '<%=ids.get(0)%>')
 	</sql:query>	
 	
 	<div id="title">
@@ -124,7 +133,7 @@ ORDER BY rating DESC
             <div class="span12">
 
               <div id="owl-demo" class="owl-carousel owl-theme">
- 	<c:forEach var="row" items="${artpieces.rows}">
+ 				<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
                 <CENTER>
 						<div class="thumbnail">
@@ -257,6 +266,85 @@ ORDER BY rating DESC
 						</CENTER>
 					</div>
 			</c:forEach>
+			<c:forEach var="row" items="${externals.rows}">
+                <div class="item">
+                <CENTER>
+						<div class="thumbnail">
+							<div style="height: 250px;">
+								<a class="plaatje" rel="gallery" href="${row.source}"
+									caption='<h5>${row.name}</h5>${row.website}'>
+									<img src="${row.source}" alt="${row.source}"
+									style="max-height: 100%; max-width: 100%;" />
+								</a>
+							</div>
+							<div class="caption">
+
+								<h3>
+									<c:out value="${row.name}" />
+								</h3>
+								<div>
+									<p>
+										Website:
+										<c:out value="${row.website}" />
+									</p>
+									<div class="btn-group dropup">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										Delen <span class="caret"></span>
+									</button>
+									
+									<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
+										<input type="hidden" name="id" value="${row.id}"> 
+										<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
+									</form>
+									
+									<script>
+										function popUp() {
+											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
+											return r;
+										}
+									</script>
+
+									<ul class="dropdown-menu pull-right" role="menu">
+										<table>
+											<tr>
+												<td style="padding-right: 10px; padding-bottom: 10px"><a
+													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+														alt="Facebook" style="height: 50px;" /></a>
+												<td style="padding-bottom: 10px;"><a
+													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+														alt="Twitter" style="height: 50px;" /></a>
+											</tr>
+											<tr>
+												<td style="padding-right: 10px;"><a
+													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+													" target="_blank"> <img
+														src="http://www.simplesharebuttons.com/images/somacro/google.png"
+														alt="Google" style="height: 50px;" /></a>
+												<td><a
+													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														src="http://www.simplesharebuttons.com/images/somacro/email.png"
+														alt="Email" style="height: 50px;" /></a>
+											</tr>
+
+
+
+
+										</table>
+									</ul>
+									</div>
+
+								</div>
+								</p>
+							</div>			
+						</div>
+						</CENTER>
+					</div>
+			</c:forEach>
                 
                 </div>
 
@@ -270,6 +358,11 @@ ORDER BY rating DESC
    <CENTER>
   	<a class="btn play"><span class="glyphicon glyphicon-play"></span> Autoplay</a>
     <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
+    <p>
+	<div class="btn-group">
+		<a href="externUpload.jsp" class="btn btn-primary" role="button">Voeg een extern werk toe</a>
+	</div>
+	
   </CENTER>
 </div>
 <% } %>
