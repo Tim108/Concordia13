@@ -55,14 +55,36 @@ public class ExpositionServlet  extends HttpServlet {
 					}
 					else {
 						request.setAttribute("Error", "Deze expositie bestaat nog niet!");
+						return;
 					}
 				}
 			}
 			try(PreparedStatement ps = conn.prepareStatement("SELECT art FROM belongs_to WHERE collection = ?")) {
 				ps.setInt(1, id);
+				int count = 0;
 				try(ResultSet rs = ps.executeQuery()) {
 					while(rs.next()) {
+						count++;
 						arts.add(rs.getInt("art"));
+					}
+					if(count == 0) {
+						try(PreparedStatement ps2 = conn.prepareStatement("DELETE FROM has WHERE collection=? AND customer=?")) {
+							ps2.setInt(1, id);
+							ps2.setInt(2, userID);
+							if(ps2.execute()) {
+								
+							}
+						}
+						try(PreparedStatement ps3 = conn.prepareStatement("DELETE FROM Collection WHERE id = ?")) {
+							ps3.setInt(1, id);
+							if(ps3.execute()) {
+								
+							}
+						}
+						request.getSession().setAttribute("hasExposition", 0);
+						request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
+						request.getRequestDispatcher("/expositie.jsp").forward(request, response);
+						return;
 					}
 				}
 			}

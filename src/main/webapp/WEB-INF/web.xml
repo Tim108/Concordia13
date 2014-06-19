@@ -86,6 +86,15 @@
     <servlet-name>ExpositionAddServlet</servlet-name>
     <url-pattern>/voegToeExpositie</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ExpositionRemoveServlet</servlet-name>
+    <servlet-class>coreServlets.ExpositionRemoveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpositionRemoveServlet</servlet-name>
+    <url-pattern>/verwijderUitExpositie</url-pattern>
+  </servlet-mapping>
  
  <servlet>
     <servlet-name>UserServlet</servlet-name>

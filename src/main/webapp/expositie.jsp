@@ -85,7 +85,7 @@
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 	<sql:query dataSource="${snapshot}" var="artpieces">
-SELECT a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
+SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
 WHERE a.id=b.id
 AND (
 <%	for(int i=0; i<ids.size(); i++) { 
@@ -204,6 +204,18 @@ ORDER BY rating DESC
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
 									</button>
+									
+									<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
+										<input type="hidden" name="id" value="${row.id}"> 
+										<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
+									</form>
+									
+									<script>
+										function popUp() {
+											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
+											return r;
+										}
+									</script>
 
 									<ul class="dropdown-menu pull-right" role="menu">
 										<table>
@@ -235,9 +247,6 @@ ORDER BY rating DESC
 
 
 										</table>
-
-										<li class="divider"></li>
-										<li><a href="#">Verwijder uit de expositie.</a></li>
 									</ul>
 									</div>
 
