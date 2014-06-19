@@ -100,9 +100,8 @@ ORDER BY rating DESC
       <div class="container">
         <div class="row">
           <div class="span12">
-          	<input type="text" readonly="readonly" id="name" style="font-size: 30px; border: 0px solid #000000;" onblur="makeReadOnly()" value="<%=names.get(0)%>">
-          	<button class="btn btn-default" style="height: 34px; padding:0; border:none; background:none;" type="button" id="nameButton"><span class="glyphicon glyphicon-edit"></span></button>
-            <h4>door <%=names.get(1)%> <%=names.get(2)%></h4>
+          	<h1><%=names.get(0)%></h1>
+          	<h4>door <%=names.get(1)%> <%=names.get(2)%></h4>
           </div>
         </div>
       </div>
@@ -276,19 +275,7 @@ ORDER BY rating DESC
 	<script src="res/owl-carousel/assets/application.js"></script>
 	
 	<script>
-	function makeReadOnly() {
-		document.getElementById('name').readOnly = true;
-	}
 	
-	document.getElementById('nameButton').onclick = function() {
-		if(document.getElementById('name').readOnly) {
-	    	document.getElementById('name').readOnly = false;
-	    	document.getElementById('name').focus();
-		}
-		else {
-			document.getElementById('name').readOnly = true;
-		}
-	};
     $(document).ready(function() {
     	$(".plaatje").fancybox({
 			beforeLoad : function() {
