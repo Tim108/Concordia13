@@ -14,9 +14,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Concordia</title>
 	<!-- Bootstrap -->
-	<link href="res/css/bootstrap.min.css" rel="stylesheet">
-	<link href="res/css/carousel.css" rel="stylesheet">
-	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+	<% System.out.println(request.getContextPath()); %>
+	<link href="<%=request.getContextPath()%>/res/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/res/css/carousel.css" rel="stylesheet">
+	<link rel="icon" type="<%=request.getContextPath()%>/image/x-icon" href="favicon.ico"/>
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,6 +61,11 @@
 	SELECT COUNT(*) FROM Art
 	</sql:query>
 	
+	<% 
+	if(request.getAttribute("artheaders")==null) { response.sendRedirect(request.getContextPath()+"/rest/generateArt/frontpage"); return; } 
+	List<String> artheaders = (List<String>) request.getAttribute("artheaders");
+	request.removeAttribute("artheaders");
+	%>
 	<div class="head">
 		<CENTER><H1>Populaire werken</H1></CENTER>
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -71,7 +77,7 @@
      		 </ol>
       	<div class="carousel-inner">
         	<div class="item active">
-        	  <img src="img/frontpage/header1.png" style="width:100%; min-height:100%;">
+        	  <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" style="width:100%; min-height:100%;">
         	  <div class="container">
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities</h1>
@@ -81,8 +87,7 @@
         	  </div>
         	  </div>
         	<div class="item">
-        	<div>
-        	  <img src="img/frontpage/header2.png" style="width:100%; min-height:100%;">
+        	  <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" style="width:100%; min-height:100%;">
           <div class="container">
             <div class="carousel-caption">
             <c:forEach var="row" items="${art.rows}">
@@ -93,9 +98,8 @@
             </div>
           </div>
         </div>
-        </div>
         <div class="item">
-          <img src="img/frontpage/header3.png" style="width:100%; min-height:100%;">
+          <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" style="width:100%; min-height:100%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>Vanaf slechts 7,50 euro per maand</h1>

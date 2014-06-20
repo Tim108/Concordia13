@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath()+"/index"); %>
+<% response.sendRedirect(request.getContextPath()+"/rest/generateArt/frontpage"); %>

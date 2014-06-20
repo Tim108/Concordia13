@@ -8,7 +8,7 @@
 	%>
 	<BR>
 	<CENTER>
-		<a href="/concordia"><img src="res/logo-concordia.jpg" alt="Concordia" /></a>
+		<a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/res/logo-concordia.jpg" alt="Concordia" /></a>
 	</CENTER>
 	<nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -85,4 +85,4 @@
 	</div>
 	<!-- /.container-fluid --> </nav>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>

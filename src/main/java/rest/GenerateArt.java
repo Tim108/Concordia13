@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,14 +22,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
 
-//import com.sun.jersey.api.view.Viewable;
+import com.sun.jersey.api.view.Viewable;
 
 @Path("/generateArt")
 public class GenerateArt {
 	Map<Integer, Art> artList = new HashMap<Integer, Art>();
 	ArrayList<Art> randomArt = new ArrayList<Art>();
 
-	public GenerateArt() {
+	public void init() {
 		try {
 			try (Connection conn = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/Kunstuitleen",
@@ -56,7 +57,7 @@ public class GenerateArt {
 									+ artList.get(rs.getInt("id")).toString());
 						}
 					}
-				}
+				} conn.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,6 +65,7 @@ public class GenerateArt {
 	}
 
 	public void randomArt(int amount) {
+		init();
 		randomArt.clear();
 		ArrayList<Integer> allPaintings = new ArrayList<Integer>();
 		ArrayList<Integer> inRandom = new ArrayList<Integer>();
@@ -84,18 +86,19 @@ public class GenerateArt {
 		inRandom.clear();
 	}
 	
-//	@Path("/frontpage")
-//	@Produces(MediaType.TEXT_HTML)
-//	public Viewable index(@Context HttpServletRequest request) {
-//	List<String> frontArtSource = new ArrayList<String>();
-//	randomArt(3);
-//	for(int i = 0; i<3; i++){
-//		frontArtSource.add(randomArt.get(i).getSource());
-//	}
-//	System.out.println(frontArtSource);
-//	request.setAttribute("artheaders", frontArtSource);
-//	return new Viewable("/index.jsp", null);
-//	}
+	@GET
+	@Path("/frontpage")
+	public Viewable index(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+	List<String> frontArtSource = new ArrayList<String>();
+	randomArt(3);
+	for(int i = 0; i<3; i++){
+		frontArtSource.add(randomArt.get(i).getSource());
+	}
+	System.out.println(frontArtSource);
+	request.setAttribute("artheaders", frontArtSource);
+	System.out.println(request.getContextPath());
+	return new Viewable("/index.jsp", null);
+	}
 	
 	@Path("/genhtml")
 	@GET
