@@ -55,7 +55,6 @@ public class SearchServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		String srch = request.getParameter("srch-term");
-		System.out.println(srch);
 		if (srch == null)
 			srch = "";
 		srch = srch.toLowerCase();
@@ -94,11 +93,49 @@ public class SearchServlet extends HttpServlet {
 			r0 = "0";
 		if (r1 == null || r1.equals(""))
 			r1 = "0";
+		
+		//get the rating
+		String ratingString = request.getParameter("rating");
+		System.out.println("b" + ratingString);
+		double rating = Double.parseDouble(ratingString);
+		
+		String ratedId = request.getParameter("rated");
+		System.out.println("a" + ratedId);
+		
+		double oldrating = 0;
+		int rates = 0;
+		double newRating = 0;
+		
 
 		// sql inloggen
 		Connection conn = (Connection) getServletContext().getAttribute(
 			"DBConnection");
 		// --
+		
+		try (PreparedStatement ps = conn
+				.prepareStatement("SELECT ap.rating, ap.rates FROM artpiece ap WHERE ap.id=" + ratedId + ";")) {
+			try (ResultSet rs = ps.executeQuery()) {
+				while(rs.next()){
+				oldrating = rs.getDouble("rating");
+				rates = rs.getInt("rates");
+			}}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try{
+			newRating = (((1/(rates+1)*rates)*oldrating) + (1/(rates+1)*rating));
+			rates++;
+		}catch (NullPointerException e){
+			System.out.println("Calculation error! Rate not processed!");
+		}
+		
+		try (PreparedStatement ps = conn
+				.prepareStatement("UPDATE artpiece SET rating=" + newRating + ", rates=" + rates)) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		try {
 			// prices
@@ -157,7 +194,7 @@ public class SearchServlet extends HttpServlet {
 		}
 		List<String> attributes = new ArrayList<String>();
 
-		System.out.println("1");
+	
 		try {
 			createLists(conn, request);
 
@@ -181,9 +218,6 @@ public class SearchServlet extends HttpServlet {
 			if (prices[1] != 0)
 				priceStatement += "AND ap.price<=" + prices[1] + " ";
 
-			System.out.println(prices[0] + " -- " + prices[1]);
-			System.out.println(priceStatement);
-
 			// generate statement for size
 			String sizeStatement = "";
 			if (sizes[0] != 0)
@@ -202,7 +236,6 @@ public class SearchServlet extends HttpServlet {
 			if (ratings[1] != 0)
 				sizeStatement += "AND ap.rating<=" + ratings[1] + " ";
 
-			System.out.println("2");
 			if (!srchterms[0].equals("") && srchterms.length == 1) {
 				for (int i = 0; i < srchterms.length; i++) {
 					try (PreparedStatement ps2 = conn
@@ -234,7 +267,6 @@ public class SearchServlet extends HttpServlet {
 									+ "OR LOWER(ap.style) LIKE '%"
 									+ srchterms[i] + "%'" + ");")) {
 						try (ResultSet rs = ps2.executeQuery()) {
-							System.out.println(ps2);
 							while (rs.next()) {
 								attributes.add(rs.getString("name"));
 							}
@@ -263,7 +295,6 @@ public class SearchServlet extends HttpServlet {
 
 								+ ";")) {
 					try (ResultSet rs = ps2.executeQuery()) {
-						System.out.println("--" + ps2);
 						while (rs.next()) {
 							attributes.add(rs.getString("name"));
 						}
@@ -271,9 +302,8 @@ public class SearchServlet extends HttpServlet {
 				}
 			}
 
-			System.out.println("3");
+			
 			if (attributes.isEmpty()) {
-				System.out.println("4");
 				request.setAttribute("Error", "Niks gevonden!");
 				request.getRequestDispatcher("/collectie.jsp").forward(request,
 						response);
@@ -285,7 +315,6 @@ public class SearchServlet extends HttpServlet {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		System.out.println("5");
 	}
 
 	private String generateStatement(List list, String element) {

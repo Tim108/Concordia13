@@ -96,7 +96,6 @@ ORDER BY rating DESC;
 
 	<CENTER>
 		<H1>Collectie</H1>
-		<input id="input-id" type="number" class="rating" min=1 max=10 step=2>
 		<script>
 			var advanced = false;
 		</script>
@@ -126,13 +125,13 @@ ORDER BY rating DESC;
 
 			<%
 				List<Double> prices = (List<Double>) request.getAttribute("prices");
-								List<String> artists = (List<String>) request.getAttribute("artists");
-								List<Double> widths = (List<Double>) request.getAttribute("widths");
-								List<Double> heights = (List<Double>) request.getAttribute("heights");
-								List<String> styles = (List<String>) request.getAttribute("styles");
-								List<String> techs = (List<String>) request.getAttribute("techs");
-								List<String> orients = (List<String>) request.getAttribute("orients");
-								List<Double> ratings = (List<Double>) request.getAttribute("ratings");
+										List<String> artists = (List<String>) request.getAttribute("artists");
+										List<Double> widths = (List<Double>) request.getAttribute("widths");
+										List<Double> heights = (List<Double>) request.getAttribute("heights");
+										List<String> styles = (List<String>) request.getAttribute("styles");
+										List<String> techs = (List<String>) request.getAttribute("techs");
+										List<String> orients = (List<String>) request.getAttribute("orients");
+										List<Double> ratings = (List<Double>) request.getAttribute("ratings");
 			%>
 			<div id="advancedSearchDiv" class="hidden-element">
 				<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
@@ -343,7 +342,7 @@ ORDER BY rating DESC;
 									<center>
 										<%
 											HttpSession s = request.getSession();
-																																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+																																																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
 										%>
 
 										<p>
@@ -392,17 +391,24 @@ ORDER BY rating DESC;
 											class="btn btn-success">
 									</form>
 
-<form>
-									<div ng-controller="Rating">
+									<form action="search" method="post">
+										<div ng-controller="Rating">
 
-										<div ng-init="x = 1">
-											<h3><rating id="rate-${row.id}" value="x" max="5" state-on="'glyphicon-star'"
-												state-off="'glyphicon-star-empty'"></rating></h3>
-											<input type="submit" class="btn btn-primary">
+											<div ng-init="x = ${row.rating}">
+												<h3>
+													<rating ng-model="rate" type="input" class="input" name="rrating" id="rrating${row.id}" value="x"
+														max="5" state-on="'glyphicon-star'"
+														state-off="'glyphicon-star-empty'" onChange="document.getElementById('rating${row.id}').value=x" on-leave="hoveringLeave(x)"></rating>
+														<input type="hidden" value={{rate}} name="rating" id="rating${row.id}"/>
+												</h3>
+								
+												<input type="hidden" id="rated" name="rated" value="${row.id}">
+												<input type="submit" class="btn btn-primary">
+											</div>
+
 										</div>
-
-									</div>
-</form>
+									</form>
+									<input type="hidden" id="rated" name="rated" value="${row.id}">
 									<ul class="dropdown-menu" role="menu">
 										<table>
 											<tr>
@@ -448,6 +454,28 @@ ORDER BY rating DESC;
 <script>
 	angular.module('cc', [ 'ui.bootstrap' ]);
 	var Rating = function($scope) {
+		 $scope.myRate = 0;
+
+	     $scope.submit = function() {
+	         console.log($scope.percent);
+	     }
+
+	     $scope.rate = 1;
+	     $scope.max = 5;
+	     $scope.isReadonly = false;
+	     $scope.percent = 20;
+
+	      $scope.hoveringOver = function(value,object) {
+	        console.log('hoveringOver', value);
+	        $scope.overStar = value;
+	        $scope.percent = (100 * $scope.overStar) / $scope.max;
+	      };
+
+	       $scope.hoveringLeave = function(rate) {
+	         System.out.println('hoveringLeave',  $scope.rate);
+
+	       $scope.percent = (100 * $scope.rate) / $scope.max;
+	      };
 	};
 </script>
 <script>
