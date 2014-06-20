@@ -26,15 +26,15 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="/concordia" id="home">Home</a></li>
-				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="/concordia/search" id="collectie">Collectie</a></li>
-				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>" id="expositie">Expositie</a></li>
+				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>" id="home">Home</a></li>
+				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/search" id="collectie">Collectie</a></li>
+				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="expositie">Expositie</a></li>
 				<li><a href="easterEgg.jsp">Reserveringen</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 			<% HttpSession s = request.getSession();
 				if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) { %>
-				<li<% if(currentpage.equals("admin")){ %> class="active" <% } %>><a href="admin.jsp" id="cp">Controlepaneel</a></li>
+				<li<% if(currentpage.equals("admin")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/admin.jsp" id="cp">Controlepaneel</a></li>
 				<% } %>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" id="acc">
@@ -49,7 +49,7 @@
 					Account <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a>
-							<form method="post" action=/concordia/login id="loginform">
+							<form method="post" action=<%=request.getContextPath()%>/login id="loginform">
 								<table>
 									<tr><td><input type="text" name="email" placeholder="E-mail" id="un"></td></tr>
 									<tr><td><input type="password" name="password" placeholder="Wachtwoord" id="pw"></td></tr>
@@ -58,7 +58,7 @@
 							</form> <!--  -->
 						</a></li>
 					<li class="divider"></li>
-					<li><a href="registerpage">Registeren</a></li>
+					<li><a href="<%=request.getContextPath()%>/registerpage">Registeren</a></li>
 					</ul>
 					<% 
 					}
@@ -66,13 +66,13 @@
 					%>
 					<%= session.getAttribute("Name") + " " + session.getAttribute("SurName") %> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/concordia/userinfo" id="userinfo">Gegevens</a></li>
-            			<li><a href="#" id="reservations">Reserveringen</a></li>
-            			<li><a href="/concordia/expositie?id=<%=session.getAttribute("hasExposition")%>" id="exposition">Expositie</a></li>
-            			<li><a href="/concordia/gehuurde.jsp" id="rented">Mijn gehuurde werken</a></li>
-            			<li><a href="/concordia/subscription" id="subscription">Abonnement afsluiten</a></li>
+						<li><a href="<%=request.getContextPath()%>/userinfo" id="userinfo">Gegevens</a></li>
+            			<li><a href="#" id="<%=request.getContextPath()%>/reservations">Reserveringen</a></li>
+            			<li><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="exposition">Expositie</a></li>
+            			<li><a href="<%=request.getContextPath()%>/gehuurde.jsp" id="rented">Mijn gehuurde werken</a></li>
+            			<li><a href="<%=request.getContextPath()%>/subscription" id="subscription">Abonnement afsluiten</a></li>
             			<li class="divider"></li>
-						<li><a href="/concordia/loguit" id="logout">Log uit</a></li>
+						<li><a href="<%=request.getContextPath()%>/loguit" id="logout">Log uit</a></li>
 
 					</ul>
 					<%

@@ -44,7 +44,7 @@
 			<tr><td><td><font color="#E00000">${AddressError}</font></tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">Straatnaam: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="address"></tr>
 			<tr><td><td><font color="#E00000">${HouseNumberError}</font></tr>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Huisnummer (je mag geen toevoeging hebben dikkert): <td style="padding-right:10px; padding-bottom:10px"><input type="number" name="housenumber"></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Huisnummer: <td style="padding-right:10px; padding-bottom:10px"><input type="number" name="housenumber"></tr>
 			<tr><td><td><font color="#E00000">${CityError}</font></tr>
 			<tr><td style="padding-right:10px; padding-bottom:10px">Woonplaats: <td style="padding-right:10px; padding-bottom:10px"><input type="text" name="city"></tr>
 			<tr><td><td><font color="#E00000">${PostalError}</font></tr>
