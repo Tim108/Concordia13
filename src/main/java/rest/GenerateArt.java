@@ -21,7 +21,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
 
-import com.sun.jersey.api.view.Viewable;
+//import com.sun.jersey.api.view.Viewable;
 
 @Path("/generateArt")
 public class GenerateArt {
@@ -84,18 +84,18 @@ public class GenerateArt {
 		inRandom.clear();
 	}
 	
-	@Path("/frontpage")
-	@Produces(MediaType.TEXT_HTML)
-	public Viewable index(@Context HttpServletRequest request) {
-	List<String> frontArtSource = new ArrayList<String>();
-	randomArt(3);
-	for(int i = 0; i<3; i++){
-		frontArtSource.add(randomArt.get(i).getSource());
-	}
-	System.out.println(frontArtSource);
-	request.setAttribute("artheaders", frontArtSource);
-	return new Viewable("/index.jsp", null);
-	}
+//	@Path("/frontpage")
+//	@Produces(MediaType.TEXT_HTML)
+//	public Viewable index(@Context HttpServletRequest request) {
+//	List<String> frontArtSource = new ArrayList<String>();
+//	randomArt(3);
+//	for(int i = 0; i<3; i++){
+//		frontArtSource.add(randomArt.get(i).getSource());
+//	}
+//	System.out.println(frontArtSource);
+//	request.setAttribute("artheaders", frontArtSource);
+//	return new Viewable("/index.jsp", null);
+//	}
 	
 	@Path("/genhtml")
 	@GET
