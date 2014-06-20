@@ -295,6 +295,7 @@ a.id = '<%=ids.get(0)%>')
 									
 									<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
 										<input type="hidden" name="id" value="${row.id}"> 
+										<input type="hidden" name="external" value="true">
 										<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
 									</form>
 									

@@ -21,17 +21,26 @@ public class ExpositionRemoveServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		int id = Integer.parseInt((String)request.getParameter("id"));
+		int id = Integer.parseInt((String)request.getParameter("id")); 
 		
 		HttpSession s = request.getSession();
 		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		int collID = (int)s.getAttribute("hasExposition");
 		try {
-			try (PreparedStatement ps = conn.prepareStatement("DELETE FROM belongs_to WHERE art = ? AND collection = ?")) 
+			try (PreparedStatement ps = conn.prepareStatement("DELETE FROM belongs_to WHERE art = ? AND collection = ?;")) 
 			{
 				ps.setInt(1, id);
 				ps.setInt(2, collID);
-				if(ps.execute()) {
+				ps.execute();
+			}
+			if(request.getParameter("external") != null) {
+				try(PreparedStatement ps = conn.prepareStatement("DELETE FROM uploaded WHERE external_picture = ?")) {
+					ps.setInt(1, id);
+					ps.execute();
+				}
+				try(PreparedStatement ps = conn.prepareStatement("DELETE FROM external_picture WHERE id = ?;")) {
+					ps.setInt(1, id);
+					ps.execute();
 				}
 			}
 			response.sendRedirect("/concordia/expositie?id=" + collID);

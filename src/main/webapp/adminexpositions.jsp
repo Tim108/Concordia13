@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -33,15 +34,24 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="main.jsp">
-	<jsp:param name="currentpage" value="admin" />
-	</jsp:include>
+	<jsp:include page="main.jsp"/>
 	<center>
-	<h3>Concordia Controlepaneel</h3>
-	<input type="submit" id="addWork" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';" class="btn btn-default"/><br><br>
-	<input type="submit" id="customerInfo" value="Vraag gegevens van een klant op" onclick="window.location='/concordia/klantservlet';" class="btn btn-default"/><br><br>
-	<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='/concordia/adminExpositie';" class="btn btn-default"/><br><br>
-	<input type="submit" id="siteInfo" value="Bekijk gegevens van de site" onclick="window.location='/concordia/stats';" class="btn btn-default"/>
+		<%
+		List<String> userNames = (List<String>)request.getAttribute("Names");
+		List<Integer> userIDs = (List<Integer>)request.getAttribute("Users");
+		List<Integer> artIDs = (List<Integer>)request.getAttribute("Arts");
+		List<Integer> userIDs2 = (List<Integer>)request.getAttribute("Users2");
+		request.getSession().setAttribute("Arts", artIDs);
+		%>
+		<form action="/concordia/adminart.jsp" method="post">
+		<select name="customers">
+			<option value=none>Klanten met een extern werk</option>
+			<% for(int i=0; i<userNames.size(); i++) { %>
+			<option value="<%= userIDs2.get(i) %>"><%= userNames.get(i) %></option>
+			<% } %>
+		</select><br><br>
+		<input type="submit" class="btn btn-default" value="Ga" />
+		</form>
 	</center>
 </body>
 </html>

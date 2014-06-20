@@ -133,6 +133,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>AdminExpositionServlet</servlet-name>
+    <servlet-class>coreServlets.AdminExpositionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminExpositionServlet</servlet-name>
+    <url-pattern>/adminExpositie</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>RemoveServlet</servlet-name>
     <servlet-class>coreServlets.RemoveServlet</servlet-class>
   </servlet>
