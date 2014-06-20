@@ -10,7 +10,7 @@
 
 <link href="res/css/additives.css" rel="stylesheet">
 
-<html lang="en">
+<html lang="en" ng-app="cc">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,6 +45,12 @@
 	margin: auto;
 }
 </style>
+
+<!-- rating -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+<script
+	src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
 
 </head>
 <body>
@@ -90,6 +96,7 @@ ORDER BY rating DESC;
 
 	<CENTER>
 		<H1>Collectie</H1>
+		<input id="input-id" type="number" class="rating" min=1 max=10 step=2>
 		<script>
 			var advanced = false;
 		</script>
@@ -119,13 +126,13 @@ ORDER BY rating DESC;
 
 			<%
 				List<Double> prices = (List<Double>) request.getAttribute("prices");
-						List<String> artists = (List<String>) request.getAttribute("artists");
-						List<Double> widths = (List<Double>) request.getAttribute("widths");
-						List<Double> heights = (List<Double>) request.getAttribute("heights");
-						List<String> styles = (List<String>) request.getAttribute("styles");
-						List<String> techs = (List<String>) request.getAttribute("techs");
-						List<String> orients = (List<String>) request.getAttribute("orients");
-						List<Double> ratings = (List<Double>) request.getAttribute("ratings");
+								List<String> artists = (List<String>) request.getAttribute("artists");
+								List<Double> widths = (List<Double>) request.getAttribute("widths");
+								List<Double> heights = (List<Double>) request.getAttribute("heights");
+								List<String> styles = (List<String>) request.getAttribute("styles");
+								List<String> techs = (List<String>) request.getAttribute("techs");
+								List<String> orients = (List<String>) request.getAttribute("orients");
+								List<Double> ratings = (List<Double>) request.getAttribute("ratings");
 			%>
 			<div id="advancedSearchDiv" class="hidden-element">
 				<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
@@ -332,106 +339,117 @@ ORDER BY rating DESC;
 									</c:choose>
 								</div>
 								<p>
-								<center>
-									<%
-										HttpSession s = request.getSession();
-																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
-									%>
+								<div>
+									<center>
+										<%
+											HttpSession s = request.getSession();
+																																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+										%>
 
-									<p>
-									<form name="myForm" action="remove" onsubmit="return popUp()"
-										method="post">
-										<input type="hidden" name="removing" value="${row.id}">
-										<div class="btn-group">
-											<input type="submit" class="btn btn-primary" role="button"
-												value="Verwijder">
+										<p>
+										<form name="myForm" action="remove" onsubmit="return popUp()"
+											method="post">
+											<input type="hidden" name="removing" value="${row.id}">
+											<div class="btn-group">
+												<input type="submit" class="btn btn-primary" role="button"
+													value="Verwijder">
+										</form>
+
+										<script>
+											function popUp() {
+												var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+												return r;
+											}
+										</script>
+										<%
+											} else {
+										%>
+										<c:choose>
+											<c:when test="${row.rented==true}">
+												<p>
+												<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+											</c:when>
+											<c:otherwise>
+												<p>
+												<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Huur
+														direct!</a>
+											</c:otherwise>
+										</c:choose>
+										<%
+											}
+										%>
+										<button type="button" class="btn btn-default dropdown-toggle"
+											data-toggle="dropdown">
+											Delen <span class="caret"></span>
+										</button>
+									</center>
+
+									<form name="myForm" action="voegToeExpositie" method="post">
+										<input type="hidden" name="id" value="${row.id}"> <input
+											type="submit" value="Voeg toe aan expositie"
+											class="btn btn-success">
 									</form>
 
-									<script>
-										function popUp() {
-											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-											return r;
-										}
-									</script>
-									<%
-										} else {
-									%>
-									<c:choose>
-										<c:when test="${row.rented==true}">
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-										</c:when>
-										<c:otherwise>
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Huur
-													direct!</a>
-										</c:otherwise>
-									</c:choose>
-									<%
-										}
-									%>
-									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown">
-										Delen <span class="caret"></span>
-									</button>
-								</center>
+<form>
+									<div ng-controller="Rating">
 
-								<form name="myForm" action="voegToeExpositie" method="post">
-									<input type="hidden" name="id" value="${row.id}"> <input
-										type="submit" value="Voeg toe aan expositie"
-										class="btn btn-success">
-								</form>
-								<!-- ##################################################################################### -->
-								<form name="rateForm" action="voegToeExpositie" method="post">
-									<input type="hidden" name="id" value="${row.id}"> <input
-										type="submit" value="Voeg toe aan expositie"
-										class="btn btn-success">
-								</form> 
+										<div ng-init="x = 1">
+											<h3><rating id="rate-${row.id}" value="x" max="5" state-on="'glyphicon-star'"
+												state-off="'glyphicon-star-empty'"></rating></h3>
+											<input type="submit" class="btn btn-primary">
+										</div>
 
-								<ul class="dropdown-menu" role="menu">
-									<table>
-										<tr>
-											<td style="padding-right: 10px; padding-bottom: 10px"><a
-												href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
-												target="_blank"><img
-													src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-													alt="Facebook" style="height: 50px;" /></a>
-											<td style="padding-bottom: 10px;"><a
-												href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-												target="_blank"><img
-													src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-													alt="Twitter" style="height: 50px;" /></a>
-										</tr>
-										<tr>
-											<td style="padding-right: 10px;"><a
-												href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
-												" target="_blank"> <img
-													src="http://www.simplesharebuttons.com/images/somacro/google.png"
-													alt="Google" style="height: 50px;" /></a>
-											<td><a
-												href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
-													src="http://www.simplesharebuttons.com/images/somacro/email.png"
-													alt="Email" style="height: 50px;" /></a>
-										</tr>
+									</div>
+</form>
+									<ul class="dropdown-menu" role="menu">
+										<table>
+											<tr>
+												<td style="padding-right: 10px; padding-bottom: 10px"><a
+													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+														alt="Facebook" style="height: 50px;" /></a>
+												<td style="padding-bottom: 10px;"><a
+													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+														alt="Twitter" style="height: 50px;" /></a>
+											</tr>
+											<tr>
+												<td style="padding-right: 10px;"><a
+													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+													" target="_blank"> <img
+														src="http://www.simplesharebuttons.com/images/somacro/google.png"
+														alt="Google" style="height: 50px;" /></a>
+												<td><a
+													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														src="http://www.simplesharebuttons.com/images/somacro/email.png"
+														alt="Email" style="height: 50px;" /></a>
+											</tr>
 
 
 
 
-									</table>
-								</ul>
+										</table>
+									</ul>
 
+								</div>
+								</p>
 							</div>
-							</p>
 						</div>
 					</div>
+				</c:forEach>
 			</div>
-			</c:forEach>
-		</div>
 		</div>
 	</CENTER>
 </body>
+<script>
+	angular.module('cc', [ 'ui.bootstrap' ]);
+	var Rating = function($scope) {
+	};
+</script>
 <script>
 	function showDivContent() {
 		var spot = document.getElementById('spot1');
