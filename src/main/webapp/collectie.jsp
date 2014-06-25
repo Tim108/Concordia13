@@ -383,6 +383,33 @@ ORDER BY rating DESC;
 											data-toggle="dropdown">
 											Delen <span class="caret"></span>
 										</button>
+										<ul class="dropdown-menu" role="menu">
+										<table>
+											<tr>
+												<td style="padding-right: 10px; padding-bottom: 10px"><a
+													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+														alt="Facebook" style="height: 50px;" /></a>
+												<td style="padding-bottom: 10px;"><a
+													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+													target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+														alt="Twitter" style="height: 50px;" /></a>
+											</tr>
+											<tr>
+												<td style="padding-right: 10px;"><a
+													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+													" target="_blank"> <img
+														src="http://www.simplesharebuttons.com/images/somacro/google.png"
+														alt="Google" style="height: 50px;" /></a>
+												<td><a
+													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														src="http://www.simplesharebuttons.com/images/somacro/email.png"
+														alt="Email" style="height: 50px;" /></a>
+											</tr>
+										</table>
+									</ul>
 									</center>
 									<%
 									if(s.getAttribute("Logged") != null) {
@@ -422,56 +449,23 @@ ORDER BY rating DESC;
 									
 									<% } %>
 									
-									<form action="search" method="post">
+									<form action="search" method="post" id="ratingform">
 										<div ng-controller="Rating">
-
+										${row.id}
+										<input type="hidden" id="rowid" name="rowid" value="${row.id}">
 											<div ng-init="x = ${row.rating}">
 												<h3>
 													<rating ng-model="rate" type="input" class="input" name="rrating" id="rrating${row.id}" value="x"
 														max="5" state-on="'glyphicon-star'"
-														state-off="'glyphicon-star-empty'" onChange="document.getElementById('rating${row.id}').value=x" on-leave="hoveringLeave(x)"></rating>
-														<input type="hidden" value={{rate}} name="rating" id="rating${row.id}"/>
+														state-off="'glyphicon-star-empty'" onClick="document.getElementById('ratingform').submit();"></rating>
+														
 												</h3>
-								
+												<input type="text" value="{{rate}}" name="rating${row.id}" id="rating${row.id}">
 												<input type="hidden" id="rated" name="rated" value="${row.id}">
-												<input type="submit" class="btn btn-primary">
 											</div>
 
 										</div>
 									</form>
-									<input type="hidden" id="rated" name="rated" value="${row.id}">
-									<ul class="dropdown-menu" role="menu">
-										<table>
-											<tr>
-												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
-													" target="_blank"> <img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-											</tr>
-
-
-
-
-										</table>
-									</ul>
-
 								</div>
 								</p>
 							</div>
@@ -483,10 +477,21 @@ ORDER BY rating DESC;
 	</CENTER>
 </body>
 <script>
+function submitRating(idArg){
+	var id = idArg;
+	var rating = document.getElementById("rrating" + id).getAttribute("value");
+	console.log("id = " + id);
+	console.log("rating = " + rating);
+	document.getElementById("rated").setAttribute("value", id);
+	document.getElementById("rating" + id).setAttribute("value", rating);
+	document.getElementById("ratingform").submit();
+}
+</script>
+<script>
 	angular.module('cc', [ 'ui.bootstrap' ]);
 	var Rating = function($scope) {
 		 $scope.myRate = 0;
-
+		 console.log($scope.myRate);
 	     $scope.submit = function() {
 	         console.log($scope.percent);
 	     }
@@ -503,7 +508,7 @@ ORDER BY rating DESC;
 	      };
 
 	       $scope.hoveringLeave = function(rate) {
-	         System.out.println('hoveringLeave',  $scope.rate);
+	        console.log('hoveringLeave',  $scope.rate);
 
 	       $scope.percent = (100 * $scope.rate) / $scope.max;
 	      };

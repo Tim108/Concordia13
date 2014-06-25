@@ -95,12 +95,15 @@ public class SearchServlet extends HttpServlet {
 			r1 = "0";
 		
 		//get the rating
-		String ratingString = request.getParameter("rating");
-		System.out.println("b" + ratingString);
-		double rating = Double.parseDouble(ratingString);
 		
 		String ratedId = request.getParameter("rated");
-		System.out.println("a" + ratedId);
+		System.out.println("ratedId = " + ratedId);
+		
+		String ratingString = request.getParameter("rating" + ratedId);
+		System.out.println("rating = " + ratingString);
+		//double rating = Double.parseDouble(ratingString);
+		double rating = 5;
+		
 		
 		double oldrating = 0;
 		int rates = 0;
