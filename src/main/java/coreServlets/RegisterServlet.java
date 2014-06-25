@@ -1,6 +1,5 @@
 package coreServlets;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -9,11 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.security.SecureRandom;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.util.Properties;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -156,28 +154,33 @@ public class RegisterServlet extends HttpServlet {
 			}
 			
 			try (PreparedStatement ps =
-				    conn.prepareStatement("INSERT INTO Customer (pass,name,surname,address,city,postal,email,phone,newsletter,activation) "
-				    		+ " VALUES(?,?,?,?,?,?,?,?,?,?) RETURNING id;")
+				    conn.prepareStatement("INSERT INTO Customer (pass,salt,name,surname,address,city,postal,email,phone,newsletter,activation) "
+				    		+ " VALUES(?,?,?,?,?,?,?,?,?,?,?) RETURNING id;")
 				){
-					String hashpass = hashThis(pass);
+					SecureRandom random = new SecureRandom();
+					byte[] salt = new byte[24];
+			        random.nextBytes(salt);
+					String hashpass = hashThis(pass, salt);
 				    ps.setString(1, hashpass);
-				    ps.setString(2, name);
-				    ps.setString(3, surname);
-				    ps.setString(4, address + " " + hnum);
-				    ps.setString(5, city);
-				    ps.setString(6, postal);
-				    ps.setString(7, email);
-				    ps.setString(8, phone);
+				    ps.setBytes(2, salt);
+				    ps.setString(3, name);
+				    ps.setString(4, surname);
+				    ps.setString(5, address + " " + hnum);
+				    ps.setString(6, city);
+				    ps.setString(7, postal);
+				    ps.setString(8, email);
+				    ps.setString(9, phone);
+				    System.out.println(ps.toString());
 				    
 				    RandomGenerator rg = new RandomGenerator();
 				    String activation = rg.createActivition();
-				    ps.setString(10, activation);
+				    ps.setString(11, activation);
 				    SendEmailServlet sm = new SendEmailServlet();
 				    String fullname = name + " " + surname;
 				    
 				    
 				    if(newsl == null) ps.setBoolean(9, false); 
-				    else ps.setBoolean(9, true);
+				    else ps.setBoolean(10, true);
 				    ResultSet rs = null;
 				    try {
 				    	rs = ps.executeQuery();
@@ -200,10 +203,11 @@ public class RegisterServlet extends HttpServlet {
 		}
 	}
 	
-	public static String hashThis(String str){
+	public static String hashThis(String str, byte[] salt){
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(str.getBytes("UTF-8"));
+			md.update(salt);
 			byte[] digest = md.digest();
 			str = new String(digest, "UTF-8");
 			str = str.replace("\0", ""); 
