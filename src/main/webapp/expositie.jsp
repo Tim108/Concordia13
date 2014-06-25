@@ -238,8 +238,11 @@ a.id = '<%=ids.get(0)%>')
 									<c:choose>
 										<c:when test="${row.rented==true}">
 											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Reserveer</a>
+											<form action="/concordia/reserveer" method="post">
+												<input type="hidden" name="id" id="" value="${row.id}" />
+												<div class="btn-group">
+													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
+											</form>
 										</c:when>
 										<c:otherwise>
 											<p>
