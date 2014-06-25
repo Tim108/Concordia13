@@ -34,9 +34,9 @@
 <body>
 	<jsp:include page="main.jsp"/>
 	<%HttpSession s = request.getSession();
-	s.removeAttribute("Logged"); 
-	s.removeAttribute("hasExposition");
+	s.removeAttribute("Logged");
 	s.removeAttribute("account");
+	s.removeAttribute("Expositions");
 	%>
     <div class="head">
     	<center><h4>Uitgelogd!</h4>

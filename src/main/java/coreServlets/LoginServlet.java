@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import rest.User;
 
 public class LoginServlet extends HttpServlet {
 
@@ -49,12 +53,14 @@ public class LoginServlet extends HttpServlet {
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				String activation = rs.getString("activation");
+				Map<Integer, String> expositions = new HashMap<Integer, String>();
+				
 				HttpSession s = request.getSession();
-				try(PreparedStatement ps = conn.prepareStatement("SELECT collection FROM has WHERE customer = ?;")) {
+				try(PreparedStatement ps = conn.prepareStatement("SELECT h.collection, c.name FROM has h, Collection c WHERE h.customer = ? AND c.id = h.collection;")) {
 					ps.setInt(1, id);
 					try(ResultSet rs2 = ps.executeQuery()) {
-						if(rs2.next()) {
-							s.setAttribute("hasExposition", rs2.getInt("collection"));
+						while(rs2.next()) {
+							expositions.put(rs2.getInt("collection"),rs2.getString("name"));
 						}
 					}
 				}
@@ -64,6 +70,7 @@ public class LoginServlet extends HttpServlet {
 				s.setAttribute("isAdmin", rs.getBoolean("isAdmin"));
 				s.setAttribute("Name", name);
 				s.setAttribute("SurName", surname);
+				s.setAttribute("Expositions", expositions);
 				response.sendRedirect("");
 				return;
 			}

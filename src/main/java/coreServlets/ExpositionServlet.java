@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import rest.User;
 
 public class ExpositionServlet  extends HttpServlet {
 	/**
@@ -28,18 +31,37 @@ public class ExpositionServlet  extends HttpServlet {
 		response.setContentType("text/html");
 		
 		HttpSession s = request.getSession();
+		Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
 		int id = 0;
 		if(request.getParameter("id") == null) {
-			id = (int)s.getAttribute("hasExposition");
+			id = 0;
 		}
 		else {
 			id = Integer.parseInt(request.getParameter("id"));
 		}
 		
 		if(id == 0) {
-			request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
-			request.getRequestDispatcher("/expositie.jsp").forward(request, response);
-			return;
+			if(expositions == null || expositions.isEmpty()) {
+				request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
+				request.getRequestDispatcher("/expositie.jsp").forward(request, response);
+				return;
+			}
+			else {
+				request.setAttribute("Choose", 1);
+				request.getRequestDispatcher("/expositie.jsp").forward(request, response);
+				return;
+			}
+		}
+		
+		boolean test = false;
+		if(expositions == null) request.setAttribute("NotMine", 1);
+		else {
+			for(Integer i : expositions.keySet()) {
+				if(i == id) test = true;
+			}
+		}
+		if(!test) {
+			request.setAttribute("NotMine", 1);
 		}
 		
 		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
@@ -55,6 +77,7 @@ public class ExpositionServlet  extends HttpServlet {
 					}
 					else {
 						request.setAttribute("Error", "Deze expositie bestaat nog niet!");
+						request.getRequestDispatcher("/expositie.jsp").forward(request, response);
 						return;
 					}
 				}

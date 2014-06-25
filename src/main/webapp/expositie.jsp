@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, rest.User"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="org.postgresql.Driver"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -81,6 +81,29 @@
 		List<String> names = (List<String>)request.getAttribute("Names");
 		String error = (String)request.getAttribute("Error");
 		if(error == null) { 
+			if(request.getAttribute("Choose") != null) { %>
+	<div id="title">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <h2>Kies een Expositie:</h2>
+            <%
+            HttpSession s = request.getSession();
+            Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
+            for(Integer i : expositions.keySet()) { %>
+            	<h3><a href=expositie?id=<%= i %>><%= expositions.get(i) %></a><br></h3>
+            <%	
+            }
+            %>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+			<%
+			return;
+			}
+			
 	%>
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
@@ -136,7 +159,24 @@ a.id = '<%=ids.get(0)%>')
  				<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
                 <CENTER>
-						<div class="thumbnail">
+						<div id="divider${row.id}" class="thumbnail" style="background-color: white;">
+						<% if(request.getAttribute("NotMine") == null) { %>
+						<button onclick="changeText(${row.id})" style="padding: 0; border: none; background: none;"><h3><span id="checkGliphi${row.id}" class="glyphicon glyphicon-unchecked"></span></h3></button>
+                		<script> 
+                		function changeText(i) {
+                			if(document.getElementById("checkGliphi" + i).getAttribute("class") == "glyphicon glyphicon-unchecked") {
+								document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-check");
+								document.getElementById("divider" + i).setAttribute("style", "background-color: #CFCFCF;");
+								document.getElementById("verwijderid").value = document.getElementById("verwijderid").value + " " + i;
+							}
+							else {
+								document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-unchecked");
+								document.getElementById("divider" + i).setAttribute("style", "background-color: white;");
+								document.getElementById("verwijderid").value = document.getElementById("verwijderid").value.replace(" " + i, "");
+							}
+                		}
+						</script>
+						<% } %>
 							<div style="height: 250px;">
 								<a class="plaatje" rel="gallery" href="img/${row.source}"
 									caption='<h5>${row.name}</h5>${row.artist}<br>${row.width} x ${row.height}<br>${row.rating}<br>&euro;${row.price}'>
@@ -213,18 +253,6 @@ a.id = '<%=ids.get(0)%>')
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
 									</button>
-									
-									<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
-										<input type="hidden" name="id" value="${row.id}"> 
-										<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
-									</form>
-									
-									<script>
-										function popUp() {
-											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
-											return r;
-										}
-									</script>
 
 									<ul class="dropdown-menu pull-right" role="menu">
 										<table>
@@ -269,7 +297,22 @@ a.id = '<%=ids.get(0)%>')
 			<c:forEach var="row" items="${externals.rows}">
                 <div class="item">
                 <CENTER>
-						<div class="thumbnail">
+						<div id="divider${row.id}" class="thumbnail" style="background-color: white;">
+						<% if(request.getAttribute("NotMine") == null) { %>
+						<button onclick="changeGliphi(${row.id})" style="padding: 0; border: none; background: none;"><h3><span id="checkGliphi${row.id}" class="glyphicon glyphicon-unchecked"></span></h3></button>
+                		<script>
+							function changeGliphi(i) {
+								if(document.getElementById("checkGliphi" + i).getAttribute("class") == "glyphicon glyphicon-unchecked") {
+									document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-check");
+									document.getElementById("divider" + i).setAttribute("style", "background-color: #CFCFCF;");
+								}
+								else {
+									document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-unchecked");
+									document.getElementById("divider" + i).setAttribute("style", "background-color: white;");
+								}
+							}
+						</script>
+						<% } %>
 							<div style="height: 250px;">
 								<a class="plaatje" rel="gallery" href="${row.source}"
 									caption='<h5>${row.name}</h5>${row.website}'>
@@ -292,19 +335,6 @@ a.id = '<%=ids.get(0)%>')
 										data-toggle="dropdown">
 										Delen <span class="caret"></span>
 									</button>
-									
-									<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
-										<input type="hidden" name="id" value="${row.id}"> 
-										<input type="hidden" name="external" value="true">
-										<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
-									</form>
-									
-									<script>
-										function popUp() {
-											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
-											return r;
-										}
-									</script>
 
 									<ul class="dropdown-menu pull-right" role="menu">
 										<table>
@@ -359,11 +389,27 @@ a.id = '<%=ids.get(0)%>')
    <CENTER>
   	<a class="btn play"><span class="glyphicon glyphicon-play"></span> Autoplay</a>
     <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
-    <p>
+    <% if(request.getAttribute("NotMine") == null) { %>
 	<div class="btn-group">
-		<a href="externUpload.jsp" class="btn btn-primary" role="button">Voeg een extern werk toe</a>
+		<form action="externUpload.jsp" method="post">
+			<input type="hidden" name="collection" id="collectionID" value="<%= request.getParameter("id")%>" />
+			<input type="submit" class="btn btn-primary" value="Voeg een extern werk toe" />
+		</form>
+		
+		<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
+			<input type="hidden" name="id" id="verwijderid" value=""> 
+			<input type="hidden" name="coll" id="collID" value="<%= request.getParameter("id")%>">
+			<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
+		</form>
+									
+		<script>
+			function popUp() {
+				var r = confirm("Weet je zeker dat je dit werk/deze werken wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
+				return r;
+			}
+		</script>
 	</div>
-	
+	<% } %>
   </CENTER>
 </div>
 <% } %>

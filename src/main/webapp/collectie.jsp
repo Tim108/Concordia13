@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, rest.User"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="org.postgresql.Driver"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -384,13 +384,44 @@ ORDER BY rating DESC;
 											Delen <span class="caret"></span>
 										</button>
 									</center>
-
+									<%
+									if(s.getAttribute("Logged") != null) {
+									%>
+									<br>
 									<form name="myForm" action="voegToeExpositie" method="post">
-										<input type="hidden" name="id" value="${row.id}"> <input
+										<input type="hidden" name="id" value="${row.id}"> 
+										<select name="expo" onchange="namePopUp(this)">
+											<option value="">Voeg toe aan expositie</option>
+											<%
+											Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
+											if(expositions != null)  {
+												for(Integer i : expositions.keySet()) { %>
+													<option value=<%=i%>><%= expositions.get(i) %></option>
+												<%	
+												}
+											}
+											%>
+											<option myid=1>Nieuwe Expositie</option>
+										</select> <br><br>
+										<input
 											type="submit" value="Voeg toe aan expositie"
 											class="btn btn-success">
 									</form>
-
+									
+									<script>
+										function namePopUp(select) {
+											if(select.options[select.selectedIndex].getAttribute("myid") == 1) {
+										    	var expo = prompt("Kies een naam voor uw Expositie","Expositie");
+										    	if (expo != null) {
+										    		select.options[select.selectedIndex].innerHTML = expo;
+										    		select.options[select.selectedIndex].setAttribute("value", expo);
+										    	}
+											}
+										}
+									</script>
+									
+									<% } %>
+									
 									<form action="search" method="post">
 										<div ng-controller="Rating">
 

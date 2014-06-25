@@ -34,6 +34,7 @@
 	<jsp:include page="main.jsp"/>
 	<center>
 		<form action="externUpload" method="post">
+		<input type="hidden" name="expo" value="<%= request.getParameter("collection") %>" />
 		<table>
 		<tr><td style="padding-right:10px;">Naam:<td><input type="text" name="name"></tr>
 		<tr><td style="padding-right:10px;">URL:<td><input type="text" name="source"></tr>

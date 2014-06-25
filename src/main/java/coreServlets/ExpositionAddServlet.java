@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import rest.User;
 
 public class ExpositionAddServlet extends HttpServlet {
 
@@ -39,19 +43,27 @@ public class ExpositionAddServlet extends HttpServlet {
 			id = Integer.parseInt((String)request.getParameter("id"));
 		else
 			id = (Integer)request.getAttribute("id");
-		
+		int expo = 0;
+		String expoName = "Expositie";
+		try {
+			expo = Integer.parseInt(request.getParameter("expo"));
+		}
+		catch (NumberFormatException e) {
+			expoName = request.getParameter("expo");
+		}
 		HttpSession s = request.getSession();
 		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		int collID = 0;
 		int userID = (int)s.getAttribute("Logged");
+		Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
 		try {
-			if((int)s.getAttribute("hasExposition") == 0) {
+			if(expo == 0) {
 				try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Collection (name) VALUES (?) RETURNING id;")) {
-					ps.setString(1, "Expositie");
+					ps.setString(1, expoName);
 					try(ResultSet rs = ps.executeQuery()){
 						if(rs.next()){
 						   collID = rs.getInt("id");
-						   s.setAttribute("hasExposition", collID);
+						   expositions.put(collID, expoName);
 						}
 					}
 				}
@@ -61,7 +73,7 @@ public class ExpositionAddServlet extends HttpServlet {
 					ps.execute();
 				}
 			}
-			else collID = (int)s.getAttribute("hasExposition");
+			else collID = expo;
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM belongs_to WHERE art = ? AND collection = ?")) 
 			{
 				ps.setInt(1, id);
