@@ -308,10 +308,12 @@ a.id = '<%=ids.get(0)%>')
 								if(document.getElementById("checkGliphi" + i).getAttribute("class") == "glyphicon glyphicon-unchecked") {
 									document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-check");
 									document.getElementById("divider" + i).setAttribute("style", "background-color: #CFCFCF;");
+									document.getElementById("verwijderid").value = document.getElementById("verwijderid").value + " " + i;
 								}
 								else {
 									document.getElementById("checkGliphi" + i).setAttribute("class", "glyphicon glyphicon-unchecked");
 									document.getElementById("divider" + i).setAttribute("style", "background-color: white;");
+									document.getElementById("verwijderid").value = document.getElementById("verwijderid").value.replace(" " + i, "");
 								}
 							}
 						</script>
