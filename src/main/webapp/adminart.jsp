@@ -65,10 +65,11 @@
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 
 	<sql:query dataSource="${snapshot}" var="artpiece">
-		SELECT a.id, a.name, a.source, b.website FROM art a, external_picture b, uploaded u
+		SELECT a.id, a.name, a.source, b.website, c.collection FROM art a, external_picture b, uploaded u, belongs_to c
 		WHERE a.id=b.id
 		AND u.external_picture=b.id
 		AND u.customer = <%= Integer.parseInt(temp) %>
+		AND c.art = b.id
 		AND (
 		<% for(int i=0; i<artIDs.size(); i++) { %>
 		a.id=<%= artIDs.get(i) %> OR
@@ -98,8 +99,9 @@
 									<c:out value="${row.website}" />
 								</p>
 								<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
-									<input type="hidden" name="id" value="${row.id}"> 
+									<input type="hidden" name="id" value=" ${row.id}"> 
 									<input type="hidden" name="external" value="true">
+									<input type="hidden" name="coll" value="${row.collection}">
 									<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
 								</form>
 								<script>
