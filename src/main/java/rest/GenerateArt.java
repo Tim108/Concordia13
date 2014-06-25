@@ -51,8 +51,6 @@ public class GenerateArt {
 									rs.getDouble("rating"),
 									rs.getBoolean("rented"));
 							artList.put(rs.getInt("id"), addArt);
-							System.out.println("UseList+id: "
-									+ artList.get(rs.getInt("id")).toString());
 						}
 					}
 				} conn.close();
@@ -75,8 +73,6 @@ public class GenerateArt {
 			while (inRandom.contains(random) || !allPaintings.contains(random)) {
 				random = first + (int) (Math.random() * ((last - first) + 1));
 			}
-			System.out.println("First: " + first + "| Last: " + last
-					+ "|Random: " + random);
 				inRandom.add(random);
 				randomArt.add(artList.get(random));
 		}
@@ -91,9 +87,7 @@ public class GenerateArt {
 	for(int i = 0; i<3; i++){
 		frontArtSource.add(randomArt.get(i).getSource());
 	}
-	System.out.println(frontArtSource);
 	request.setAttribute("artheaders", frontArtSource);
-	System.out.println(request.getContextPath());
 	return new Viewable("/index.jsp", null);
 	}
 	
@@ -102,7 +96,6 @@ public class GenerateArt {
 	@Produces(MediaType.TEXT_HTML)
 	public String HTMLcode(@QueryParam("amount") int amount, @QueryParam("align") String align) {
 		randomArt(amount); 
-		System.out.println(align);
 		String htmlcode = "";
 		if(align.equals("hor")) {
 		htmlcode = "<table><tr>";
