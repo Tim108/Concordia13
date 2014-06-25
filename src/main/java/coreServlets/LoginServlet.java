@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 					ResultSet rs = stmt
 							.executeQuery("SELECT id,pass,salt,name,surname,isadmin,activation FROM Customer WHERE email='"+ email + "';")) {
 				if(!rs.next()) {
-					request.setAttribute("E-mailError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Account niet gevonden!");
+					request.setAttribute("EmailError", "<img src=\"res/redCross.png\" height=\"14px;\" alt=\"ERROR:\"> Account niet gevonden!");
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
 					return;
 				}
