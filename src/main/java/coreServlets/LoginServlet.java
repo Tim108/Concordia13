@@ -37,14 +37,14 @@ public class LoginServlet extends HttpServlet {
 		try{
 			try (Statement stmt = conn.createStatement();
 					ResultSet rs = stmt
-							.executeQuery("SELECT id,pass,name,surname,isadmin,activation FROM Customer WHERE email='"+ email + "';")) {
+							.executeQuery("SELECT id,pass,salt,name,surname,isadmin,activation FROM Customer WHERE email='"+ email + "';")) {
 				if(!rs.next()) {
 					response.sendRedirect("/concordia/login.jsp");
 					return;
 				}
 				String savedPass = rs.getString("pass");
 				
-				if(!savedPass.equals(RegisterServlet.hashThis(pass))){
+				if(!savedPass.equals(RegisterServlet.hashThis(pass, rs.getBytes("salt")))){
 					System.out.println("NIET INLOGGUH!");
 					response.sendRedirect("/concordia/login.jsp");
 					return;
