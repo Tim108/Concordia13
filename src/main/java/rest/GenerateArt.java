@@ -29,7 +29,7 @@ public class GenerateArt {
 	Map<Integer, Art> artList = new HashMap<Integer, Art>();
 	ArrayList<Art> randomArt = new ArrayList<Art>();
 
-	public void init() {
+	public GenerateArt() {
 		try {
 			try (Connection conn = DriverManager.getConnection(
 					"jdbc:postgresql://datainfo.ewi.utwente.nl:5432/di13",
@@ -64,7 +64,6 @@ public class GenerateArt {
 	}
 
 	public void randomArt(int amount) {
-		init();
 		randomArt.clear();
 		ArrayList<Integer> allPaintings = new ArrayList<Integer>();
 		ArrayList<Integer> inRandom = new ArrayList<Integer>();
