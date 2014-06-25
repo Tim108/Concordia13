@@ -36,7 +36,6 @@ public class GenerateArt {
 					"di13", "CP+25Gf/")) {
 				try (PreparedStatement ps = conn
 						.prepareStatement("SELECT * FROM art, artpiece WHERE art.id = artpiece.id;")) {
-					System.out.println("pissoffffff");
 					try (ResultSet rs = ps.executeQuery()) {
 						while (rs.next()) {
 							Art addArt = new Art(rs.getInt("id"),

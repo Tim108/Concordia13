@@ -20,28 +20,26 @@
     <param-name>dbURL</param-name>
     <param-value>jdbc:postgresql://datainfo.ewi.utwente.nl:5432/di13</param-value>
   </context-param>
-   <servlet>
+  <servlet>
     <description>Login Servlet</description>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>coreServlets.LoginServlet</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-  
-      <servlet>
+  <servlet>
     <description>Activation Servlet</description>
     <display-name>ActivationServlet</display-name>
     <servlet-name>ActivationServlet</servlet-name>
     <servlet-class>coreServlets.ActivationServlet</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ActivationServlet</servlet-name>
     <url-pattern>/activateAccount</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>coreServlets.RegisterServlet</servlet-class>
@@ -58,8 +56,7 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>SubscriptionServlet</servlet-name>
     <servlet-class>coreServlets.SubscriptionServlet</servlet-class>
   </servlet>
@@ -67,7 +64,6 @@
     <servlet-name>SubscriptionServlet</servlet-name>
     <url-pattern>/subscriptions</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>CustomerServlet</servlet-name>
     <servlet-class>coreServlets.CustomerServlet</servlet-class>
@@ -76,7 +72,6 @@
     <servlet-name>CustomerServlet</servlet-name>
     <url-pattern>/klantservlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ExpositionAddServlet</servlet-name>
     <servlet-class>coreServlets.ExpositionAddServlet</servlet-class>
@@ -85,7 +80,6 @@
     <servlet-name>ExpositionAddServlet</servlet-name>
     <url-pattern>/voegToeExpositie</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ExpositionRemoveServlet</servlet-name>
     <servlet-class>coreServlets.ExpositionRemoveServlet</servlet-class>
@@ -94,7 +88,6 @@
     <servlet-name>ExpositionRemoveServlet</servlet-name>
     <url-pattern>/verwijderUitExpositie</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ExternalArtAddServlet</servlet-name>
     <servlet-class>coreServlets.ExternalArtAddServlet</servlet-class>
@@ -103,8 +96,7 @@
     <servlet-name>ExternalArtAddServlet</servlet-name>
     <url-pattern>/externUpload</url-pattern>
   </servlet-mapping>
- 
- <servlet>
+  <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>coreServlets.UserServlet</servlet-class>
   </servlet>
@@ -112,7 +104,6 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/userinfo</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>StatServlet</servlet-name>
     <servlet-class>coreServlets.StatServlet</servlet-class>
@@ -121,7 +112,6 @@
     <servlet-name>StatServlet</servlet-name>
     <url-pattern>/stats</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ExpositionServlet</servlet-name>
     <servlet-class>coreServlets.ExpositionServlet</servlet-class>
@@ -130,7 +120,6 @@
     <servlet-name>ExpositionServlet</servlet-name>
     <url-pattern>/expositie</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>AdminExpositionServlet</servlet-name>
     <servlet-class>coreServlets.AdminExpositionServlet</servlet-class>
@@ -139,7 +128,6 @@
     <servlet-name>AdminExpositionServlet</servlet-name>
     <url-pattern>/adminExpositie</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>RemoveServlet</servlet-name>
     <servlet-class>coreServlets.RemoveServlet</servlet-class>
@@ -148,7 +136,6 @@
     <servlet-name>RemoveServlet</servlet-name>
     <url-pattern>/remove</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ArtServlet</servlet-name>
     <servlet-class>coreServlets.ArtServlet</servlet-class>
@@ -157,40 +144,35 @@
     <servlet-name>ArtServlet</servlet-name>
     <url-pattern>/voegtoe</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>subscription</servlet-name>
-  	<jsp-file>/subscriptions.jsp</jsp-file>
+    <servlet-name>subscription</servlet-name>
+    <jsp-file>/subscriptions.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>subscription</servlet-name>
-  	<url-pattern>/subscription</url-pattern>
+    <servlet-name>subscription</servlet-name>
+    <url-pattern>/subscription</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>register</servlet-name>
-  	<jsp-file>/register.jsp</jsp-file>
+    <servlet-name>register</servlet-name>
+    <jsp-file>/register.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>register</servlet-name>
-  	<url-pattern>/registerpage</url-pattern>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/registerpage</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>logout</servlet-name>
-  	<jsp-file>/logout.jsp</jsp-file>
+    <servlet-name>logout</servlet-name>
+    <jsp-file>/logout.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>logout</servlet-name>
-  	<url-pattern>/loguit</url-pattern>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/loguit</url-pattern>
   </servlet-mapping>
-    
-    <servlet>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
-	
+  <servlet>
+    <servlet-name>javax.ws.rs.core.Application</servlet-name>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>javax.ws.rs.core.Application</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
 </web-app>
