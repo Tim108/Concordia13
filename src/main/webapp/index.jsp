@@ -117,7 +117,7 @@
 	  <CENTER><p>Jouw portaal naar betaalbare kunst. Begin gelijk met zoeken in ${row.count} kunstwerken.</p></Center>
 	  </c:forEach>
 		<CENTER><div style="width:400px;">
-	 	  <form class="navbar-form" method="POST" action="/concordia/search">
+	 	  <form class="navbar-form" method="POST" action="<%=request.getContextPath()%>">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Zoeken" name="srch-term" id="srch-term">
           <div class="input-group-btn">
