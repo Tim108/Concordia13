@@ -32,8 +32,8 @@ public class GenerateArt {
 	public GenerateArt() {
 		try {
 			try (Connection conn = DriverManager.getConnection(
-					"jdbc:postgresql://datainfo.ewi.utwente.nl:5432/di13",
-					"di13", "CP+25Gf/")) {
+					"jdbc:postgresql://localhost:5432/Kunstuitleen",
+					"postgres", "dude")) {
 				try (PreparedStatement ps = conn
 						.prepareStatement("SELECT * FROM art, artpiece WHERE art.id = artpiece.id;")) {
 					try (ResultSet rs = ps.executeQuery()) {

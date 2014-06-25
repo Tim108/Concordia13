@@ -10,15 +10,15 @@
   </welcome-file-list>
   <context-param>
     <param-name>dbUser</param-name>
-    <param-value>di13</param-value>
+    <param-value>postgres</param-value>
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
-    <param-value>CP+25Gf/</param-value>
+    <param-value>dude</param-value>
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:postgresql://datainfo.ewi.utwente.nl:5432/di13</param-value>
+    <param-value>jdbc:postgresql://localhost:5432/Kunstuitleen</param-value>
   </context-param>
   <servlet>
     <description>Login Servlet</description>
