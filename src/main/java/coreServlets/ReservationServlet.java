@@ -25,10 +25,11 @@ public class ReservationServlet extends HttpServlet {
 							.prepareStatement("SELECT COUNT(subscription) FROM pays_a WHERE customer=?;")) {
 				ps.setInt(1, (int) request.getSession().getAttribute("Logged"));
 				ResultSet rs = ps.executeQuery();
-				if (!rs.next()) {
-					reservations = reservations + rs.getInt("count");
-				}
+				if (rs.next()) {
+					reservations = (reservations + rs.getInt("count"));
+					}
 				System.out.println(reservations);
+				 
 			}
 		} catch (Exception e) {
 

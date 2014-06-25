@@ -34,12 +34,12 @@
 	<jsp:include page="main.jsp"/>
     <div class="head">
     	<center><h1>Log in</h1><hr>
-    	<form method="POST" action="/concordia/login">
+    	<form method="POST" action="<%=request.getContextPath()%>/login">
     		<table>
     		<tr><td><td><font color="#E00000">${E-mailError}</font></td>
-			<tr><td style="padding-right:10px; padding-bottom:10px">E-mailadres:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="name" <% if(request.getParameter("name") != null) { %> value= <%= request.getParameter("name") %> <% } %> ></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">E-mailadres:<td style="padding-right:10px; padding-bottom:10px"> <input type="text" name="email" <% if(request.getParameter("name") != null) { %> value= <%= request.getParameter("name") %> <% } %> ></tr>
 			<tr><td><td><font color="#E00000">${PasswordError}</font></td>
-			<tr><td style="padding-right:10px; padding-bottom:10px">Wachtwoord:<td style="padding-right:10px; padding-bottom:10px"> <input type="password" name="pass"></tr>
+			<tr><td style="padding-right:10px; padding-bottom:10px">Wachtwoord:<td style="padding-right:10px; padding-bottom:10px"> <input type="password" name="password"></tr>
 			</table>
 			<input type="submit" value="Submit">
 		</form></center><hr>
