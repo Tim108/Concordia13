@@ -108,7 +108,7 @@
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 	<sql:query dataSource="${snapshot}" var="artpieces">
-SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
+SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating FROM art a, artpiece b
 WHERE a.id=b.id
 AND (
 <%	for(int i=0; i<ids.size(); i++) {%>
@@ -243,21 +243,21 @@ a.id = '<%=ids.get(0)%>')
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
-									<c:choose>
+									<!--<c:choose>
 										<c:when test="${row.rented==true}">
 											<p>
 												<font color='red'>Beschikbaar over 13 weken</font>
 											</p>
 										</c:when>
-										<c:otherwise>
+										<c:otherwise>-->
 											<p>
 												<font color='green'>Beschikbaar</font>
 											</p>
-										</c:otherwise>
-									</c:choose>
+										<!--</c:otherwise>
+									</c:choose>-->
 								</div>
 									<p>
-									<c:choose>
+									<!--<c:choose>
 										<c:when test="${row.rented==true}">
 											<p>
 											<form action="/concordia/reserveer" method="post">
@@ -266,13 +266,13 @@ a.id = '<%=ids.get(0)%>')
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
 											</form>
 										</c:when>
-										<c:otherwise>
+										<c:otherwise>-->
 											<p>
 											<div class="btn-group">
 												<a href="#" class="btn btn-primary" role="button">Huur
 													direct!</a>
-										</c:otherwise>
-									</c:choose>
+										<!--</c:otherwise>
+									</c:choose>-->
 									<div class="btn-group dropup">
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
