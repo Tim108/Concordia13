@@ -108,9 +108,8 @@
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 	<sql:query dataSource="${snapshot}" var="artpieces">
-SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, r.startingdate, r.endingdate FROM art a, artpiece b, rent r
+SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating FROM art a, artpiece b
 WHERE a.id=b.id
-AND r.artpiece = a.id
 AND (
 <%	for(int i=0; i<ids.size(); i++) {%>
 a.id = '<%=ids.get(i)%>' OR
@@ -118,6 +117,10 @@ a.id = '<%=ids.get(i)%>' OR
 a.id = '<%=ids.get(0)%>')
 ORDER BY rating DESC
 	</sql:query>	
+	
+	<sql:query dataSource="${snapshot}" var="rents">
+SELECT * FROM rent r
+	</sql:query>
 	
 	<sql:query dataSource="${snapshot}" var="externals">
 SELECT a.id, a.name, a.source, b.website FROM art a, external_picture b
@@ -244,43 +247,37 @@ a.id = '<%=ids.get(0)%>')
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
-									<c:choose>
-										<% System.out.println(new java.sql.Date(new java.util.Date().getTime()).toString()); %>
-										<c:when test="${row.startingdate} < <%= new java.sql.Date(new java.util.Date().getTime()) %>">
-											<p>
-												<font color='red'>Beschikbaar over 13 weken</font>
-											</p>
-										</c:when>
-										<c:otherwise>
-											<p>
-												<font color='green'>Beschikbaar</font>
-											</p>
-										</c:otherwise>
-									</c:choose>
-								</div>
-									<p>
-									<!--<c:choose>
-										<c:when test="${row.rented==true}">
-											<p>
-											<form action="/concordia/reserveer" method="post">
+									<% 
+									pageContext.setAttribute("currentDate",new java.sql.Date(new java.util.Date().getTime()));
+									%>
+									<c:forEach var="rentrow" items="${rents.rows}">
+										<c:choose>
+											<c:when test="${rentrow.artpiece == row.id && rentrow.startingdate < currentDate && rentrow.endingDate > currentDate}">
+												<p>
+													<font color='red'>Beschikbaar over <c:out value="${rentrow.endingdate - currentDate}" /> dagen</font>
+												</p>
+												<p>
+												<form action="/concordia/reserveer" method="post">
 												<input type="hidden" name="id" id="" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-											</form>
-										</c:when>
-										<c:otherwise>-->
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Huur
-													direct!</a>
-										<!--</c:otherwise>
-									</c:choose>-->
-									<div class="btn-group dropup">
-									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown">
-										Delen <span class="caret"></span>
-									</button>
-
+												</form>
+												<div class="btn-group dropup">
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
+											</c:when>
+											<c:otherwise>
+												<p>
+													<font color='green'>Beschikbaar</font>
+												</p>
+												<p>
+												<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Huur direct!</a>
+												<div class="btn-group dropup">
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
 									<ul class="dropdown-menu pull-right" role="menu">
 										<table>
 											<tr>
