@@ -35,6 +35,17 @@
 		margin: auto;
 	}
 	</style>
+	<style>
+	#containert {
+   width: 100%;
+   height: 320px;
+}
+
+#containert img {
+   width: 100%;
+   margin-top: -20%;
+}
+	</style>
 </head>
 <body>
 	<jsp:include page="main.jsp">
@@ -66,7 +77,7 @@
 	request.removeAttribute("artheaders");
 	%>
 	<div class="head">
-		<CENTER><H1>Populaire werken</H1></CENTER>
+		<CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER>
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
      	 <!-- Indicators -->
       		<ol class="carousel-indicators">
@@ -76,7 +87,9 @@
      		 </ol>
       	<div class="carousel-inner">
         	<div class="item active">
-        	  <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" style="width:100%; min-height:100%;">
+        	<div id="containert">
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+			</div>
         	  <div class="container">
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities</h1>
@@ -86,7 +99,9 @@
         	  </div>
         	  </div>
         	<div class="item">
-        	  <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" style="width:100%; min-height:100%;">
+        	 <div id="containert">
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+			</div>
           <div class="container">
             <div class="carousel-caption">
             <c:forEach var="row" items="${art.rows}">
@@ -98,7 +113,9 @@
           </div>
         </div>
         <div class="item">
-          <img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" style="width:100%; min-height:100%;">
+          <div id="containert">
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+			</div>
           <div class="container">
             <div class="carousel-caption">
               <h1>Vanaf slechts 7,50 euro per maand</h1>
@@ -127,3 +144,17 @@
 	 </div>
 	</div>
 	</div>
+	<script>
+	<script type="text/javascript">
+	(function() {
+
+	var img = document.getElementById('containert').firstChild;
+	img.onload = function() {
+		if(img.height > img.width) {
+	        img.height = 'auto';
+	        img.width = '100%';
+	    }
+	};
+
+	}());
+	</script>
