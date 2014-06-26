@@ -75,7 +75,7 @@
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 
 	<sql:query dataSource="${snapshot}" var="artpieces">
-SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating, b.rented FROM art a, artpiece b
+SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique, b.orientation, b.price, b.rating FROM art a, artpiece b
 WHERE a.id=b.id
 <%
 		if (request.getAttribute("Search") != null) {
@@ -325,7 +325,7 @@ ORDER BY rating DESC;
 										<c:out value="${row.price}" />
 									</h3>
 									<c:choose>
-										<c:when test="${row.rented==true}">
+										<c:when test="true">
 											<p>
 												<font color='red'>Beschikbaar over 13 weken</font>
 											</p>
@@ -364,7 +364,7 @@ ORDER BY rating DESC;
 											} else {
 										%>
 										<c:choose>
-											<c:when test="${row.rented==true}">
+											<c:when test="true">
 												<p>
 												<div class="btn-group">
 													<a href="#" class="btn btn-primary" role="button">Reserveer</a>

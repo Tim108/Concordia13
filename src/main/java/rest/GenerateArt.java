@@ -64,8 +64,7 @@ public class GenerateArt {
 									rs.getString("technique"),
 									rs.getString("orientation"),
 									rs.getDouble("price"),
-									rs.getDouble("rating"),
-									rs.getBoolean("rented"));
+									rs.getDouble("rating"));
 							artList.put(rs.getInt("id"), addArt);
 						}
 					}

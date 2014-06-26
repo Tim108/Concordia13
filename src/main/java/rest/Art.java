@@ -12,11 +12,10 @@ public class Art {
 	String orientation;
 	double price;
 	double rating;
-	boolean rented;
 	
 	public Art(int id, String name, String source, String artist,
 			double height, double width, String style, String technique,
-			String orientation, double price, double rating, boolean rented) {
+			String orientation, double price, double rating) {
 		this.id = id;
 		this.name = name;
 		this.source = source;
@@ -28,7 +27,6 @@ public class Art {
 		this.orientation = orientation;
 		this.price = price;
 		this.rating = rating;
-		this.rented = rented;
 	}
 	
 	protected int getId() {
@@ -97,14 +95,7 @@ public class Art {
 	protected void setRating(double rating) {
 		this.rating = rating;
 	}
-	protected boolean isRented() {
-		return rented;
-	}
-	protected void setRented(boolean rented) {
-		this.rented = rented;
-	}
-	
 	public String toString(){
-		return id + " " + name + " " + source + " " + artist + " " + height + " " + width + " " + style + " " + technique + " " + orientation + " " + rating + " " + price + " " +  rented;
+		return id + " " + name + " " + source + " " + artist + " " + height + " " + width + " " + style + " " + technique + " " + orientation + " " + rating + " " + price;
 	}
 }
