@@ -132,12 +132,34 @@ a.id = '<%=ids.get(0)%>')
       <div class="container">
         <div class="row">
           <div class="span12">
-          	<h1><%=names.get(0)%></h1>
+          	<h1 id="expositionName"><%=names.get(0)%></h1>
+          	<% if(request.getAttribute("NotMine") == null) { %>
+          	<button onclick="changeName()" style="padding: 0; border: none; background: none;"><span class="glyphicon glyphicon-edit"></span></button>
+          	<% } %>
           	<h4>door <%=names.get(1)%> <%=names.get(2)%></h4>
           </div>
         </div>
       </div>
     </div>
+    <script>
+    function changeName() {
+    	document.getElementById('expositionName').innerHTML = '<form id="changeNameForm" action="/concordia/expositie" method="get"><input type="hidden" name="id" value="<%=request.getParameter("id")%>" /> <input type="text" onblur="permChange()" name="nameInput" id="nameInput" /> </form>';
+    	document.getElementById('nameInput').focus();
+    	document.getElementById('nameInput').onkeypress = function(e){
+            if (!e) e = window.event;
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == '13'){
+           		permChange();
+              	return false;
+            }
+        }
+    }
+    
+    function permChange() {
+    	document.getElementById('expositionName').innerHTML = document.getElementById('nameInput').value;
+    	document.getElementById('changeNameForm').submit();
+    }
+    </script>
     <% } else { %>
     <div id="title">
       <div class="container">
