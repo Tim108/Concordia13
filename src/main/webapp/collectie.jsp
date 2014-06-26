@@ -46,12 +46,6 @@
 }
 </style>
 
-<!-- rating -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-<script
-	src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-
 </head>
 <body>
 	<jsp:include page="main.jsp">
@@ -61,14 +55,14 @@
 
 	<%
 		String path = "res/dbprops.txt";
-			Properties prop = new Properties();
-			prop.load(new FileInputStream(getServletContext().getRealPath(path)));
-			String user = prop.getProperty("username");
-			String pass1 = prop.getProperty("pass");
-			String host = prop.getProperty("host");
-			String port = prop.getProperty("port");
-			String dbname = prop.getProperty("dbname");
-			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+		Properties prop = new Properties();
+		prop.load(new FileInputStream(getServletContext().getRealPath(path)));
+		String user = prop.getProperty("username");
+		String pass1 = prop.getProperty("pass");
+		String host = prop.getProperty("host");
+		String port = prop.getProperty("port");
+		String dbname = prop.getProperty("dbname");
+		String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
 	%>
 
 	<sql:setDataSource var="snapshot" driver="org.postgresql.Driver"
@@ -79,8 +73,8 @@ SELECT a.id, a.name, a.source, b.artist, b.height, b.width, b.style, b.technique
 WHERE a.id=b.id
 <%
 		if (request.getAttribute("Search") != null) {
-		List<String> l = (List<String>) request
-		.getAttribute("Search");
+			List<String> l = (List<String>) request
+			.getAttribute("Search");
 	%>
  AND (a.name='<%=l.get(0)%>'
 	<%
@@ -89,7 +83,7 @@ WHERE a.id=b.id
  OR a.name='<%=l.get(i)%>'
 <%
 		}}
-			if(request.getAttribute("Search") != null)
+		if(request.getAttribute("Search") != null)
 	%>)
 ORDER BY rating DESC;
 </sql:query>
@@ -125,13 +119,13 @@ ORDER BY rating DESC;
 
 			<%
 				List<Double> prices = (List<Double>) request.getAttribute("prices");
-										List<String> artists = (List<String>) request.getAttribute("artists");
-										List<Double> widths = (List<Double>) request.getAttribute("widths");
-										List<Double> heights = (List<Double>) request.getAttribute("heights");
-										List<String> styles = (List<String>) request.getAttribute("styles");
-										List<String> techs = (List<String>) request.getAttribute("techs");
-										List<String> orients = (List<String>) request.getAttribute("orients");
-										List<Double> ratings = (List<Double>) request.getAttribute("ratings");
+											List<String> artists = (List<String>) request.getAttribute("artists");
+											List<Double> widths = (List<Double>) request.getAttribute("widths");
+											List<Double> heights = (List<Double>) request.getAttribute("heights");
+											List<String> styles = (List<String>) request.getAttribute("styles");
+											List<String> techs = (List<String>) request.getAttribute("techs");
+											List<String> orients = (List<String>) request.getAttribute("orients");
+											List<Double> ratings = (List<Double>) request.getAttribute("ratings");
 			%>
 			<div id="advancedSearchDiv" class="hidden-element">
 				<!-- <form id="advancedOpt" method="POST" action="/concordia/search"> -->
@@ -342,7 +336,7 @@ ORDER BY rating DESC;
 									<center>
 										<%
 											HttpSession s = request.getSession();
-																																																														if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+																																																																						if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
 										%>
 
 										<p>
@@ -384,87 +378,86 @@ ORDER BY rating DESC;
 											Delen <span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu" role="menu">
-										<table>
-											<tr>
-												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-													target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
-													" target="_blank"> <img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-											</tr>
-										</table>
-									</ul>
+											<table>
+												<tr>
+													<td style="padding-right: 10px; padding-bottom: 10px"><a
+														href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+														target="_blank"><img
+															src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+															alt="Facebook" style="height: 50px;" /></a>
+													<td style="padding-bottom: 10px;"><a
+														href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+														target="_blank"><img
+															src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+															alt="Twitter" style="height: 50px;" /></a>
+												</tr>
+												<tr>
+													<td style="padding-right: 10px;"><a
+														href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+														" target="_blank"> <img
+															src="http://www.simplesharebuttons.com/images/somacro/google.png"
+															alt="Google" style="height: 50px;" /></a>
+													<td><a
+														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+															src="http://www.simplesharebuttons.com/images/somacro/email.png"
+															alt="Email" style="height: 50px;" /></a>
+												</tr>
+											</table>
+										</ul>
 									</center>
 									<%
-									if(s.getAttribute("Logged") != null) {
+										if(s.getAttribute("Logged") != null) {
 									%>
 									<br>
 									<form name="myForm" action="voegToeExpositie" method="post">
-										<input type="hidden" name="id" value="${row.id}"> 
-										<select name="expo" onchange="namePopUp(this)">
+										<input type="hidden" name="id" value="${row.id}"> <select
+											name="expo" onchange="namePopUp(this)">
 											<option value="">Voeg toe aan expositie</option>
 											<%
-											Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
-											if(expositions != null)  {
-												for(Integer i : expositions.keySet()) { %>
-													<option value=<%=i%>><%= expositions.get(i) %></option>
-												<%	
+												Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
+																				if(expositions != null)  {
+																					for(Integer i : expositions.keySet()) {
+											%>
+											<option value=<%=i%>><%=expositions.get(i)%></option>
+											<%
 												}
-											}
+																				}
 											%>
 											<option myid=1>Nieuwe Expositie</option>
-										</select> <br><br>
-										<input
-											type="submit" value="Voeg toe aan expositie"
+										</select> <br>
+										<br> <input type="submit" value="Voeg toe aan expositie"
 											class="btn btn-success">
 									</form>
-									
+
 									<script>
 										function namePopUp(select) {
-											if(select.options[select.selectedIndex].getAttribute("myid") == 1) {
-										    	var expo = prompt("Kies een naam voor uw Expositie","Expositie");
-										    	if (expo != null) {
-										    		select.options[select.selectedIndex].innerHTML = expo;
-										    		select.options[select.selectedIndex].setAttribute("value", expo);
-										    	}
+											if (select.options[select.selectedIndex]
+													.getAttribute("myid") == 1) {
+												var expo = prompt(
+														"Kies een naam voor uw Expositie",
+														"Expositie");
+												if (expo != null) {
+													select.options[select.selectedIndex].innerHTML = expo;
+													select.options[select.selectedIndex]
+															.setAttribute(
+																	"value",
+																	expo);
+												}
 											}
 										}
 									</script>
-									
-									<% } %>
-									
-									<form action="search" method="post" id="ratingform">
-										<div ng-controller="Rating">
-										${row.id}
-										<input type="hidden" id="rowid" name="rowid" value="${row.id}">
-											<div ng-init="x = ${row.rating}">
-												<h3>
-													<rating ng-model="rate" type="input" class="input" name="rrating" id="rrating${row.id}" value="x"
-														max="5" state-on="'glyphicon-star'"
-														state-off="'glyphicon-star-empty'" onClick="document.getElementById('ratingform').submit();"></rating>
-														
-												</h3>
-												<input type="text" value="{{rate}}" name="rating${row.id}" id="rating${row.id}">
-												<input type="hidden" id="rated" name="rated" value="${row.id}">
-											</div>
 
-										</div>
+									<%
+										}
+									%>
+
+									<form action="search" method="post" id="ratingform">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c1" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="1">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c2" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="2">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c3" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="3">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c4" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="4">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c5" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="5">
+										<input type="hidden" id="rating" name="rating" value="0&${row.id}">
 									</form>
 								</div>
 								</p>
@@ -477,42 +470,24 @@ ORDER BY rating DESC;
 	</CENTER>
 </body>
 <script>
-function submitRating(idArg){
-	var id = idArg;
-	var rating = document.getElementById("rrating" + id).getAttribute("value");
-	console.log("id = " + id);
-	console.log("rating = " + rating);
-	document.getElementById("rated").setAttribute("value", id);
-	document.getElementById("rating" + id).setAttribute("value", rating);
+function hover(c, id) {
+	  rating = parseInt(c.value);
+	  for (var i = 1; i <= 5; i++) { 
+		  document.getElementById(id + "c" + i).checked = false;
+		}
+	  
+	  for (var i = 1; i <= rating; i++) { 
+		  document.getElementById(id + "c" + i).checked = true;
+		}
+	}
+	
+function clicked(c, id){
+	rating = parseInt(c.value);
+	document.getElementById("rating").setAttribute("value", rating + "&" + id);
 	document.getElementById("ratingform").submit();
+	console.log("submitted");
 }
-</script>
-<script>
-	angular.module('cc', [ 'ui.bootstrap' ]);
-	var Rating = function($scope) {
-		 $scope.myRate = 0;
-		 console.log($scope.myRate);
-	     $scope.submit = function() {
-	         console.log($scope.percent);
-	     }
 
-	     $scope.rate = 1;
-	     $scope.max = 5;
-	     $scope.isReadonly = false;
-	     $scope.percent = 20;
-
-	      $scope.hoveringOver = function(value,object) {
-	        console.log('hoveringOver', value);
-	        $scope.overStar = value;
-	        $scope.percent = (100 * $scope.overStar) / $scope.max;
-	      };
-
-	       $scope.hoveringLeave = function(rate) {
-	        console.log('hoveringLeave',  $scope.rate);
-
-	       $scope.percent = (100 * $scope.rate) / $scope.max;
-	      };
-	};
 </script>
 <script>
 	function showDivContent() {
