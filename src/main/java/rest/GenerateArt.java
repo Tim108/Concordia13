@@ -1,5 +1,8 @@
 package rest;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -23,7 +29,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
 
 import com.sun.jersey.api.view.Viewable;
-
 @Path("/generateArt")
 public class GenerateArt {
 	Map<Integer, Art> artList = new HashMap<Integer, Art>();
@@ -31,9 +36,20 @@ public class GenerateArt {
 
 	public GenerateArt() {
 		try {
-			try (Connection conn = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/Kunstuitleen",
-					"postgres", "dude")) {
+			URL resource = getClass().getResource("/");
+			String path = resource.getPath();
+			path = path.replace("WEB-INF/classes/", "");
+			path = path + "res/dbprops.txt"; 
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(path));
+			String user = prop.getProperty("username");
+			String pass1 = prop.getProperty("pass");
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String dbname = prop.getProperty("dbname");
+			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
+			 System.out.println("URL: " + url + ", USER: " + user + ", PASS: " + pass1);
+			try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 				try (PreparedStatement ps = conn
 						.prepareStatement("SELECT * FROM art, artpiece WHERE art.id = artpiece.id;")) {
 					try (ResultSet rs = ps.executeQuery()) {

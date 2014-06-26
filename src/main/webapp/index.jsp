@@ -14,7 +14,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Concordia</title>
 	<!-- Bootstrap -->
-	<% System.out.println(request.getContextPath()); %>
 	<link href="<%=request.getContextPath()%>/res/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/res/css/carousel.css" rel="stylesheet">
 	<link rel="icon" type="<%=request.getContextPath()%>/image/x-icon" href="favicon.ico"/>
