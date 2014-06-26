@@ -69,6 +69,14 @@ public class ExpositionServlet  extends HttpServlet {
 		int userID = 0;
 		List<String> names = new ArrayList<String>();
 		try{
+			if(request.getParameter("nameInput") != null) {
+				try(PreparedStatement ps = conn.prepareStatement("UPDATE collection SET name=? WHERE id=?")) {
+					ps.setString(1, request.getParameter("nameInput"));
+					ps.setInt(2, id);
+					expositions.put(id, request.getParameter("nameInput"));
+					ps.execute();
+				}
+			}
 			try(PreparedStatement ps = conn.prepareStatement("SELECT customer FROM has WHERE collection = ?")) {
 				ps.setInt(1, id);
 				try(ResultSet rs = ps.executeQuery()) {
