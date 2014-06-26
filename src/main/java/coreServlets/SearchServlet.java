@@ -127,9 +127,7 @@ public class SearchServlet extends HttpServlet {
 		try{
 			double rates1 = rates;
 			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating));
-			newRating = newRating * 10;
-			Math.round(newRating);
-			newRating= newRating/10;
+			newRating = Math.round(newRating * 10) / (double)10;
 			rates++;
 			System.out.println("newrating = " + newRating);
 		}catch (NullPointerException e){
