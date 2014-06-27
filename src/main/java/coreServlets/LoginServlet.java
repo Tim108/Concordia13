@@ -64,8 +64,10 @@ public class LoginServlet extends HttpServlet {
 				HttpSession s = request.getSession();
 				try(PreparedStatement ps2 = conn.prepareStatement("SELECT h.collection, c.name, r.artpiece, r.startingdate, g.artpiece AS rentpiece, g.startingdate, g.endingdate, g.deliver FROM rent g, reservation r, has h, Collection c WHERE h.customer = ? AND h.customer = r.customer AND h.customer = g.customer AND c.id = h.collection;")) {
 					ps2.setInt(1, id);
+					System.out.println(ps2.toString());
 					try(ResultSet rs2 = ps2.executeQuery()) {
 						while(rs2.next()) {
+							System.out.println("Expositie: " + rs2.getString("name"));
 							expositions.put(rs2.getInt("collection"),rs2.getString("name"));
 							reservations.put(rs2.getInt("artpiece"),rs2.getDate("startingdate"));
 							List<Object> rentinfo = new ArrayList<Object>();
