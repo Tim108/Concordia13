@@ -481,17 +481,20 @@ a.id = '<%=ids.get(0)%>')
     <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
     <% if(request.getAttribute("NotMine") == null) { %>
 	<div class="btn-group">
+	<table class="table table-condensed">
+	<tr><td>
 		<form action="externUpload.jsp" method="post">
 			<input type="hidden" name="collection" id="collectionID" value="<%= request.getParameter("id")%>" />
 			<input type="submit" class="btn btn-primary" value="Voeg een extern werk toe" />
 		</form>
-		
+		</td><td>
 		<form action="verwijderUitExpositie" method="post" onsubmit="return popUp()">
 			<input type="hidden" name="id" id="verwijderid" value=""> 
 			<input type="hidden" name="coll" id="collID" value="<%= request.getParameter("id")%>">
 			<input type="submit" value="Verwijder uit expositie" class="btn btn-success">
 		</form>
-									
+		</td></tr>
+				</table>					
 		<script>
 			function popUp() {
 				var r = confirm("Weet je zeker dat je dit werk/deze werken wilt verwijderen?\nAls dit het laatste werk is, word de Expositie verwijderd.'");
