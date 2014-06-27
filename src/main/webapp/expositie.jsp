@@ -243,22 +243,22 @@ a.id = '<%=ids.get(0)%>')
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
-									<!--<c:choose>
-										<c:when test="${row.rented==true}">
+									<c:choose>
+										<c:when test="true">
 											<p>
 												<font color='red'>Beschikbaar over 13 weken</font>
 											</p>
 										</c:when>
-										<c:otherwise>-->
+										<c:otherwise>
 											<p>
 												<font color='green'>Beschikbaar</font>
 											</p>
-										<!--</c:otherwise>
-									</c:choose>-->
+										</c:otherwise>
+									</c:choose>
 								</div>
 									<p>
-									<!--<c:choose>
-										<c:when test="${row.rented==true}">
+									<c:choose>
+										<c:when test="true">
 											<p>
 											<form action="/concordia/reserveer" method="post">
 												<input type="hidden" name="id" id="" value="${row.id}" />
@@ -266,13 +266,13 @@ a.id = '<%=ids.get(0)%>')
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
 											</form>
 										</c:when>
-										<c:otherwise>-->
+										<c:otherwise>
 											<p>
 											<div class="btn-group">
 												<a href="#" class="btn btn-primary" role="button">Huur
 													direct!</a>
-										<!--</c:otherwise>
-									</c:choose>-->
+										</c:otherwise>
+									</c:choose>
 									<div class="btn-group dropup">
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
