@@ -89,7 +89,14 @@ public class SearchServlet extends HttpServlet {
 		
 		//get the rating
 		String ratingString = request.getParameter("rating");
-		String[] strList= ratingString.split("&");
+		String[] strList = {"0","0"};
+		int weight = 1;
+		if(ratingString != null && ratingString != ""){
+			strList = ratingString.split("&");
+		} else {
+			weight = 0;
+		}
+		
 		int rating = Integer.parseInt(strList[0]);
 		long ratedId = Integer.parseInt(strList[1]);
 		double oldrating = 0;
@@ -114,10 +121,9 @@ public class SearchServlet extends HttpServlet {
 		
 		try{
 			double rates1 = rates;
-			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating));
+			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating)*weight);
 			newRating = Math.round(newRating * 10) / (double)10;
 			rates++;
-			System.out.println(rating + " -- " +oldrating + " -- " +newRating + " -- " + rates);
 		}catch (NullPointerException e){
 			System.out.println("Calculation error! Rate not processed!");
 		}
