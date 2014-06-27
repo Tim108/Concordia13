@@ -78,7 +78,7 @@
 	request.removeAttribute("artheaders");
 	%>
 	<div class="head">
-				<CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER>
+	<!-- <CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER> -->
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
      	 <!-- Indicators -->
       		<ol class="carousel-indicators">

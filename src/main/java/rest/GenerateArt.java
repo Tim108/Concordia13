@@ -48,7 +48,7 @@ public class GenerateArt {
 			String port = prop.getProperty("port");
 			String dbname = prop.getProperty("dbname");
 			String url = "jdbc:postgresql://" + host + ":" + port + "/" + dbname;
-			 System.out.println("URL: " + url + ", USER: " + user + ", PASS: " + pass1);
+			// System.out.println("URL: " + url + ", USER: " + user + ", PASS: " + pass1);
 			try (Connection conn = DriverManager.getConnection(url, user, pass1)) {
 				try (PreparedStatement ps = conn
 						.prepareStatement("SELECT * FROM art, artpiece WHERE art.id = artpiece.id;")) {
