@@ -50,6 +50,8 @@ public class ArtServlet extends HttpServlet {
 	    String fileName = getFileName(filePart);
 	    String fileExt = fileName.substring(fileName.indexOf('.'));
 		
+	    int id = 0;
+	    
 	    Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
 		try {
 			try (Statement stmt = conn.createStatement();
@@ -60,22 +62,26 @@ public class ArtServlet extends HttpServlet {
 					fileName = "kunst" + num + fileExt; 
 				}
 			}
-			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Art (name, source) VALUES(?,?);")){
+			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Art (name, source) VALUES(?,?) RETURNING id;")){
 				ps.setString(1, title);
 				ps.setString(2, fileName);
-				if(ps.execute()) {
+				try(ResultSet rs = ps.executeQuery()) {
+					if(rs.next()) {
+						id = rs.getInt("id");
+					}
 				}
 			}
-			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (artist, height, width, style, technique, orientation, price, rating, rented) VALUES (?,?,?,?,?,?,?,?,?);")) {
-				ps.setString(1, artist);
-				ps.setDouble(2, heigth);
-				ps.setDouble(3, width);
-				ps.setString(4, style);
-				ps.setString(5, technique);
-				ps.setString(6, orientation);
-				ps.setDouble(7, price);
-				ps.setInt(8, 0);
-				ps.setBoolean(9, false);
+			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Artpiece (id, artist, height, width, style, technique, orientation, price, rating, rates) VALUES (?,?,?,?,?,?,?,?,?,?);")) {
+				ps.setInt(1, id);
+				ps.setString(2, artist);
+				ps.setDouble(3, heigth);
+				ps.setDouble(4, width);
+				ps.setString(5, style);
+				ps.setString(6, technique);
+				ps.setString(7, orientation);
+				ps.setDouble(8, price);
+				ps.setInt(9, 0);
+				ps.setInt(10, 0);
 				if(ps.execute()) {
 					System.out.println("Query Executed!");
 				}
