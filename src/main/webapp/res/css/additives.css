@@ -2,3 +2,12 @@
 {
    display:none;
 }
+.glyphicon:before {
+     visibility: visible;
+}
+.glyphicon.glyphicon-star-empty:checked:before {
+    content: "\e006";
+}
+input[type=checkbox].glyphicon{
+     visibility: hidden;        
+}

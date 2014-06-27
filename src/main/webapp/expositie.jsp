@@ -118,6 +118,10 @@ a.id = '<%=ids.get(0)%>')
 ORDER BY rating DESC
 	</sql:query>	
 	
+	<sql:query dataSource="${snapshot}" var="rents">
+SELECT * FROM rent r
+	</sql:query>
+	
 	<sql:query dataSource="${snapshot}" var="externals">
 SELECT a.id, a.name, a.source, b.website FROM art a, external_picture b
 WHERE a.id=b.id
@@ -243,75 +247,92 @@ a.id = '<%=ids.get(0)%>')
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
-									<!--<c:choose>
-										<c:when test="${row.rented==true}">
-											<p>
-												<font color='red'>Beschikbaar over 13 weken</font>
-											</p>
-										</c:when>
-										<c:otherwise>-->
-											<p>
-												<font color='green'>Beschikbaar</font>
-											</p>
-										<!--</c:otherwise>
-									</c:choose>-->
-								</div>
-									<p>
-									<!--<c:choose>
-										<c:when test="${row.rented==true}">
-											<p>
-											<form action="/concordia/reserveer" method="post">
+									<% 
+									pageContext.setAttribute("currentDate",new java.sql.Date(new java.util.Date().getTime()));
+									%>
+									<c:forEach var="rentrow" items="${rents.rows}">
+										<c:choose>
+											<c:when test="${rentrow.artpiece == row.id && rentrow.startingdate < currentDate && rentrow.endingDate > currentDate}">
+												<p>
+													<font color='red'>Beschikbaar over <c:out value="${rentrow.endingdate - currentDate}" /> dagen</font>
+												</p>
+												<p>
+												<form action="/concordia/reserveer" method="post">
 												<input type="hidden" name="id" id="" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-											</form>
-										</c:when>
-										<c:otherwise>-->
-											<p>
-											<div class="btn-group">
-												<a href="#" class="btn btn-primary" role="button">Huur
-													direct!</a>
-										<!--</c:otherwise>
-									</c:choose>-->
-									<div class="btn-group dropup">
-									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown">
-										Delen <span class="caret"></span>
-									</button>
-
-									<ul class="dropdown-menu pull-right" role="menu">
-										<table>
-											<tr>
-												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
-													target="_blank"><img
+												</form>
+												<div class="btn-group dropup">
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
+												<ul class="dropdown-menu pull-right" role="menu">
+												<table>
+												<tr>
+													<td style="padding-right: 10px; padding-bottom: 10px"><a
+														href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
 														alt="Facebook" style="height: 50px;" /></a>
-												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-													target="_blank"><img
+													<td style="padding-bottom: 10px;"><a
+														href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
 														alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
-													" target="_blank"> <img
+													</tr>
+													<tr>
+													<td style="padding-right: 10px;"><a
+														href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+														" target="_blank"> <img
 														src="http://www.simplesharebuttons.com/images/somacro/google.png"
 														alt="Google" style="height: 50px;" /></a>
-												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+													<td><a
+														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
 														src="http://www.simplesharebuttons.com/images/somacro/email.png"
 														alt="Email" style="height: 50px;" /></a>
-											</tr>
-
-
-
-
-										</table>
-									</ul>
-									</div>
-
+													</tr>
+												</table>
+												</ul>
+											</div>
+											</c:when>
+											<c:otherwise>
+												<p>
+													<font color='green'>Beschikbaar</font>
+												</p>
+												<p>
+												<div class="btn-group">
+													<a href="#" class="btn btn-primary" role="button">Huur direct!</a>
+												<div class="btn-group dropup">
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
+												<ul class="dropdown-menu pull-right" role="menu">
+												<table>
+												<tr>
+													<td style="padding-right: 10px; padding-bottom: 10px"><a
+														href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+														target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+														alt="Facebook" style="height: 50px;" /></a>
+													<td style="padding-bottom: 10px;"><a
+														href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+														target="_blank"><img
+														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+														alt="Twitter" style="height: 50px;" /></a>
+													</tr>
+													<tr>
+													<td style="padding-right: 10px;"><a
+														href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+														" target="_blank"> <img
+														src="http://www.simplesharebuttons.com/images/somacro/google.png"
+														alt="Google" style="height: 50px;" /></a>
+													<td><a
+														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														src="http://www.simplesharebuttons.com/images/somacro/email.png"
+														alt="Email" style="height: 50px;" /></a>
+													</tr>
+												</table>
+												</ul>
+											</div>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
 								</div>
 								</p>
 							</div>			

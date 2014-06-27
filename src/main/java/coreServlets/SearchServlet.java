@@ -95,16 +95,13 @@ public class SearchServlet extends HttpServlet {
 			r1 = "0";
 		
 		//get the rating
-		
-		String ratedId = request.getParameter("rated");
+		String ratingString = request.getParameter("rating");
+		System.out.println("ratingString = " + ratingString);
+		String[] strList= ratingString.split("&");
+		int rating = Integer.parseInt(strList[0]);
+		long ratedId = Integer.parseInt(strList[1]);
+		System.out.println("rating = " + rating);
 		System.out.println("ratedId = " + ratedId);
-		
-		String ratingString = request.getParameter("rating" + ratedId);
-		System.out.println("rating = " + ratingString);
-		//double rating = Double.parseDouble(ratingString);
-		double rating = 5;
-		
-		
 		double oldrating = 0;
 		int rates = 0;
 		double newRating = 0;
@@ -121,20 +118,25 @@ public class SearchServlet extends HttpServlet {
 				while(rs.next()){
 				oldrating = rs.getDouble("rating");
 				rates = rs.getInt("rates");
+				System.out.println("oldrating & rates = " + oldrating + " & " + rates);
 			}}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		try{
-			newRating = (((1/(rates+1)*rates)*oldrating) + (1/(rates+1)*rating));
+			double rates1 = rates;
+			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating));
+			newRating = Math.round(newRating * 10) / (double)10;
 			rates++;
+			System.out.println("newrating = " + newRating);
 		}catch (NullPointerException e){
 			System.out.println("Calculation error! Rate not processed!");
 		}
 		
 		try (PreparedStatement ps = conn
-				.prepareStatement("UPDATE artpiece SET rating=" + newRating + ", rates=" + rates)) {
+				.prepareStatement("UPDATE artpiece SET rating=" + newRating + ", rates=" + rates + "WHERE id=" + ratedId)) {
+			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

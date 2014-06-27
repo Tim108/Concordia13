@@ -34,7 +34,7 @@
 	<jsp:include page="main.jsp"/>
     <div class="head">
     	<center><h1>Registreren</h1><hr>
-    	<form method="POST" action="/concordia/register">
+    	<form method="POST" action="<%=request.getContextPath()%>/register">
     		<table>
     		<tr><td><h4>Contactgegevens</h4></td></tr>
     		<tr><td><td><font color="#E00000">${NameError}</font></tr>

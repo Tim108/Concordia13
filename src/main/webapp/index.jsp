@@ -35,7 +35,7 @@
 		margin: auto;
 	}
 	</style>
-		<style>
+	<style>
 	#containert {
    width: 100%;
    height: 320px;
@@ -46,7 +46,6 @@
    margin-top: -20%;
 }
 	</style>
-	
 </head>
 <body>
 	<jsp:include page="main.jsp">
@@ -78,7 +77,7 @@
 	request.removeAttribute("artheaders");
 	%>
 	<div class="head">
-	<!-- <CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER> -->
+		<CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER>
     	<div id="myCarousel" class="carousel slide" data-ride="carousel">
      	 <!-- Indicators -->
       		<ol class="carousel-indicators">
@@ -88,40 +87,40 @@
      		 </ol>
       	<div class="carousel-inner">
         	<div class="item active">
-        	         	<div id="containert">
+        	<div id="containert">
     			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
 			</div>
         	  <div class="container">
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities</h1>
         	      <p></p>
-        	      <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/expositie?id=0" role="button">Start</a></p>
+        	      <p><a class="btn btn-lg btn-primary" href="expositie.jsp" role="button">Start</a></p>
         	    </div>
         	  </div>
         	  </div>
         	<div class="item">
-        	          	 <div id="containert">
+        	 <div id="containert">
     			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
 			</div>
-			<div class="container">
+          <div class="container">
             <div class="carousel-caption">
             <c:forEach var="row" items="${art.rows}">
               <h1>${row.count} werken die je kunt huren</h1>
             </c:forEach>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/search" role="button">Bekijk Collectie</a></p>
+              <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
             </div>
           </div>
         </div>
         <div class="item">
-                  <div id="containert">
+          <div id="containert">
     			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
 			</div>
           <div class="container">
             <div class="carousel-caption">
               <h1>Vanaf slechts 7,50 euro per maand</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/subscriptions.jsp" role="button">Abonneer</a></p>
+              <p><a class="btn btn-lg btn-primary" href="subscriptions.jsp" role="button">Abonneer</a></p>
             </div>
           </div>
         </div>
@@ -145,7 +144,7 @@
 	 </div>
 	</div>
 	</div>
-		<script>
+	<script>
 	<script type="text/javascript">
 	(function() {
 
@@ -159,4 +158,3 @@
 
 	}());
 	</script>
-	
