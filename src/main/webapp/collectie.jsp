@@ -23,6 +23,7 @@
 <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 <link href="res/css/bootstrap.min.css" rel="stylesheet">
 <link href="res/css/carousel.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -452,11 +453,11 @@ ORDER BY rating DESC;
 									%>
 
 									<form action="search" method="post" id="ratingform">
-										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c1" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="1">
-										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c2" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="2">
-										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c3" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="3">
-										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c4" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="4">
-										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty" id="${row.id}c5" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="5">
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c1" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="1">&ensp;
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c2" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="2">&ensp; 
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c3" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="3">&ensp;  
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c4" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="4">&ensp;
+										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c5" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="5">&ensp;
 										<input type="hidden" id="rating" name="rating" value="0&${row.id}">
 									</form>
 								</div>
