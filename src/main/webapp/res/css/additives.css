@@ -7,7 +7,12 @@
 }
 .glyphicon.glyphicon-star-empty:checked:before {
     content: "\e006";
+    color: #D7DF01;
 }
 input[type=checkbox].glyphicon{
      visibility: hidden;        
+}
+.rating-star{
+	color: dark-grey;
+	font-size: 25px;
 }

@@ -43,13 +43,6 @@ public class SearchServlet extends HttpServlet {
 				response);
 	}
 
-	private void printList(List list) {
-		System.out.println("list");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println("Element " + i + ": " + list.get(i));
-		}
-	}
-
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -96,12 +89,9 @@ public class SearchServlet extends HttpServlet {
 		
 		//get the rating
 		String ratingString = request.getParameter("rating");
-		System.out.println("ratingString = " + ratingString);
 		String[] strList= ratingString.split("&");
 		int rating = Integer.parseInt(strList[0]);
 		long ratedId = Integer.parseInt(strList[1]);
-		System.out.println("rating = " + rating);
-		System.out.println("ratedId = " + ratedId);
 		double oldrating = 0;
 		int rates = 0;
 		double newRating = 0;
@@ -118,7 +108,6 @@ public class SearchServlet extends HttpServlet {
 				while(rs.next()){
 				oldrating = rs.getDouble("rating");
 				rates = rs.getInt("rates");
-				System.out.println("oldrating & rates = " + oldrating + " & " + rates);
 			}}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,7 +118,6 @@ public class SearchServlet extends HttpServlet {
 			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating));
 			newRating = Math.round(newRating * 10) / (double)10;
 			rates++;
-			System.out.println("newrating = " + newRating);
 		}catch (NullPointerException e){
 			System.out.println("Calculation error! Rate not processed!");
 		}
