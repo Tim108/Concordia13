@@ -113,11 +113,7 @@ public class ExpositionServlet  extends HttpServlet {
 							}
 						}
 						request.getSession().setAttribute("hasExposition", 0);
-<<<<<<< HEAD
-						request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"" + request.getContextPath() + "/search\">Maak hem hier!<//a>");
-=======
 						request.setAttribute("Error", "Deze expositie bestaat nog niet!");
->>>>>>> 2acdc60b7b12cdf993cbb4482806508251819464
 						request.getRequestDispatcher("/expositie.jsp").forward(request, response);
 						return;
 					}
