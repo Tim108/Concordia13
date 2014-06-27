@@ -147,7 +147,7 @@ a.id = '<%=ids.get(0)%>')
     </div>
     <script>
     function changeName() {
-    	document.getElementById('expositionName').innerHTML = '<form id="changeNameForm" action="/concordia/expositie" method="get"><input type="hidden" name="id" value="<%=request.getParameter("id")%>" /> <input type="text" onblur="permChange()" name="nameInput" id="nameInput" /> </form>';
+    	document.getElementById('expositionName').innerHTML = '<form id="changeNameForm" action="/expositie" method="get"><input type="hidden" name="id" value="<%=request.getParameter("id")%>" /> <input type="text" onblur="permChange()" name="nameInput" id="nameInput" /> </form>';
     	document.getElementById('nameInput').focus();
     	document.getElementById('nameInput').onkeypress = function(e){
             if (!e) e = window.event;
@@ -259,7 +259,7 @@ a.id = '<%=ids.get(0)%>')
 													<font color='red'>Beschikbaar over <c:out value="${rentrow.endingdate - currentDate}" /> dagen</font>
 												</p>
 												<p>
-												<form action="/concordia/reserveer" method="post">
+												<form action="<%=request.getContextPath()%>/reserveer" method="post">
 												<input type="hidden" name="id" id="" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
@@ -270,24 +270,24 @@ a.id = '<%=ids.get(0)%>')
 												<table>
 												<tr>
 													<td style="padding-right: 10px; padding-bottom: 10px"><a
-														href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+														href="http://www.facebook.com/sharer.php?u=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
 														alt="Facebook" style="height: 50px;" /></a>
 													<td style="padding-bottom: 10px;"><a
-														href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+														href="http://twitter.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
 														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
 														alt="Twitter" style="height: 50px;" /></a>
 													</tr>
 													<tr>
 													<td style="padding-right: 10px;"><a
-														href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+														href="https://plus.google.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 														" target="_blank"> <img
 														src="http://www.simplesharebuttons.com/images/somacro/google.png"
 														alt="Google" style="height: 50px;" /></a>
 													<td><a
-														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"><img
 														src="http://www.simplesharebuttons.com/images/somacro/email.png"
 														alt="Email" style="height: 50px;" /></a>
 													</tr>
@@ -308,24 +308,24 @@ a.id = '<%=ids.get(0)%>')
 												<table>
 												<tr>
 													<td style="padding-right: 10px; padding-bottom: 10px"><a
-														href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+														href="http://www.facebook.com/sharer.php?u=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
 														alt="Facebook" style="height: 50px;" /></a>
 													<td style="padding-bottom: 10px;"><a
-														href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+														href="http://twitter.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
 														target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
 														alt="Twitter" style="height: 50px;" /></a>
 													</tr>
 													<tr>
 													<td style="padding-right: 10px;"><a
-														href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+														href="https://plus.google.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 														" target="_blank"> <img
 														src="http://www.simplesharebuttons.com/images/somacro/google.png"
 														alt="Google" style="height: 50px;" /></a>
 													<td><a
-														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"><img
 														src="http://www.simplesharebuttons.com/images/somacro/email.png"
 														alt="Email" style="height: 50px;" /></a>
 													</tr>
@@ -430,24 +430,24 @@ a.id = '<%=ids.get(0)%>')
 										<table>
 											<tr>
 												<td style="padding-right: 10px; padding-bottom: 10px"><a
-													href="http://www.facebook.com/sharer.php?u=http://localhost:8080/concordia/img/${row.source}"
+													href="http://www.facebook.com/sharer.php?u=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 													target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
 														alt="Facebook" style="height: 50px;" /></a>
 												<td style="padding-bottom: 10px;"><a
-													href="http://twitter.com/share?url=http://localhost:8080/concordia/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+													href="http://twitter.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
 													target="_blank"><img
 														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
 														alt="Twitter" style="height: 50px;" /></a>
 											</tr>
 											<tr>
 												<td style="padding-right: 10px;"><a
-													href="https://plus.google.com/share?url=http://localhost:8080/concordia/img/${row.source}"
+													href="https://plus.google.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
 													" target="_blank"> <img
 														src="http://www.simplesharebuttons.com/images/somacro/google.png"
 														alt="Google" style="height: 50px;" /></a>
 												<td><a
-													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/concordia/img/${row.source}"><img
+													href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"><img
 														src="http://www.simplesharebuttons.com/images/somacro/email.png"
 														alt="Email" style="height: 50px;" /></a>
 											</tr>
