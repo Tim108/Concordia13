@@ -95,7 +95,6 @@ public class SearchServlet extends HttpServlet {
 		double oldrating = 0;
 		int rates = 0;
 		double newRating = 0;
-		
 
 		// sql inloggen
 		Connection conn = (Connection) getServletContext().getAttribute(
@@ -118,10 +117,10 @@ public class SearchServlet extends HttpServlet {
 			newRating = (((1/(rates1+1)*rates1)*oldrating) + (1/(rates1+1)*rating));
 			newRating = Math.round(newRating * 10) / (double)10;
 			rates++;
+			System.out.println(rating + " -- " +oldrating + " -- " +newRating + " -- " + rates);
 		}catch (NullPointerException e){
 			System.out.println("Calculation error! Rate not processed!");
 		}
-		
 		try (PreparedStatement ps = conn
 				.prepareStatement("UPDATE artpiece SET rating=" + newRating + ", rates=" + rates + "WHERE id=" + ratedId)) {
 			ps.execute();
