@@ -67,7 +67,7 @@ System.out.println("Logged: " + s.getAttribute("Logged"));
 		} else if (s.getAttribute("activated") == null
 				&& s.getAttribute("Logged") != null) {
 	%>
-	<form method="get" action="/concordia/activateAccount">
+	<form method="get" action="<%=request.getContextPath()%>/activateAccount">
 		<input type="text" name="link">
 		<button type="submit">Activeer</button>
 	</form>
