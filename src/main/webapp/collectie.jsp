@@ -452,7 +452,7 @@ ORDER BY rating DESC;
 										}
 									%>
 
-									<form action="search" method="post" id="ratingform">
+									<form action="search" method="post" id="ratingform" onmouseout="reset();">
 										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c1" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="1">&ensp;
 										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c2" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="2">&ensp; 
 										<input type="checkbox" name="ratingGroup" class="glyphicon glyphicon-star-empty rating-star" id="${row.id}c3" onmouseover="hover(this,${row.id});" onclick="clicked(this,${row.id});" value="3">&ensp;  
@@ -488,7 +488,6 @@ function clicked(c, id){
 	document.getElementById("ratingform").submit();
 	console.log("submitted");
 }
-
 </script>
 <script>
 	function showDivContent() {
