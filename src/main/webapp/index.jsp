@@ -81,7 +81,7 @@
         	    <div class="carousel-caption">
         	      <h1>Maak je eigen online exposities</h1>
         	      <p></p>
-        	      <p><a class="btn btn-lg btn-primary" href="expositie.jsp" role="button">Start</a></p>
+        	      <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/expositie?id=0" role="button">Start</a></p>
         	    </div>
         	  </div>
         	  </div>
@@ -93,7 +93,7 @@
               <h1>${row.count} werken die je kunt huren</h1>
             </c:forEach>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="search" role="button">Bekijk Collectie</a></p>
+              <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/search" role="button">Bekijk Collectie</a></p>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
             <div class="carousel-caption">
               <h1>Vanaf slechts 7,50 euro per maand</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" href="subscriptions.jsp" role="button">Abonneer</a></p>
+              <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/subscriptions.jsp" role="button">Abonneer</a></p>
             </div>
           </div>
         </div>
