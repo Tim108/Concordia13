@@ -42,7 +42,7 @@ public class ExpositionServlet  extends HttpServlet {
 		
 		if(id == 0) {
 			if(expositions == null || expositions.isEmpty()) {
-				request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
+				request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"" + request.getContextPath() + "/search\">Maak hem hier!<//a>");
 				request.getRequestDispatcher("/expositie.jsp").forward(request, response);
 				return;
 			}
@@ -113,7 +113,7 @@ public class ExpositionServlet  extends HttpServlet {
 							}
 						}
 						request.getSession().setAttribute("hasExposition", 0);
-						request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"/concordia/search\">Maak hem hier!<//a>");
+						request.setAttribute("Error", "U hebt nog geen eigen Expositie! <a href=\"" + request.getContextPath() + "/search\">Maak hem hier!<//a>");
 						request.getRequestDispatcher("/expositie.jsp").forward(request, response);
 						return;
 					}

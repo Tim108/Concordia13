@@ -89,7 +89,7 @@ public class ExpositionRemoveServlet extends HttpServlet {
 				ps.setInt(ids.length, Integer.parseInt(ids[1]));
 				ps.execute();
 			}
-			response.sendRedirect("/concordia/expositie?id=" + collID);
+			response.sendRedirect(request.getContextPath() + "/expositie?id=" + collID);
 		} catch (SQLException e1) {
 		e1.printStackTrace();
 		}

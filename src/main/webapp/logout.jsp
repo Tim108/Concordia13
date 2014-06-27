@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="1;/concordia">
+    <meta http-equiv="refresh" content="1;<%=request.getContextPath()%>">
     <title>Concordia</title>
 	<!-- Bootstrap -->
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">
@@ -40,5 +40,5 @@
 	%>
     <div class="head">
     	<center><h4>Uitgelogd!</h4>
-    	<input type="button" value="Terug" onclick="window.location='/concordia';" class="btn btn-default"></center>
+    	<input type="button" value="Terug" onclick="window.location='<%=request.getContextPath()%>';" class="btn btn-default"></center>
     </div>

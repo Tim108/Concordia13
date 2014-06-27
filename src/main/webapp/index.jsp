@@ -88,7 +88,7 @@
       	<div class="carousel-inner">
         	<div class="item active">
         	<div id="containert">
-    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(0) %>" alt="" style="margin-top:-<%=Math.random()*30%>%;"/>
 			</div>
         	  <div class="container">
         	    <div class="carousel-caption">
@@ -100,7 +100,7 @@
         	  </div>
         	<div class="item">
         	 <div id="containert">
-    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(1) %>" alt="" style="margin-top:-<%=Math.random()*30%>%;"/>
 			</div>
           <div class="container">
             <div class="carousel-caption">
@@ -114,7 +114,7 @@
         </div>
         <div class="item">
           <div id="containert">
-    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" alt="" style="margin-top:-<%=Math.random()*40%>%;"/>
+    			<img src="<%=request.getContextPath()%>/img/<%= artheaders.get(2) %>" alt="" style="margin-top:-<%=Math.random()*30%>%;"/>
 			</div>
           <div class="container">
             <div class="carousel-caption">

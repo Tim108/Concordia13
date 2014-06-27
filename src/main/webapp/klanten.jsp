@@ -7,8 +7,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<%if(request.getSession().getAttribute("Logged") == null) { %> <meta http-equiv="refresh" content="0;/concordia/login.jsp"> <% 
-	} else if((Boolean)request.getSession().getAttribute("isAdmin") == false){%> <meta http-equiv="refresh" content="0;/concordia"> <% } %>
+	<%if(request.getSession().getAttribute("Logged") == null) { %> <meta http-equiv="refresh" content="0;<%=request.getContextPath()%>/login.jsp"> <% 
+	} else if((Boolean)request.getSession().getAttribute("isAdmin") == false){%> <meta http-equiv="refresh" content="0;<%=request.getContextPath()%>"> <% } %>
 	<title>Concordia</title>
 	<!-- Bootstrap -->
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">

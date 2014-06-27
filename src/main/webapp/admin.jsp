@@ -6,8 +6,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<%if(request.getSession().getAttribute("Logged") == null) { %> <meta http-equiv="refresh" content="0;/concordia/login.jsp"> <% 
-	} else if((Boolean)request.getSession().getAttribute("isAdmin") == false){%> <meta http-equiv="refresh" content="0;/concordia"> <% } %>
+	<%if(request.getSession().getAttribute("Logged") == null) { %> <meta http-equiv="refresh" content="0;<%=request.getContextPath()%>/login.jsp"> <% 
+	} else if((Boolean)request.getSession().getAttribute("isAdmin") == false){%> <meta http-equiv="refresh" content="0;<%=request.getContextPath()%>"> <% } %>
 	<title>Concordia</title>
 	<!-- Bootstrap -->
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">
@@ -38,10 +38,10 @@
 	</jsp:include>
 	<center>
 	<h3>Concordia Controlepaneel</h3>
-	<input type="submit" id="addWork" value="Voeg een werk toe" onclick="window.location='/concordia/addart.jsp';" class="btn btn-default"/><br><br>
-	<input type="submit" id="customerInfo" value="Vraag gegevens van een klant op" onclick="window.location='/concordia/klantservlet';" class="btn btn-default"/><br><br>
-	<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='/concordia/adminExpositie';" class="btn btn-default"/><br><br>
-	<input type="submit" id="siteInfo" value="Bekijk gegevens van de site" onclick="window.location='/concordia/stats';" class="btn btn-default"/>
+	<input type="submit" id="addWork" value="Voeg een werk toe" onclick="window.location='<%=request.getContextPath()%>/addart.jsp';" class="btn btn-default"/><br><br>
+	<input type="submit" id="customerInfo" value="Vraag gegevens van een klant op" onclick="window.location='<%=request.getContextPath()%>/klantservlet';" class="btn btn-default"/><br><br>
+	<input type="submit" value="Bekijk alle exposities met een extern werk" onclick="window.location='<%=request.getContextPath()%>/adminExpositie';" class="btn btn-default"/><br><br>
+	<input type="submit" id="siteInfo" value="Bekijk gegevens van de site" onclick="window.location='<%=request.getContextPath()%>/stats';" class="btn btn-default"/>
 	</center>
 </body>
 </html>

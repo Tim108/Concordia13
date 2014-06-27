@@ -68,15 +68,15 @@ public class ActivationServlet extends HttpServlet {
 					} catch (SQLException e2) {
 						e2.printStackTrace();
 					}
-					response.sendRedirect("/concordia/activation.jsp");
+					response.sendRedirect(request.getContextPath() + "/activation.jsp");
 				} catch (SQLException | IOException e) {
 					e.printStackTrace();
 					s.setAttribute("activated", "notactivated");
-					response.sendRedirect("/concordia/activation.jsp");
+					response.sendRedirect(request.getContextPath() + "/activation.jsp");
 				}
 			} else {
 				s.setAttribute("activated", "wrongCode");
-				response.sendRedirect("/concordia/activation.jsp");
+				response.sendRedirect(request.getContextPath() + "/activation.jsp");
 			}
 		}catch (SQLException e1) {
 			e1.printStackTrace();

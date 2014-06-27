@@ -88,7 +88,7 @@ public class ExpositionAddServlet extends HttpServlet {
 					}
 				}
 			}
-			response.sendRedirect("/concordia/expositie?id=" + collID);
+			response.sendRedirect(request.getContextPath() + "/expositie?id=" + collID);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
