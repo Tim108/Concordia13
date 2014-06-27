@@ -114,7 +114,7 @@
 			<tr style="font-weight: bold; text-alignment: center;">
 				<td colspan="2" style="text-align: center; vertical-align: top">
 					<input type="button" value="Nieuw abonnement afsluiten"
-					onclick="window.location='/concordia/subscription';" class="btn btn-primary">
+					onclick="window.location='<%=request.getContextPath()%>/subscription';" class="btn btn-primary">
 				</td>
 			</tr>
 			<%
