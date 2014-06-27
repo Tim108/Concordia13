@@ -62,14 +62,27 @@ public class LoginServlet extends HttpServlet {
 				Map<Integer, List<Object>> rents = new HashMap<Integer, List<Object>>();
 				
 				HttpSession s = request.getSession();
-				try(PreparedStatement ps2 = conn.prepareStatement("SELECT h.collection, c.name, r.artpiece, r.startingdate, g.artpiece AS rentpiece, g.startingdate, g.endingdate, g.deliver FROM rent g, reservation r, has h, Collection c WHERE h.customer = ? AND h.customer = r.customer AND h.customer = g.customer AND c.id = h.collection;")) {
+				try(PreparedStatement ps2 = conn.prepareStatement("SELECT h.collection, c.name FROM has h, Collection c WHERE h.customer = ? AND c.id = h.collection;")) {
 					ps2.setInt(1, id);
-					System.out.println(ps2.toString());
 					try(ResultSet rs2 = ps2.executeQuery()) {
 						while(rs2.next()) {
 							System.out.println("Expositie: " + rs2.getString("name"));
 							expositions.put(rs2.getInt("collection"),rs2.getString("name"));
+						}
+					}
+				}
+				try(PreparedStatement ps2 = conn.prepareStatement("SELECT r.artpiece, r.startingdate FROM reservation r WHERE r.customer = ?;")) {
+					ps2.setInt(1, id);
+					try(ResultSet rs2 = ps2.executeQuery()) {
+						while(rs2.next()) {
 							reservations.put(rs2.getInt("artpiece"),rs2.getDate("startingdate"));
+						}
+					}
+				}
+				try(PreparedStatement ps2 = conn.prepareStatement("SELECT g.artpiece AS rentpiece, g.startingdate, g.endingdate, g.deliver FROM rent g WHERE g.customer = ?;")) {
+					ps2.setInt(1, id);
+					try(ResultSet rs2 = ps2.executeQuery()) {
+						while(rs2.next()) {
 							List<Object> rentinfo = new ArrayList<Object>();
 							rentinfo.add(0, rs2.getInt("startingdate"));
 							rentinfo.add(1, rs2.getInt("endingdate"));
