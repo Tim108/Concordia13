@@ -106,6 +106,7 @@ public class GenerateArt {
 	return new Viewable("/index.jsp", null);
 	}
 	
+	//url: http://localhost:8080/di13_concordia/rest/generateArt/genxml?align=hor&amount=int | align == hor || ver && x > 0
 	@Path("/genhtml")
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -138,10 +139,31 @@ public class GenerateArt {
 		return htmlcode;
 	}
 	
+	//url: http://localhost:8080/di13_concordia/rest/generateArt/genxml?amount=x | x > 0
 	@Path("/genxml")
 	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public String XMLCode(@QueryParam("amount") int amount, @QueryParam("align") String align) {
-		return "<painting>" + randomArt.toString() + "</painting>";
+	@Produces(MediaType.TEXT_XML)
+	public String XMLCode(@QueryParam("amount") int amount) {
+		randomArt(amount);
+		String xml = "<paintings>";
+		for (int i = 0; i < randomArt.size(); i++) {
+			xml += "<?xml version=\"1.0\"?>"
+					+ "<painting name=\"" + randomArt.get(i).getName() + "\" artist=\"" + randomArt.get(i).getArtist() + "\" > "
+					+ "<information>"
+					+ "<source>" + randomArt.get(i).getSource() + "</source>"
+					+ "<orientation>" + randomArt.get(i).getOrientation() + "</orientation>"
+					+ "<style>" + randomArt.get(i).getStyle() + "</style>"
+					+ "<technique>" + randomArt.get(i).getTechnique() + "</technique>"
+					+ "</information>"
+					+ "<dimensions>"
+					+ "<width>" + randomArt.get(i).getWidth() + "</width>"
+					+ "<height>" + randomArt.get(i).getHeight() + "</height>"
+					+ "</dimensions>"
+					+ "<price>" + randomArt.get(i).getPrice() + "</price>"
+					+ "<rating>" + randomArt.get(i).getRating() + "</rating>"
+					+ "</painting>";
+		}
+		xml += "</paintings>";
+		return xml;
 	}
 }
