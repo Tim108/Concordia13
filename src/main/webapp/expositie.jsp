@@ -180,8 +180,7 @@ a.id = '<%=ids.get(0)%>')
         <div class="container">
           <div class="row">
             <div class="span12">
-
-              <div id="owl-demo" class="owl-carousel owl-theme">
+              <!-- <div id="owl-demo" class="owl-carousel owl-theme"> -->
  				<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
                 <CENTER>
@@ -254,16 +253,24 @@ a.id = '<%=ids.get(0)%>')
 									<c:when test="${fn:length(rents.rows) gt 0}">
 									<c:forEach var="rentrow" items="${rents.rows}">
 										<c:choose>
-											<c:when test="${rentrow.artpiece == row.id && rentrow.startingdate < currentDate && rentrow.endingDate > currentDate}">
+											<c:when test="${rentrow.artpiece == row.id}">
 												<p>
-													<font color='red'>Beschikbaar over <c:out value="${rentrow.endingdate - currentDate}" /> dagen</font>
+													<font color='red'>Beschikbaar over <c:out value="5" /> dagen</font>
 												</p>
 												<p>
+												<c:set var="beschikbaar" value="false" />
+												<c:set var="artID" value ="${row.id}" />
+												<% if(request.getSession().getAttribute("Reservations") != null && ((Map<Integer, java.sql.Date>)request.getSession().getAttribute("Reservations")).containsKey(pageContext.getAttribute("artID"))) { %>
+												<form action="<%=request.getContextPath()%>/reserveringen" method="post">
+												<input type="hidden" name="id" id="" value="${row.id}" />
+												<div class="btn-group">
+													<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
+												<% } else { %>
 												<form action="<%=request.getContextPath()%>/reserveer" method="post">
 												<input type="hidden" name="id" id="" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-												</form>
+												<% } %>
 												<div class="btn-group dropup">
 													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
 												<ul class="dropdown-menu pull-right" role="menu">
@@ -293,48 +300,55 @@ a.id = '<%=ids.get(0)%>')
 													</tr>
 												</table>
 												</ul>
+												</div>
+												</form>
+												<c:remove var="artID" />
 											</div>
 											</c:when>
-											<c:otherwise>
-												<p>
-													<font color='green'>Beschikbaar</font>
-												</p>
-												<p>
-												<div class="btn-group">
-													<a href="#" class="btn btn-primary" role="button">Huur direct!</a>
-												<div class="btn-group dropup">
-													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
-												<ul class="dropdown-menu pull-right" role="menu">
-												<table>
-												<tr>
-													<td style="padding-right: 10px; padding-bottom: 10px"><a
-														href="http://www.facebook.com/sharer.php?u=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
-														target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-													<td style="padding-bottom: 10px;"><a
-														href="http://twitter.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-														target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-													</tr>
-													<tr>
-													<td style="padding-right: 10px;"><a
-														href="https://plus.google.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
-														" target="_blank"> <img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-													<td><a
-														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-													</tr>
-												</table>
-												</ul>
-											</div>
-											</c:otherwise>
 										</c:choose>
 									</c:forEach>
+									<c:if test="${empty beschikbaar}">
+										<p>
+											<font color='green'>Beschikbaar</font>
+										</p>
+										<p>
+										<form action="/concordia/huren" method="post">
+										<input type="hidden" name="id" value="${row.id}" />
+											<div class="btn-group">
+											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
+										<div class="btn-group dropup">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
+										<ul class="dropdown-menu pull-right" role="menu">
+										<table>
+										<tr>
+											<td style="padding-right: 10px; padding-bottom: 10px"><a
+												href="http://www.facebook.com/sharer.php?u=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
+												target="_blank"><img
+												src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+												alt="Facebook" style="height: 50px;" /></a>
+											<td style="padding-bottom: 10px;"><a
+												href="http://twitter.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
+												target="_blank"><img
+												src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
+												alt="Twitter" style="height: 50px;" /></a>
+											</tr>
+											<tr>
+											<td style="padding-right: 10px;"><a
+												href="https://plus.google.com/share?url=http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"
+												" target="_blank"> <img
+												src="http://www.simplesharebuttons.com/images/somacro/google.png"
+												alt="Google" style="height: 50px;" /></a>
+											<td><a
+												href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080<%=request.getContextPath()%>/img/${row.source}"><img
+												src="http://www.simplesharebuttons.com/images/somacro/email.png"
+												alt="Email" style="height: 50px;" /></a>
+											</tr>
+											</table>
+											</ul>
+										</div>
+										</form>
+									</c:if>
+									<c:remove var="beschikbaar" />
 									</c:when>
 									<c:otherwise>
 										<p>
@@ -385,7 +399,7 @@ a.id = '<%=ids.get(0)%>')
 			<c:forEach var="row" items="${externals.rows}">
                 <div class="item">
                 <CENTER>
-						<div id="divider${row.id}" class="thumbnail" style="background-color: white;">
+						<div id="divider${row.id}" class="thumbnail" style="background-color:white;">
 						<% if(request.getAttribute("NotMine") == null) { %>
 						<button onclick="changeGliphi(${row.id})" style="padding: 0; border: none; background: none;"><h3><span id="checkGliphi${row.id}" class="glyphicon glyphicon-unchecked"></span></h3></button>
                 		<script>
