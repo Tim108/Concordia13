@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import rest.User;
 
-public class ExpositionServlet  extends HttpServlet {
+public class ExpositionServlet extends HttpServlet {
 	/**
 	 * 
 	 */

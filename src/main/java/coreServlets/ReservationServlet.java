@@ -2,12 +2,13 @@ package coreServlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Calendar;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,67 +17,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ReservationServlet extends HttpServlet {
-	private int reservationAmount = 2;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int myReservations = 0;
-		int check = 0;
+		response.setContentType("text/html");
+		
 		HttpSession s = request.getSession();
-		int paintingid = Integer.parseInt(request.getParameter("id"));
-		Map<Integer, Date> reservations = (Map<Integer, Date>) s
-				.getAttribute("Reservations");
-		System.out.println("First reservations: " + reservations);
-
-		Calendar cal = Calendar.getInstance();
-		java.sql.Date sqlnow = new java.sql.Date(cal.getTime().getTime());
-
-		Connection conn = (Connection) getServletContext().getAttribute(
-				"DBConnection");
-		try {
-			try (Statement stmt = conn.createStatement();
-					PreparedStatement ps = conn
-							.prepareStatement("SELECT COUNT(p.subscription) AS subcount FROM pays_a p WHERE p.customer=?")) {
-				ps.setInt(1, (int) request.getSession().getAttribute("Logged"));
-				ResultSet rs = ps.executeQuery();
-				if (rs.next()) {
-					reservationAmount = (reservationAmount + rs
-							.getInt("subcount"));
-					myReservations = reservations.size();
-					check = (reservationAmount - myReservations);
-					System.out.println("Check: " + check);
-					if (check > 0) {
-						if (!reservations.containsKey(paintingid)) {
-							System.out.println("Check > 0");
-							PreparedStatement addRes = conn
-									.prepareStatement("INSERT INTO reservation(artpiece, customer, startingdate) VALUES (?,?,?)");
-							addRes.setInt(1, paintingid);
-							addRes.setInt(2, (int) s.getAttribute("Logged"));
-							addRes.setDate(3, sqlnow);
-							System.out.println(addRes.toString());
-							int updateCount = addRes.executeUpdate();
-							System.out.println("updateCount: " + updateCount);
-							if (updateCount > 0) {
-								System.out.println("updateCount > 0");
-								reservations.put(paintingid, sqlnow);
-							}
-						} else {
-							System.out.println("staat al in reservering");
-						}
-					} else {
-						System.out.println("geen subs left");
+		int userID = (Integer)s.getAttribute("Logged");
+		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
+		List<String> sources = new ArrayList<String>();
+		List<Date> dates = new ArrayList<Date>();
+		try{
+			try(PreparedStatement ps = conn.prepareStatement("SELECT a.source, r.startingdate FROM art a, reservation r WHERE a.id = r.artpiece AND r.customer = ?")) {
+				ps.setInt(1, userID);
+				try(ResultSet rs = ps.executeQuery()) {
+					while(rs.next()) {
+						sources.add(rs.getString("source"));
+						dates.add(rs.getDate("startingdate"));
 					}
-				System.out.println(reservations);
-				 
-					s.setAttribute("Reservations", reservations);
-					System.out.println("Second reservations: "
-							+ s.getAttribute("Reservations"));
 				}
 			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
+			request.setAttribute("Sources", sources);
+			request.setAttribute("Dates", dates);
+			request.getRequestDispatcher("/reservations.jsp").forward(request, response);
+		} 
+		catch (SQLException e) { e.printStackTrace(); }
 	}
 }
-

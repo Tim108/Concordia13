@@ -41,13 +41,13 @@
     <url-pattern>/activateAccount</url-pattern>
   </servlet-mapping>
     <servlet>
-    <description>Reservation Servlet</description>
-    <display-name>ReservationServlet</display-name>
-    <servlet-name>ReservationServlet</servlet-name>
-    <servlet-class>coreServlets.ReservationServlet</servlet-class>
+    <description>Reservation Add Servlet</description>
+    <display-name>ReservationAddServlet</display-name>
+    <servlet-name>ReservationAddServlet</servlet-name>
+    <servlet-class>coreServlets.ReservationAddServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-name>ReservationAddServlet</servlet-name>
     <url-pattern>/reserveer</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -65,6 +65,14 @@
   <servlet-mapping>
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-class>coreServlets.ReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationServlet</servlet-name>
+    <url-pattern>/reservations</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>SubscriptionServlet</servlet-name>
