@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Concordia</title>
+	<!-- Bootstrap -->
+	<link href="res/css/bootstrap.min.css" rel="stylesheet">
+	<link href="res/css/carousel.css" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<meta content="width=320px, initial-scale=1, user-scalable=yes"
+		name="viewport" />
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<style type="text/css">
+	.content {
+		width: 800px;
+		margin: auto;
+	}
+	</style>
+	<style>
+	#containert {
+   width: 100%;
+   height: 320px;
+}
+
+#containert img {
+   width: 100%;
+   margin-top: -20%;
+}
+	</style>
+</head>
+<body>
+	<BR>
+	<CENTER>
+		<a href="#"><img src="res/logo-concordia.jpg" alt="Concordia" /></a>
+	</CENTER>
+	<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="#" id="home">Home</a></li>
+				<li><a href="#" id="collectie">Collectie</a></li>
+				<li><a href="#" id="expositie">Expositie</a></li>
+				<li><a href="#" id="reserveringen">Reserveringen</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" id="acc">
+					<span class="glyphicon glyphicon-user"></span>
+					Account <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#" id="userinfo">Gegevens</a></li>
+            			<li><a href="#" id="Reserveringen">Reserveringen</a></li>
+            			<li><a href="#" id="exposition">Expositie</a></li>
+            			<li><a href="#" id="rented">Mijn gehuurde werken</a></li>
+            			<li><a href="#" id="subscription">Abonnement afsluiten</a></li>
+            			<li class="divider"></li>
+						<li><a href="#" id="logout">Log uit</a></li>
+
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid --> </nav>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	
+	
+	<div class="head">
+		<CENTER><H1 STYLE="font-size: 36pt;">Populaire werken</H1></CENTER>
+    	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+     	 <!-- Indicators -->
+      		<ol class="carousel-indicators">
+        		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        		<li data-target="#myCarousel" data-slide-to="1"></li>
+        		<li data-target="#myCarousel" data-slide-to="2"></li>
+     		 </ol>
+      	<div class="carousel-inner">
+        	<div class="item active">
+        	<div id="containert">
+    			<img src="http://www.iefimerida.gr/sites/default/files/wallpapers-room_com___broken_angels_ii_by_orikon_1680x1050.jpg" alt="" style="margin-top:-30%;"/>
+			</div>
+        	  <div class="container">
+        	    <div class="carousel-caption">
+        	      <h1>Maak je eigen online exposities</h1>
+        	      <p></p>
+        	      <p><a class="btn btn-lg btn-primary" href="#" role="button">Start</a></p>
+        	    </div>
+        	  </div>
+        	  </div>
+        	<div class="item">
+        	 <div id="containert">
+    			<img src="http://hdwallpapermania.com/wp-content/uploads/2014/02/green-and-white-crystal-hd-wallpapers.jpg" alt="" style="margin-top:-30%;"/>
+			</div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>15.000 werken die je kunt huren</h1>
+              <p></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Bekijk Collectie</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div id="containert">
+    			<img src="http://wallpapertoon.com/wp-content/uploads/2014/03/moon-cubes-digital-art-hd-wallpaper.jpg" alt="" style="margin-top:-30%;"/>
+			</div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Vanaf slechts 7,50 euro per maand</h1>
+              <p></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Abonneer</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+	  <CENTER><h1>Welkom bij Concordia</h1></CENTER>
+	  <CENTER><p>Jouw portaal naar betaalbare kunst. Begin gelijk met zoeken in 15.000 kunstwerken.</p></Center>
+		<CENTER><div style="width:400px;">
+	 	  <form class="navbar-form" method="POST" action="#">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Zoeken" name="srch-term" id="srch-term">
+          <div class="input-group-btn">
+            <button class="btn btn-default" style="height:34px;" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+          </div>
+        </div>
+      </form>
+	 </div></CENTER>
+	</div>
+	</body>
