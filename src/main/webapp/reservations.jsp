@@ -40,23 +40,24 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="main.jsp" />
+	<jsp:include page="main.jsp">
+		<jsp:param name="currentpage" value="reservations" />
+	</jsp:include>
 	
 	<%
 	List<String> sources = (List<String>)request.getAttribute("Sources");
 	List<java.sql.Date> dates = (List<java.sql.Date>)request.getAttribute("Dates");
 	%>
 	<center>
-	<table>
-		<tr><td style="padding-right:10px; padding-bottom:10px;"><b>Reservatie Nr.</b><td style="padding-right:10px; padding-bottom:10px;"><b>Start huur</b><td style="padding-bottom:10px;"><b>Preview</b></td></tr>
+	<table style="border-collapse:separate; border-spacing:0 10px;">
+		<tr><td style="padding-right:10px; padding-bottom:10px;"><b>Nummer</b><td style="padding-right:10px; padding-bottom:10px;"><b>Start huur</b><td style="padding-left:10px; padding-bottom:10px;"><b>Preview</b></td></tr>
 		<%
 		for(int i=0; i<sources.size(); i++) { %>
-			<tr><td style="padding-right:10px; padding-bottom:10px;"><%=i + 1%><td style="padding-right:10px; padding-bottom:10px;"><%= dates.get(i) %><td style="padding-right:10px; padding-bottom:10px;"><img src="img/<%= sources.get(i) %>" alt="<%= sources.get(i) %>" style="width:200px; max-heigth:100%;"/><td style="padding-bottom:10px;">
+			<tr style="background-color:#E8E8E8;"><td style="border-radius: 10px 0 0 10px; -moz-border-radius: 10px 0 0 10px; text-align: center;"><%=i + 1%><td style="text-align: center;"><%= dates.get(i) %><td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;"><img src="img/<%= sources.get(i) %>" alt="<%= sources.get(i) %>" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/><td style="border-radius: 0 10px 10px 0; -moz-border-radius: 0 10px 10px 0; padding-top:10px; padding-right:10px; padding-bottom:10px;">
 			<h2><font color="darkred"><button onmouseover="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove-circle')" onmouseout="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove')" style="padding: 0; border: none; background: none;"><span id="remove<%= i %>" class="glyphicon glyphicon-remove" /></button></font></h2></td></tr>
 		<%
 		}
 		%>
-		<tr><td style="padding-right:10px; padding-bottom:10px;">
 	</table>
 	</center>
 </body>

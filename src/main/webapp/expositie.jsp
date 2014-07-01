@@ -180,7 +180,7 @@ a.id = '<%=ids.get(0)%>')
         <div class="container">
           <div class="row">
             <div class="span12">
-              <!-- <div id="owl-demo" class="owl-carousel owl-theme"> -->
+              <div id="owl-demo" class="owl-carousel owl-theme">
  				<c:forEach var="row" items="${artpieces.rows}">
                 <div class="item">
                 <CENTER>
@@ -261,8 +261,7 @@ a.id = '<%=ids.get(0)%>')
 												<c:set var="beschikbaar" value="false" />
 												<c:set var="artID" value ="${row.id}" />
 												<% if(request.getSession().getAttribute("Reservations") != null && ((Map<Integer, java.sql.Date>)request.getSession().getAttribute("Reservations")).containsKey(pageContext.getAttribute("artID"))) { %>
-												<form action="<%=request.getContextPath()%>/reserveringen" method="post">
-												<input type="hidden" name="id" id="" value="${row.id}" />
+												<form action="<%=request.getContextPath()%>/reservations" method="get">
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
 												<% } else { %>

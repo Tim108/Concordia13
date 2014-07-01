@@ -29,7 +29,7 @@
 				<li <% if(currentpage.equals("home")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>" id="home">Home</a></li>
 				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/search" id="collectie">Collectie</a></li>
 				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="expositie">Expositie</a></li>
-				<li><a href="<%=request.getContextPath()%>/reservations">Reserveringen</a></li>
+				<li <% if(currentpage.equals("reservations")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/reservations">Reserveringen</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 			<% HttpSession s = request.getSession();
