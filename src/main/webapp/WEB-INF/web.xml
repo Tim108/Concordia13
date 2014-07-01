@@ -75,6 +75,14 @@
     <url-pattern>/reservations</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ReservationRemoveServlet</servlet-name>
+    <servlet-class>coreServlets.ReservationRemoveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationRemoveServlet</servlet-name>
+    <url-pattern>/removeReservation</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>SubscriptionServlet</servlet-name>
     <servlet-class>coreServlets.SubscriptionServlet</servlet-class>
   </servlet>
