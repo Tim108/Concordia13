@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 						}
 					}
 				}
+				
 				try(PreparedStatement ps2 = conn.prepareStatement("SELECT g.artpiece AS rentpiece, g.startingdate, g.endingdate, g.deliver FROM rent g WHERE g.customer = ?;")) {
 					ps2.setInt(1, id);
 					try(ResultSet rs2 = ps2.executeQuery()) {
@@ -91,6 +92,7 @@ public class LoginServlet extends HttpServlet {
 						}
 					}
 				}
+				
 				System.out.println("LoginServlet.js: " + s.getMaxInactiveInterval() + " " + s.isNew() + " " + s.getLastAccessedTime());
 				s.setAttribute("Logged", id);
 				s.setAttribute("account", activation);

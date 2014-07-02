@@ -66,6 +66,17 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>RentAddServlet</servlet-name>
+    <servlet-class>coreServlets.RentAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RentAddServlet</servlet-name>
+    <url-pattern>/huren</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  
    <servlet>
     <servlet-name>ReservationServlet</servlet-name>
     <servlet-class>coreServlets.ReservationServlet</servlet-class>
