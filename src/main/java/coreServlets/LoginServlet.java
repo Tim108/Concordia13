@@ -85,9 +85,9 @@ public class LoginServlet extends HttpServlet {
 					try(ResultSet rs2 = ps2.executeQuery()) {
 						while(rs2.next()) {
 							List<Object> rentinfo = new ArrayList<Object>();
-							rentinfo.add(0, rs2.getInt("startingdate"));
-							rentinfo.add(1, rs2.getInt("endingdate"));
-							rentinfo.add(2, rs2.getInt("deliver"));
+							rentinfo.add(0, rs2.getDate("startingdate"));
+							rentinfo.add(1, rs2.getDate("endingdate"));
+							rentinfo.add(2, rs2.getBoolean("deliver"));
 							rents.put(rs2.getInt("rentpiece"), rentinfo);
 						}
 					}

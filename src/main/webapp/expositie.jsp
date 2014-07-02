@@ -354,8 +354,10 @@ a.id = '<%=ids.get(0)%>')
 											<font color='green'>Beschikbaar</font>
 											</p>
 											<p>
+											<form action="/concordia/huren" method="post">
+											<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
-											<a href="#" class="btn btn-primary" role="button">Huur direct!</a>
+											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
 											<div class="btn-group dropup">
 											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
 											<ul class="dropdown-menu pull-right" role="menu">
@@ -385,6 +387,7 @@ a.id = '<%=ids.get(0)%>')
 											</tr>
 										</table>
 										</ul>
+										</form>
 									</div>
 									</c:otherwise>
 									</c:choose>

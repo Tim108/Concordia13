@@ -66,13 +66,14 @@
 	%>
 	<br><font color="red"><h2>${Error}</h2></font>
 	<% } else {%>
+	<h2><b>Gehuurde Werken</b></h2>
 	<table style="border-collapse:separate; border-spacing:0 10px;">
-		<tr><td style="padding-right:10px; padding-bottom:10px;"><b>Naam</b><td style="padding-right:10px; padding-bottom:10px;"><b>Prijs</b><td style="padding-right:10px; padding-bottom:10px;"><b>Einddatum</b><td style="padding-left:10px; padding-bottom:10px;"><b>Preview</b></td></tr>
 		<c:forEach var="row" items="${artpieces.rows}">
+			<c:set var="id" value="${row.id}" />
 			<tr style="background-color:#E8E8E8;">
-				<td style="border-radius: 10px 0 0 10px; -moz-border-radius: 10px 0 0 10px; text-align: center;"><c:out value="${row.name}" /></td>
-				<td style="text-align: center;"><c:out value="${row.price}" /></td>
-				<td style="text-align: center;"><%=rents.get(pageContext.getAttribute("row.id")).get(1) %></td>
+				<td style="border-radius: 10px 0 0 10px; -moz-border-radius: 10px 0 0 10px; padding-right:10px; padding-left:10px;"><b><c:out value="${row.name}" /></b></td>
+				<td style=" padding-right:10px; padding-left:10px;"><c:out value="${row.price}" /></td>
+				<td style=" padding-right:10px; padding-left:10px;"><%=rents.get(pageContext.getAttribute("id")).get(1) %></td>
 				<td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;">
 					<img src="img/<c:out value="${row.source}" />" alt="<c:out value="${row.source}" />" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/>
 				</td>
