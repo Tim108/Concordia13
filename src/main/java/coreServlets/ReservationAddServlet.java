@@ -71,7 +71,7 @@ public class ReservationAddServlet extends HttpServlet {
 					s.setAttribute("Reservations", reservations);
 					System.out.println("Second reservations: "
 							+ s.getAttribute("Reservations"));
-					response.sendRedirect("/concordia/reservations");
+					response.sendRedirect(request.getContextPath() +"/reservations");
 				}
 			}
 		} catch (Exception e) {
