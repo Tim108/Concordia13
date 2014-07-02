@@ -233,8 +233,25 @@ public class SearchServlet extends HttpServlet {
 				sizeStatement += "AND ap.rating>=" + ratings[0] + " ";
 			if (ratings[1] != 0)
 				sizeStatement += "AND ap.rating<=" + ratings[1] + " ";
+			
+			// generate statement for srch terms
+			String srchStatement = "";
+			for(int i = 0; i < srchterms.length; i++){
+				srchStatement += "AND (LOWER(a.name) LIKE '%"
+						+ srchterms[i]
+						+ "%' "
+						+ "OR LOWER(ap.artist) LIKE '%"
+						+ srchterms[i]
+						+ "%' "
+						+ "OR LOWER(ap.technique) LIKE '%"
+						+ srchterms[i]
+						+ "%' "
+						+ "OR LOWER(ap.style) LIKE '%"
+						+ srchterms[i] + "%' "
+						+ ")";
+			}
 
-			if (!srchterms[0].equals("") && srchterms.length == 1) {
+			if (!(srchterms[0].equals("") && srchterms.length == 1)) {
 				for (int i = 0; i < srchterms.length; i++) {
 					try (PreparedStatement ps2 = conn
 							.prepareStatement("SELECT a.name FROM art a,artpiece ap WHERE a.id=ap.id "
@@ -253,17 +270,10 @@ public class SearchServlet extends HttpServlet {
 
 									+ rateStatement
 
-									+ "AND (LOWER(a.name) LIKE '%"
-									+ srchterms[i]
-									+ "%' "
-									+ "OR LOWER(ap.artist) LIKE '%"
-									+ srchterms[i]
-									+ "%' "
-									+ "OR LOWER(ap.technique) LIKE '%"
-									+ srchterms[i]
-									+ "%'"
-									+ "OR LOWER(ap.style) LIKE '%"
-									+ srchterms[i] + "%'" + ");")) {
+									+ srchStatement
+									
+									)) {
+						System.out.println(ps2.toString());
 						try (ResultSet rs = ps2.executeQuery()) {
 							while (rs.next()) {
 								attributes.add(rs.getString("name"));
