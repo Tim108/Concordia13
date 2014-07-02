@@ -67,7 +67,7 @@
 					<%= session.getAttribute("Name") + " " + session.getAttribute("SurName") %> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="<%=request.getContextPath()%>/userinfo" id="userinfo">Gegevens</a></li>
-            			<li><a href="#" id="<%=request.getContextPath()%>/reservations">Reserveringen</a></li>
+            			<li><a href="<%=request.getContextPath()%>/reservations" id="reservations">Reserveringen</a></li>
             			<li><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="exposition">Expositie</a></li>
             			<li><a href="<%=request.getContextPath()%>/gehuurde.jsp" id="rented">Mijn gehuurde werken</a></li>
             			<li><a href="<%=request.getContextPath()%>/subscription" id="subscription">Abonnement afsluiten</a></li>
