@@ -16,7 +16,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Collectie - Concordia</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
 <!-- Bootstrap -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
