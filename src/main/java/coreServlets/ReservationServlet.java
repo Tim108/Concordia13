@@ -47,7 +47,7 @@ public class ReservationServlet extends HttpServlet {
 				}
 			}
 			if(ids.isEmpty()) {
-				request.setAttribute("Error", "U hebt nog geen reservaties!");
+				request.setAttribute("Error", "U hebt nog geen reserveringen!");
 			}
 			else {
 				request.setAttribute("Sources", sources);
