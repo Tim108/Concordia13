@@ -76,8 +76,6 @@
     <url-pattern>/huren</url-pattern>
   </servlet-mapping>
   <servlet>
-  
-   <servlet>
     <servlet-name>ReservationServlet</servlet-name>
     <servlet-class>coreServlets.ReservationServlet</servlet-class>
   </servlet>
