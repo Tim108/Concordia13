@@ -437,7 +437,7 @@ ORDER BY rating DESC;
 												var expo = prompt(
 														"Kies een naam voor uw Expositie",
 														"Expositie");
-												if (expo != null) {
+												if (expo != null && expo != "") {
 													select.options[select.selectedIndex].innerHTML = expo;
 													select.options[select.selectedIndex]
 															.setAttribute(
