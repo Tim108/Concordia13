@@ -46,9 +46,14 @@ public class ReservationServlet extends HttpServlet {
 					}
 				}
 			}
-			request.setAttribute("Sources", sources);
-			request.setAttribute("Dates", dates);
-			request.setAttribute("IDs",ids);
+			if(ids.isEmpty()) {
+				request.setAttribute("Error", "U hebt nog geen reservaties!");
+			}
+			else {
+				request.setAttribute("Sources", sources);
+				request.setAttribute("Dates", dates);
+				request.setAttribute("IDs",ids);
+			}
 			request.getRequestDispatcher("/reservations.jsp").forward(request, response);
 		} 
 		catch (SQLException e) { e.printStackTrace(); }

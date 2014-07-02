@@ -147,7 +147,7 @@ a.id = '<%=ids.get(0)%>')
     </div>
     <script>
     function changeName() {
-    	document.getElementById('expositionName').innerHTML = '<form id="changeNameForm" action="/expositie" method="get"><input type="hidden" name="id" value="<%=request.getParameter("id")%>" /> <input type="text" onblur="permChange()" name="nameInput" id="nameInput" /> </form>';
+    	document.getElementById('expositionName').innerHTML = '<form id="changeNameForm" action="<%=request.getContextPath()%>/expositie" method="get"><input type="hidden" name="id" value="<%=request.getParameter("id")%>" /> <input type="text" onblur="permChange()" name="nameInput" id="nameInput" /> </form>';
     	document.getElementById('nameInput').focus();
     	document.getElementById('nameInput').onkeypress = function(e){
             if (!e) e = window.event;
