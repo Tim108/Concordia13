@@ -311,7 +311,7 @@ a.id = '<%=ids.get(0)%>')
 											<font color='green'>Beschikbaar</font>
 										</p>
 										<p>
-										<form action="/concordia/huren" method="post">
+										<form action="<%=request.getContextPath()%>/huren" method="post">
 										<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
 											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
@@ -354,7 +354,7 @@ a.id = '<%=ids.get(0)%>')
 											<font color='green'>Beschikbaar</font>
 											</p>
 											<p>
-											<form action="/concordia/huren" method="post">
+											<form action="<%=request.getContextPath()%>/huren" method="post">
 											<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
 											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
