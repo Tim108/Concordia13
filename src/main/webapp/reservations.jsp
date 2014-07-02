@@ -14,12 +14,6 @@
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">
 	<link href="res/css/carousel.css" rel="stylesheet">
 	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
-	
-	<!-- Fancybox -->
-	<script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>
-	<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js"></script>
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
