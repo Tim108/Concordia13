@@ -1,5 +1,6 @@
 package coreServlets;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import javax.mail.*;
@@ -7,13 +8,14 @@ import javax.mail.internet.*;
 
 public class SendEmailServlet {
 	public void sendMail(String email, String type, String user, String userpass, String activation, int id) {
-			String to =email;
+			String to = email;
 			String subject = getSubject("register");
 			String content = getMailText(type, user, email, userpass, activation, id);
-			final String username = "con13cordia@gmail.com";
-			final String password = "concon13";
+			String from = "noreply@concordia.nl";
+			//final String username = "con13cordia@gmail.com";
+			//final String password = "concon13";
 
-			String host = "smtp.gmail.com";
+			String host = "smtp.utwente.nl";
 			Properties props = new Properties();
 			// set any needed mail.smtps.* properties here
 			Session session = Session.getInstance(props);
@@ -24,11 +26,12 @@ public class SendEmailServlet {
 			try {
 				msg.setSubject(subject);
 				msg.setContent(content, "text/html");
+				msg.setSender(new InternetAddress(from, "Concordia"));
 				t = session.getTransport("smtps");
-				t.connect(host, username, password);
+				t.connect(host, null, null);
 				t.sendMessage(msg, InternetAddress.parse(to));
 				System.out.println("message sent");
-			} catch (MessagingException e) {
+			} catch (MessagingException | UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
