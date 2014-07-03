@@ -353,8 +353,19 @@ SELECT * FROM rent r
 									<c:forEach var="rentrow" items="${rents.rows}">
 										<c:choose>
 											<c:when test="${rentrow.artpiece == row.id}">
+												<c:set var="endingdate" value="${rentrow.endingdate}" />
+												<%
+												Calendar start = Calendar.getInstance();
+												Calendar end = Calendar.getInstance();
+												start.set(((java.sql.Date)pageContext.getAttribute("currentDate")).getYear(),((java.sql.Date)pageContext.getAttribute("currentDate")).getMonth(),((java.sql.Date)pageContext.getAttribute("currentDate")).getDay());
+												end.set(((java.sql.Date)pageContext.getAttribute("endingdate")).getYear(),((java.sql.Date)pageContext.getAttribute("endingdate")).getMonth(),((java.sql.Date)pageContext.getAttribute("endingdate")).getDay());
+												int diffMonth = 11 - start.get(Calendar.MONTH) - end.get(Calendar.MONTH);
+												int diffDay = start.get(Calendar.DAY_OF_MONTH) - end.get(Calendar.DAY_OF_MONTH);
+												if(diffDay < 0) diffDay = (int)31 - Math.abs(diffDay);
+												%>
 												<p>
-													<font color='red'>Beschikbaar over <c:out value="5" /> dagen</font>
+													<font size=2 color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen <% } %></font>
+												
 												</p>
 												<p>
 												<c:set var="beschikbaar" value="false" />
