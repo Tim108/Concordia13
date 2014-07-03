@@ -89,6 +89,10 @@ WHERE a.id=b.id
 ORDER BY rating DESC;
 </sql:query>
 
+	<sql:query dataSource="${snapshot}" var="rents">
+SELECT * FROM rent r
+	</sql:query>
+
 	<CENTER>
 		<H1>Collectie</H1>
 		<script>
@@ -319,93 +323,98 @@ ORDER BY rating DESC;
 										Prijs: &euro;
 										<c:out value="${row.price}" />
 									</h3>
+									<% 
+									pageContext.setAttribute("currentDate",new java.sql.Date(new java.util.Date().getTime()));
+									HttpSession s = request.getSession();
+									if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
+									%>
+									<p>
+									<form name="myForm" action="remove" onsubmit="return popUp()"
+										method="post">
+										<input type="hidden" name="removing" value="${row.id}">
+										<div class="btn-group">
+											<input type="submit" class="btn btn-primary" role="button"
+												value="Verwijder">
+										<jsp:include page="share.jsp" />
+										</div>
+									</form>
+	
+									<script>
+										function popUp() {
+											var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+											return r;
+										}
+									</script>
+									<%
+										} else {
+									%>
 									<c:choose>
-										<c:when test="true">
-											<p>
-												<font color='red'>Beschikbaar over 13 weken</font>
-											</p>
-										</c:when>
-										<c:otherwise>
-											<p>
-												<font color='green'>Beschikbaar</font>
-											</p>
-										</c:otherwise>
+									<c:when test="${fn:length(rents.rows) gt 0}">
+									<c:forEach var="rentrow" items="${rents.rows}">
+										<c:choose>
+											<c:when test="${rentrow.artpiece == row.id}">
+												<p>
+													<font color='red'>Beschikbaar over <c:out value="5" /> dagen</font>
+												</p>
+												<p>
+												<c:set var="beschikbaar" value="false" />
+												<c:set var="artID" value ="${row.id}" />
+												
+												<% if(request.getSession().getAttribute("Reservations") != null && ((Map<Integer, java.sql.Date>)request.getSession().getAttribute("Reservations")).containsKey(pageContext.getAttribute("artID"))) { %>
+												
+												<form action="<%=request.getContextPath()%>/reservations" method="get">
+													<div class="btn-group">
+														<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
+														<jsp:include page="share.jsp" />
+													</div>
+												</form>
+												<% } else { %>
+												<form action="<%=request.getContextPath()%>/reserveer" method="post">
+													<input type="hidden" name="id" id="" value="${row.id}" />
+													<div class="btn-group">
+														<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
+														<jsp:include page="share.jsp" />
+													</div>
+												</form>
+												<% } %>
+												<c:remove var="artID" />
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${empty beschikbaar}">
+										<p>
+											<font color='green'>Beschikbaar</font>
+										</p>
+										<p>
+										<form action="<%=request.getContextPath()%>/huren" method="post">
+										<input type="hidden" name="id" value="${row.id}" />
+											<div class="btn-group">
+												<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
+												<jsp:include page="share.jsp" />
+											</div>
+										</form>
+									</c:if>
+									<c:remove var="beschikbaar" />
+									</c:when>
+									<c:otherwise>
+										<p>
+											<font color='green'>Beschikbaar</font>
+										</p>
+										<p>
+											<form action="<%=request.getContextPath()%>/huren" method="post">
+												<input type="hidden" name="id" value="${row.id}" />
+												<div class="btn-group">
+													<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
+													<jsp:include page="share.jsp" />
+												</div>
+											</form>
+										</p>
+									</c:otherwise>
 									</c:choose>
+								<% } %>
 								</div>
 								<p>
 								<div>
-									<center>
-										<%
-											HttpSession s = request.getSession();
-																																																																						if(s.getAttribute("isAdmin") != null && (Boolean)s.getAttribute("isAdmin") && s.getAttribute("Logged") != null) {
-										%>
-
-										<p>
-										<form name="myForm" action="remove" onsubmit="return popUp()"
-											method="post">
-											<input type="hidden" name="removing" value="${row.id}">
-											<div class="btn-group">
-												<input type="submit" class="btn btn-primary" role="button"
-													value="Verwijder">
-										</form>
-
-										<script>
-											function popUp() {
-												var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-												return r;
-											}
-										</script>
-										<%
-											} else {
-										%>
-										<c:choose>
-											<c:when test="true">
-												<p>
-												<div class="btn-group">
-													<a href="#" class="btn btn-primary" role="button">Reserveer</a>
-											</c:when>
-											<c:otherwise>
-												<p>
-												<div class="btn-group">
-													<a href="#" class="btn btn-primary" role="button">Huur
-														direct!</a>
-											</c:otherwise>
-										</c:choose>
-										<%
-											}
-										%>
-										<button type="button" class="btn btn-default dropdown-toggle"
-											data-toggle="dropdown">
-											Delen <span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu">
-											<table>
-												<tr>
-													<td style="padding-right: 10px; padding-bottom: 10px"><a
-														href="http://www.facebook.com/sharer.php?u=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-														target="_blank"><img
-															src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-															alt="Facebook" style="height: 50px;" /></a>
-													<td style="padding-bottom: 10px;"><a
-														href="http://twitter.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-														target="_blank"><img
-															src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-															alt="Twitter" style="height: 50px;" /></a>
-												</tr>
-												<tr>
-													<td style="padding-right: 10px;"><a
-														href="https://plus.google.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-														" target="_blank"> <img
-															src="http://www.simplesharebuttons.com/images/somacro/google.png"
-															alt="Google" style="height: 50px;" /></a>
-													<td><a
-														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"><img
-															src="http://www.simplesharebuttons.com/images/somacro/email.png"
-															alt="Email" style="height: 50px;" /></a>
-												</tr>
-											</table>
-										</ul>
-									</center>
 									<%
 										if(s.getAttribute("Logged") != null) {
 									%>

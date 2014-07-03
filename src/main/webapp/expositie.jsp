@@ -87,14 +87,15 @@
         <div class="row">
           <div class="span12">
             <h2>Kies een Expositie:</h2>
-            <%
-            HttpSession s = request.getSession();
-            Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
-            for(Integer i : expositions.keySet()) { %>
+            <table style="border-collapse:separate; border-spacing:0 10px;">
+            	<%
+            	HttpSession s = request.getSession();
+            	Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
+            	for(Integer i : expositions.keySet()) { %>
             	<h3><a href=expositie?id=<%= i %>><%= expositions.get(i) %></a><br></h3>
-            <%	
-            }
-            %>
+            	<%	
+            	}
+            	%>
             
           </div>
         </div>
@@ -260,49 +261,25 @@ a.id = '<%=ids.get(0)%>')
 												<p>
 												<c:set var="beschikbaar" value="false" />
 												<c:set var="artID" value ="${row.id}" />
+												
 												<% if(request.getSession().getAttribute("Reservations") != null && ((Map<Integer, java.sql.Date>)request.getSession().getAttribute("Reservations")).containsKey(pageContext.getAttribute("artID"))) { %>
+												
 												<form action="<%=request.getContextPath()%>/reservations" method="get">
-												<div class="btn-group">
-													<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
+													<div class="btn-group">
+														<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
+														<jsp:include page="share.jsp" />
+													</div>
+												</form>
 												<% } else { %>
 												<form action="<%=request.getContextPath()%>/reserveer" method="post">
-												<input type="hidden" name="id" id="" value="${row.id}" />
-												<div class="btn-group">
-													<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-												<% } %>
-												<div class="btn-group dropup">
-													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
-												<ul class="dropdown-menu pull-right" role="menu">
-												<table>
-												<tr>
-													<td style="padding-right: 10px; padding-bottom: 10px"><a
-														href="http://www.facebook.com/sharer.php?u=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-														target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-														alt="Facebook" style="height: 50px;" /></a>
-													<td style="padding-bottom: 10px;"><a
-														href="http://twitter.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-														target="_blank"><img
-														src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-														alt="Twitter" style="height: 50px;" /></a>
-													</tr>
-													<tr>
-													<td style="padding-right: 10px;"><a
-														href="https://plus.google.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-														" target="_blank"> <img
-														src="http://www.simplesharebuttons.com/images/somacro/google.png"
-														alt="Google" style="height: 50px;" /></a>
-													<td><a
-														href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"><img
-														src="http://www.simplesharebuttons.com/images/somacro/email.png"
-														alt="Email" style="height: 50px;" /></a>
-													</tr>
-												</table>
-												</ul>
-												</div>
+													<input type="hidden" name="id" id="" value="${row.id}" />
+													<div class="btn-group">
+														<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
+														<jsp:include page="share.jsp" />
+													</div>
 												</form>
+												<% } %>
 												<c:remove var="artID" />
-											</div>
 											</c:when>
 										</c:choose>
 									</c:forEach>
@@ -314,37 +291,9 @@ a.id = '<%=ids.get(0)%>')
 										<form action="<%=request.getContextPath()%>/huren" method="post">
 										<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
-											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-										<div class="btn-group dropup">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
-										<ul class="dropdown-menu pull-right" role="menu">
-										<table>
-										<tr>
-											<td style="padding-right: 10px; padding-bottom: 10px"><a
-												href="http://www.facebook.com/sharer.php?u=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-												target="_blank"><img
-												src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-												alt="Facebook" style="height: 50px;" /></a>
-											<td style="padding-bottom: 10px;"><a
-												href="http://twitter.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-												target="_blank"><img
-												src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-												alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-											<td style="padding-right: 10px;"><a
-												href="https://plus.google.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-												" target="_blank"> <img
-												src="http://www.simplesharebuttons.com/images/somacro/google.png"
-												alt="Google" style="height: 50px;" /></a>
-											<td><a
-												href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"><img
-												src="http://www.simplesharebuttons.com/images/somacro/email.png"
-												alt="Email" style="height: 50px;" /></a>
-											</tr>
-											</table>
-											</ul>
-										</div>
+												<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
+												<jsp:include page="share.jsp" />
+											</div>
 										</form>
 									</c:if>
 									<c:remove var="beschikbaar" />
@@ -352,43 +301,16 @@ a.id = '<%=ids.get(0)%>')
 									<c:otherwise>
 										<p>
 											<font color='green'>Beschikbaar</font>
-											</p>
-											<p>
+										</p>
+										<p>
 											<form action="<%=request.getContextPath()%>/huren" method="post">
-											<input type="hidden" name="id" value="${row.id}" />
-											<div class="btn-group">
-											<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-											<div class="btn-group dropup">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Delen <span class="caret"></span></button>
-											<ul class="dropdown-menu pull-right" role="menu">
-											<table>
-											<tr>
-											<td style="padding-right: 10px; padding-bottom: 10px"><a
-												href="http://www.facebook.com/sharer.php?u=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-												target="_blank"><img
-												src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
-												alt="Facebook" style="height: 50px;" /></a>
-											<td style="padding-bottom: 10px;"><a
-												href="http://twitter.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}&text=Geweldig werk gezien bij concordia! // via @Concordia053"
-												target="_blank"><img
-												src="http://www.simplesharebuttons.com/images/somacro/twitter.png"
-												alt="Twitter" style="height: 50px;" /></a>
-											</tr>
-											<tr>
-											<td style="padding-right: 10px;"><a
-												href="https://plus.google.com/share?url=http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"
-												" target="_blank"> <img
-												src="http://www.simplesharebuttons.com/images/somacro/google.png"
-												alt="Google" style="height: 50px;" /></a>
-											<td><a
-												href="mailto:?Subject=Bekijk dit kunstwerk bij Concordia kunstuitleen!&Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://datainfo.ewi.utwente.nl<%=request.getContextPath()%>/img/${row.source}"><img
-												src="http://www.simplesharebuttons.com/images/somacro/email.png"
-												alt="Email" style="height: 50px;" /></a>
-											</tr>
-										</table>
-										</ul>
-										</form>
-									</div>
+												<input type="hidden" name="id" value="${row.id}" />
+												<div class="btn-group">
+													<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
+													<jsp:include page="share.jsp" />
+												</div>
+											</form>
+										</p>
 									</c:otherwise>
 									</c:choose>
 								</div>
