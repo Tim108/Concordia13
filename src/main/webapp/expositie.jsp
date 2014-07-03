@@ -264,7 +264,8 @@ a.id = '<%=ids.get(0)%>')
 												end.set(((java.sql.Date)pageContext.getAttribute("endingdate")).getYear(),((java.sql.Date)pageContext.getAttribute("endingdate")).getMonth(),((java.sql.Date)pageContext.getAttribute("endingdate")).getDay());
 												int diffMonth = 11 - start.get(Calendar.MONTH) - end.get(Calendar.MONTH);
 												int diffDay = start.get(Calendar.DAY_OF_MONTH) - end.get(Calendar.DAY_OF_MONTH);
-												if(diffDay < 0) diffDay = (int)31 - Math.abs(diffDay);
+												if(diffDay <= 0) diffDay = (int)30.5 - Math.abs(diffDay);
+												System.out.println(pageContext.getAttribute("currentDate") + " " + pageContext.getAttribute("endingdate"));
 												%>
 												<p>
 													<font size=2 color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen <% } %></font>

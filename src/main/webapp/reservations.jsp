@@ -44,9 +44,7 @@
 	List<Integer> ids = (List<Integer>)request.getAttribute("IDs");
 	%>
 	<center>
-	<% if(request.getAttribute("Succes") != null) { %>
-	<div onclick="this.remove();" style="display:inline-block;padding-left:10px;padding-right:10px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;border:1px solid #000000;background-color:#FFCC66;-webkit-box-shadow: #B3B3B3 10px 10px 10px;-moz-box-shadow: #B3B3B3 10px 10px 10px; box-shadow: #B3B3B3 10px 10px 10px;"> ${Succes} </div>
-	<% } 
+<% 
 	if(request.getAttribute("Error") != null) {
 	%>
 	<br><font color="red"><h2>${Error}</h2></font>
