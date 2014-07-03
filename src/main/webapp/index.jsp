@@ -68,7 +68,7 @@
 		url="<%=url%>" user="<%=user%>" password="<%=pass1%>" />
 
 	<sql:query dataSource="${snapshot}" var="art">
-	SELECT COUNT(*) FROM Art
+	SELECT COUNT(*) FROM artpiece
 	</sql:query>
 	
 	<% 
