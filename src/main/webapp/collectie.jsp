@@ -418,10 +418,9 @@ SELECT * FROM rent r
 									<%
 										if(s.getAttribute("Logged") != null) {
 									%>
-									<br>
-									<form name="myForm" action="voegToeExpositie" method="post">
-										<input type="hidden" name="id" value="${row.id}"> <select
-											name="expo" onchange="namePopUp(this)">
+									<form name="myForm" action="voegToeExpositie" method="post" id="form124">
+										<input type="hidden" name="id" value="${row.id}"> <select class="form-control" style="width:60%;"
+											name="expo" onchange="namePopUp(this);submit();">
 											<option value="">Voeg toe aan expositie</option>
 											<%
 												Map<Integer, String> expositions = (Map<Integer, String>)s.getAttribute("Expositions");
@@ -434,9 +433,7 @@ SELECT * FROM rent r
 																				}
 											%>
 											<option myid=1>Nieuwe Expositie</option>
-										</select> <br>
-										<br> <input type="submit" value="Voeg toe aan expositie"
-											class="btn btn-success">
+										</select> 
 									</form>
 
 									<script>
@@ -452,6 +449,7 @@ SELECT * FROM rent r
 															.setAttribute(
 																	"value",
 																	expo);
+													document.getElementById("form124").submit();
 												}
 											}
 										}
