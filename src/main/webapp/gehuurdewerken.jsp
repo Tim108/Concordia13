@@ -66,7 +66,7 @@
 	<br><font color="red"><h2>${Error}</h2></font>
 	<% } else {%>
 	<h2><b>Gehuurde Werken</b></h2>
-	<table style="border-collapse:separate; border-spacing:0 10px;">
+	<table style="border-collapse:separate; border-spacing:0 10px;">	
 		<c:forEach var="row" items="${artpieces.rows}">
 			<c:set var="id" value="${row.id}" />
 			<tr style="background-color:#E8E8E8;">

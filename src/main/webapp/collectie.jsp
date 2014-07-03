@@ -46,7 +46,22 @@
 	margin: auto;
 }
 </style>
-
+<% 
+	if(request.getSession().getAttribute("nosubs")!=null && request.getSession().getAttribute("nosubs").equals("yes")) { %>
+	<script>
+	var result = confirm("U hebt geen abonnementen, wilt u een abonnement afsluiten?");
+	var contextpath = "${pageContext.request.contextPath}";
+	
+	<%request.getSession().removeAttribute("nosubs"); %>
+	if(result) {
+		window.location.replace(contextpath + "/subscription");
+	} else {
+		this.close();
+	}
+	
+	</script>
+<%
+}%>
 </head>
 <body>
 	<jsp:include page="main.jsp">

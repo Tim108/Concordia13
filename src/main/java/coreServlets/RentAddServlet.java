@@ -29,7 +29,10 @@ public class RentAddServlet extends HttpServlet {
 		int paintingid = Integer.parseInt(request.getParameter("id"));
 		Map<Integer, List<Object>> rents = (Map<Integer, List<Object>>) s.getAttribute("Rents");
 		System.out.println("First rents: " + rents);
-
+		
+		if(s.getAttribute("Logged")==null) {
+			response.sendRedirect(request.getContextPath() + "/loginpage");
+		}
 		Calendar cal = Calendar.getInstance();
 		java.sql.Date sqlnow = new java.sql.Date(cal.getTime().getTime());
 		
@@ -68,18 +71,20 @@ public class RentAddServlet extends HttpServlet {
 								rentinfo.add(2, false);
 								rents.put(paintingid, rentinfo);
 							}
+							response.sendRedirect(request.getContextPath() + "/gehuurdewerken");
 						} else {
 							System.out.println("staat al in gehuurde werken");
 						}
 					} else {
 						System.out.println("geen subs left");
+						s.setAttribute("nosubs", "yes");
+						response.sendRedirect(request.getHeader("Referer"));
 					}
 				System.out.println(rents);
 				 
 					s.setAttribute("Rents", rents);
 					System.out.println("Second rents: "
 							+ s.getAttribute("Rents"));
-					response.sendRedirect(request.getContextPath() + "/gehuurdewerken.jsp");
 				}
 			}
 		} catch (Exception e) {
