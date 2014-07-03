@@ -193,6 +193,7 @@ public class RegisterServlet extends HttpServlet {
 				    catch (SQLException e2) { 
 				    	e2.printStackTrace();
 				    }
+				    conn.commit();
 				    response.sendRedirect("");
 				    return true;
 				}
