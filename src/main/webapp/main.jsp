@@ -30,6 +30,7 @@
 				<li <% if(currentpage.equals("collection")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/search" id="collectie">Collectie</a></li>
 				<li <% if(currentpage.equals("expositie")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="expositie">Expositie</a></li>
 				<li <% if(currentpage.equals("reservations")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/reservations">Reserveringen</a></li>
+				<li <% if(currentpage.equals("rented")){ %> class="active" <% } %>><a href="<%=request.getContextPath()%>/gehuurdewerken">Gehuurde werken</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 			<% HttpSession s = request.getSession();
@@ -67,9 +68,6 @@
 					<%= session.getAttribute("Name") + " " + session.getAttribute("SurName") %> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="<%=request.getContextPath()%>/userinfo" id="userinfo">Gegevens</a></li>
-            			<li><a href="<%=request.getContextPath()%>/reservations" id="reservations">Reserveringen</a></li>
-            			<li><a href="<%=request.getContextPath()%>/expositie?id=<%=session.getAttribute("hasExposition")%>" id="exposition">Expositie</a></li>
-            			<li><a href="<%=request.getContextPath()%>/gehuurde.jsp" id="rented">Mijn gehuurde werken</a></li>
             			<li><a href="<%=request.getContextPath()%>/subscription" id="subscription">Abonnement afsluiten</a></li>
             			<li class="divider"></li>
 						<li><a href="<%=request.getContextPath()%>/loguit" id="logout">Log uit</a></li>

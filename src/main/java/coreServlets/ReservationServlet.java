@@ -23,39 +23,49 @@ public class ReservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException { doGet(request, response); }
-		
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		
+
 		HttpSession s = request.getSession();
-		int userID = (Integer)s.getAttribute("Logged");
-		Connection conn = (Connection) getServletContext().getAttribute("DBConnection");
-		List<String> sources = new ArrayList<String>();
-		List<Date> dates = new ArrayList<Date>();
-		List<Integer> ids = new ArrayList<Integer>();
-		try{
-			try(PreparedStatement ps = conn.prepareStatement("SELECT a.id, a.source, r.startingdate FROM art a, reservation r WHERE a.id = r.artpiece AND r.customer = ?")) {
-				ps.setInt(1, userID);
-				try(ResultSet rs = ps.executeQuery()) {
-					while(rs.next()) {
-						ids.add(rs.getInt("id"));
-						sources.add(rs.getString("source"));
-						dates.add(rs.getDate("startingdate"));
+		if (s.getAttribute("Logged") != null) {
+			int userID = (Integer) s.getAttribute("Logged");
+			Connection conn = (Connection) getServletContext().getAttribute(
+					"DBConnection");
+			List<String> sources = new ArrayList<String>();
+			List<Date> dates = new ArrayList<Date>();
+			List<Integer> ids = new ArrayList<Integer>();
+			try {
+				try (PreparedStatement ps = conn
+						.prepareStatement("SELECT a.id, a.source, r.startingdate FROM art a, reservation r WHERE a.id = r.artpiece AND r.customer = ?")) {
+					ps.setInt(1, userID);
+					try (ResultSet rs = ps.executeQuery()) {
+						while (rs.next()) {
+							ids.add(rs.getInt("id"));
+							sources.add(rs.getString("source"));
+							dates.add(rs.getDate("startingdate"));
+						}
 					}
 				}
+				if (ids.isEmpty()) {
+					request.setAttribute("Error",
+							"U hebt nog geen reserveringen!");
+				} else {
+					request.setAttribute("Sources", sources);
+					request.setAttribute("Dates", dates);
+					request.setAttribute("IDs", ids);
+				}
+				request.getRequestDispatcher("/showReservations").forward(
+						request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			if(ids.isEmpty()) {
-				request.setAttribute("Error", "U hebt nog geen reserveringen!");
-			}
-			else {
-				request.setAttribute("Sources", sources);
-				request.setAttribute("Dates", dates);
-				request.setAttribute("IDs",ids);
-			}
-			request.getRequestDispatcher("/reservations.jsp").forward(request, response);
-		} 
-		catch (SQLException e) { e.printStackTrace(); }
+		} else {
+			response.sendRedirect(request.getContextPath() + "/loginpage");
+		}
 	}
 }

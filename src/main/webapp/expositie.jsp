@@ -9,6 +9,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
+<%if(request.getSession().getAttribute("Logged") == null) { response.sendRedirect(request.getContextPath() + "/loginpage"); } %>
 	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

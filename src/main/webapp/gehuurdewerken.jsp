@@ -11,8 +11,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<%if(request.getSession().getAttribute("Logged") == null) { %> <meta http-equiv="refresh" content="0;<%=request.getContextPath()%>/login.jsp"> <% 
-	} %>
+	<%if(request.getSession().getAttribute("Logged") == null) { response.sendRedirect(request.getContextPath() + "/loginpage"); } %>
 	<title>Concordia</title>
 	<!-- Bootstrap -->
 	<link href="res/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +38,7 @@
 </head>
 <body>
 	<jsp:include page="main.jsp">
-		<jsp:param name="currentpage" value="rents" />
+		<jsp:param name="currentpage" value="rented" />
 	</jsp:include>
 	
 	<%

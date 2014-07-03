@@ -203,6 +203,35 @@
     <servlet-name>logout</servlet-name>
     <url-pattern>/loguit</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>gehuurdewerken</servlet-name>
+    <jsp-file>/gehuurdewerken.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gehuurdewerken</servlet-name>
+    <url-pattern>/gehuurdewerken</url-pattern>
+  </servlet-mapping>
+  
+      <servlet>
+    <servlet-name>loginpage</servlet-name>
+    <jsp-file>/login.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginpage</servlet-name>
+    <url-pattern>/loginpage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>reservations</servlet-name>
+    <jsp-file>/reservations.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reservations</servlet-name>
+    <url-pattern>/showReservations</url-pattern>
+  </servlet-mapping>
+
+  
   <servlet>
     <servlet-name>javax.ws.rs.core.Application</servlet-name>
   </servlet>

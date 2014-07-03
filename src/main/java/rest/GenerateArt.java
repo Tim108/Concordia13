@@ -96,14 +96,14 @@ public class GenerateArt {
 	
 	@GET
 	@Path("/frontpage")
-	public Viewable index(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+	public Response index(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 	List<String> frontArtSource = new ArrayList<String>();
 	randomArt(3);
 	for(int i = 0; i<3; i++){
 		frontArtSource.add(randomArt.get(i).getSource());
 	}
 	request.setAttribute("artheaders", frontArtSource);
-	return new Viewable("/index.jsp", null);
+	return Response.ok(new Viewable("/index.jsp")).build();
 	}
 	
 	//url: http://localhost:8080/di13_concordia/rest/generateArt/genxml?align=hor&amount=int | align == hor || ver && x > 0
