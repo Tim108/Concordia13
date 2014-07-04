@@ -276,16 +276,30 @@ a.id = '<%=ids.get(0)%>')
 												<%
 												Calendar start = Calendar.getInstance();
 												Calendar end = Calendar.getInstance();
-												start.set(((java.sql.Date)pageContext.getAttribute("currentDate")).getYear(),((java.sql.Date)pageContext.getAttribute("currentDate")).getMonth(),((java.sql.Date)pageContext.getAttribute("currentDate")).getDay());
-												end.set(((java.sql.Date)pageContext.getAttribute("endingdate")).getYear(),((java.sql.Date)pageContext.getAttribute("endingdate")).getMonth(),((java.sql.Date)pageContext.getAttribute("endingdate")).getDay());
-												int diffMonth = 11 - start.get(Calendar.MONTH) - end.get(Calendar.MONTH);
-												int diffDay = start.get(Calendar.DAY_OF_MONTH) - end.get(Calendar.DAY_OF_MONTH);
-												if(diffDay <= 0) diffDay = (int)30.5 - Math.abs(diffDay);
-												System.out.println(pageContext.getAttribute("currentDate") + " " + pageContext.getAttribute("endingdate"));
+												String[] startDate = ((java.sql.Date)pageContext.getAttribute("currentDate")).toString().split("-");
+												String[] endDate = ((java.sql.Date)pageContext.getAttribute("endingdate")).toString().split("-");
+												start.set(Integer.parseInt(startDate[0]), Integer.parseInt(startDate[1]), Integer.parseInt(startDate[2]));
+												end.set(Integer.parseInt(endDate[0]), Integer.parseInt(endDate[1]), Integer.parseInt(endDate[2]));
+												
+												int diffMonth = 0;
+												int diffDay = 0;
+												if(start.get(Calendar.MONTH) > end.get(Calendar.MONTH)) {
+													diffMonth = 12 - start.get(Calendar.MONTH) + end.get(Calendar.MONTH);
+												}
+												else 
+													diffMonth = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+												if(start.get(Calendar.DAY_OF_MONTH) > end.get(Calendar.DAY_OF_MONTH)) {
+													diffMonth--;
+													diffDay = (int) 30.5 - (start.get(Calendar.DAY_OF_MONTH) - end.get(Calendar.DAY_OF_MONTH));
+												}
+												else 
+													diffDay = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
 												%>
 												<p>
-													<font size=2 color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen <% } %></font>
-												
+													<% if(diffMonth != 0 && diffDay != 0) { %><font size=2 color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
+													<% } else if(diffMonth == 0) { %> <font size=2 color='red'>Beschikbaar over <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
+													<% } else { %> <font size=2 color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden. <% } %></font>
+													<% } %>
 												</p>
 												<p>
 												<c:set var="beschikbaar" value="false" />
