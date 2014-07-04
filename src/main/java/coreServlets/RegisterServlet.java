@@ -182,7 +182,9 @@ public class RegisterServlet extends HttpServlet {
 				    if(newsl == null) ps.setBoolean(9, false); 
 				    else ps.setBoolean(10, true);
 				    ResultSet rs = null;
+				    conn.setAutoCommit(false);
 				    try {
+				    	conn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 				    	rs = ps.executeQuery();
 				    	int id = -1;
 				    	while(rs.next()){
@@ -192,8 +194,10 @@ public class RegisterServlet extends HttpServlet {
 				    }
 				    catch (SQLException e2) { 
 				    	e2.printStackTrace();
+				    	conn.rollback();
 				    }
 				    conn.commit();
+				    conn.setAutoCommit(true);
 				    response.sendRedirect("");
 				    return true;
 				}
