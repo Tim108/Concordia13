@@ -39,9 +39,10 @@
 	</jsp:include>
 	
 	<%
+	List<Integer> ids = (List<Integer>)request.getAttribute("IDs");
 	List<String> sources = (List<String>)request.getAttribute("Sources");
 	List<java.sql.Date> dates = (List<java.sql.Date>)request.getAttribute("Dates");
-	List<Integer> ids = (List<Integer>)request.getAttribute("IDs");
+	List<Integer> names = (List<Integer>)request.getAttribute("Names");
 	%>
 	<center>
 <% 
@@ -50,21 +51,60 @@
 	<br><font color="red"><h2>${Error}</h2></font>
 	<% } else {%>
 	<table style="border-collapse:separate; border-spacing:0 10px;">
-		<tr><td style="padding-right:10px; padding-bottom:10px;"><b>Nummer</b><td style="padding-right:10px; padding-bottom:10px;"><b>Start huur</b><td style="padding-left:10px; padding-bottom:10px;"><b>Preview</b></td></tr>
 		<%
 		for(int i=0; i<sources.size(); i++) { %>
-			<tr style="background-color:#E8E8E8;"><td style="border-radius: 10px 0 0 10px; -moz-border-radius: 10px 0 0 10px; text-align: center;"><%=i + 1%><td style="text-align: center;"><%= dates.get(i) %><td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;"><img src="img/<%= sources.get(i) %>" alt="<%= sources.get(i) %>" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/><td style="border-radius: 0 10px 10px 0; -moz-border-radius: 0 10px 10px 0; padding-top:10px; padding-right:10px; padding-bottom:10px;">
-			<h2>
-			<form action="<%=request.getContextPath()%>/removeReservation" method="post">
-				<input type="hidden" name="id" value="<%=ids.get(i)%>" />
-				<font color="darkred"><button onclick="popUp()" onmouseover="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove-circle')" onmouseout="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove')" style="padding: 0; border: none; background: none;"><span id="remove<%= i %>" class="glyphicon glyphicon-remove" /></button></font></h2></td></tr>
-			</form>
-			<script>
-			function popUp() {
-				var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
-				if(r) form.submit();
+		
+			<%
+			Calendar start = Calendar.getInstance();
+			Calendar end = Calendar.getInstance();
+			String[] startDate = (new java.sql.Date(new java.util.Date().getTime())).toString().split("-");
+			String[] endDate = (dates.get(i)).toString().split("-");
+			start.set(Integer.parseInt(startDate[0]), Integer.parseInt(startDate[1]), Integer.parseInt(startDate[2]));
+			end.set(Integer.parseInt(endDate[0]), Integer.parseInt(endDate[1]), Integer.parseInt(endDate[2]));
+												
+			int diffMonth = 0;
+			int diffDay = 0;
+			if(start.get(Calendar.MONTH) > end.get(Calendar.MONTH)) {
+				diffMonth = 12 - start.get(Calendar.MONTH) + end.get(Calendar.MONTH);
 			}
-			</script>
+			else 
+				diffMonth = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+			if(start.get(Calendar.DAY_OF_MONTH) > end.get(Calendar.DAY_OF_MONTH)) {
+				diffMonth--;
+				diffDay = (int) 30.5 - (start.get(Calendar.DAY_OF_MONTH) - end.get(Calendar.DAY_OF_MONTH));
+			}
+			else 
+				diffDay = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
+			%>
+		
+			<tr style="background-color:#E8E8E8; padding-bottom:0px;">
+				<td style="border-radius:10px 0 0 0; -moz-border-radius: 10px 0 0 0; text-align: center;"><b><%=names.get(i)%></b></td>
+				<td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;" rowspan="2">
+					<img src="img/<%= sources.get(i) %>" alt="<%= sources.get(i) %>" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/>
+				</td>
+				<td rowspan="2" style="border-radius: 0 10px 10px 0; -moz-border-radius: 0 10px 10px 0; padding-top:10px; padding-right:10px; padding-bottom:10px;">
+					<h2>
+						<form action="<%=request.getContextPath()%>/removeReservation" method="post">
+						<input type="hidden" name="id" value="<%=ids.get(i)%>" />
+						<font color="darkred"><button onclick="popUp()" onmouseover="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove-circle')" onmouseout="document.getElementById('remove<%=i%>').setAttribute('class','glyphicon glyphicon-remove')" style="padding: 0; border: none; background: none;"><span id="remove<%= i %>" class="glyphicon glyphicon-remove" /></button></font></h2></td></tr>
+						</form>
+						<script>
+						function popUp() {
+							var r = confirm("Weet je zeker dat je dit werk wilt verwijderen?");
+							if(r) form.submit();
+						}
+						</script>
+					</h2>
+				</td>
+			</tr>
+			<tr style="background-color:#E8E8E8; padding-top:0px; margin:0px;">
+				<td style="border-radius: 0px 0 0 10px; -moz-border-radius: 0px 0 0 10px; text-align: center;">
+					<% if(diffMonth != 0 && diffDay != 0) { %><font color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en<br> <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
+					<% } else if(diffMonth == 0) { %> <font color='red'>Beschikbaar over <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
+					<% } else { %> <font color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden. <% } %></font>
+					<% } %>
+				</td>
+			</tr>
 		<%
 		}
 		%>

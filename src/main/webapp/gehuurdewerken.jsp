@@ -71,7 +71,7 @@
 			<c:set var="id" value="${row.id}" />
 			<tr style="background-color:#E8E8E8;">
 				<td style="border-radius: 10px 0 0 10px; -moz-border-radius: 10px 0 0 10px; padding-right:10px; padding-left:10px;"><b><c:out value="${row.name}" /></b></td>
-				<td style=" padding-right:10px; padding-left:10px;"><c:out value="${row.price}" /></td>
+				<td style=" padding-right:10px; padding-left:10px;">&euro;<c:out value="${row.price}" /></td>
 				<td style=" padding-right:10px; padding-left:10px;"><%=rents.get(pageContext.getAttribute("id")).get(1) %></td>
 				<td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;">
 					<img src="img/<c:out value="${row.source}" />" alt="<c:out value="${row.source}" />" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/>

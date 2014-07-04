@@ -310,7 +310,9 @@ a.id = '<%=ids.get(0)%>')
 												<form action="<%=request.getContextPath()%>/reservations" method="get">
 													<div class="btn-group">
 														<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
-														<jsp:include page="share.jsp" />
+														<jsp:include page="share.jsp">
+															<jsp:param name="source" value="${row.source}" />
+														</jsp:include>
 													</div>
 												</form>
 												<% } else { %>
@@ -318,7 +320,9 @@ a.id = '<%=ids.get(0)%>')
 													<input type="hidden" name="id" id="" value="${row.id}" />
 													<div class="btn-group">
 														<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-														<jsp:include page="share.jsp" />
+														<jsp:include page="share.jsp">
+															<jsp:param name="source" value="${row.source}" />
+														</jsp:include>
 													</div>
 												</form>
 												<% } %>
@@ -335,7 +339,9 @@ a.id = '<%=ids.get(0)%>')
 										<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
 												<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-												<jsp:include page="share.jsp" />
+												<jsp:include page="share.jsp">
+													<jsp:param name="source" value="${row.source}" />
+												</jsp:include>
 											</div>
 										</form>
 									</c:if>
@@ -350,7 +356,9 @@ a.id = '<%=ids.get(0)%>')
 												<input type="hidden" name="id" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-													<jsp:include page="share.jsp" />
+													<jsp:include page="share.jsp">
+														<jsp:param name="source" value="${row.source}" />
+													</jsp:include>
 												</div>
 											</form>
 										</p>
@@ -462,7 +470,7 @@ a.id = '<%=ids.get(0)%>')
     <a class="btn stop"><span class="glyphicon glyphicon-stop"></span> Stop</a>
     <% if(request.getAttribute("NotMine") == null) { %>
 	<div class="btn-group">
-	<table class="table table-condensed">
+	<table class="table-condensed">
 	<tr><td>
 		<form action="externUpload.jsp" method="post">
 			<input type="hidden" name="collection" id="collectionID" value="<%= request.getParameter("id")%>" />

@@ -36,28 +36,38 @@ public class ReservationServlet extends HttpServlet {
 			int userID = (Integer) s.getAttribute("Logged");
 			Connection conn = (Connection) getServletContext().getAttribute(
 					"DBConnection");
-			List<String> sources = new ArrayList<String>();
-			List<Date> dates = new ArrayList<Date>();
 			List<Integer> ids = new ArrayList<Integer>();
+			List<String> sources = new ArrayList<String>();
+			List<String> names = new ArrayList<String>();
+			List<Date> dates = new ArrayList<Date>();
 			try {
 				try (PreparedStatement ps = conn
-						.prepareStatement("SELECT a.id, a.source, r.startingdate FROM art a, reservation r WHERE a.id = r.artpiece AND r.customer = ?")) {
+						.prepareStatement("SELECT a.source, a.name, a.id FROM art a, reservation r WHERE a.id = r.artpiece AND r.customer = ?")) {
 					ps.setInt(1, userID);
 					try (ResultSet rs = ps.executeQuery()) {
 						while (rs.next()) {
 							ids.add(rs.getInt("id"));
 							sources.add(rs.getString("source"));
-							dates.add(rs.getDate("startingdate"));
+							names.add(rs.getString("name"));
 						}
 					}
 				}
-				if (ids.isEmpty()) {
+				try (PreparedStatement ps = conn.prepareStatement("SELECT r.endingdate FROM Rent r, Reservation res WHERE res.customer = ? AND res.artpiece = r.artpiece")) {
+					ps.setInt(1, userID);
+					try (ResultSet rs = ps.executeQuery()) {
+						while (rs.next()) {
+							dates.add(rs.getDate("endingdate"));
+						}
+					}
+				}
+				if (names.isEmpty()) {
 					request.setAttribute("Error",
 							"U hebt nog geen reserveringen!");
 				} else {
-					request.setAttribute("Sources", sources);
-					request.setAttribute("Dates", dates);
 					request.setAttribute("IDs", ids);
+					request.setAttribute("Sources", sources);
+					request.setAttribute("Names", names);
+					request.setAttribute("Dates", dates);
 				}
 				request.getRequestDispatcher("/showReservations").forward(
 						request, response);

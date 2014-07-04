@@ -350,7 +350,9 @@ SELECT * FROM rent r
 										<div class="btn-group">
 											<input type="submit" class="btn btn-primary" role="button"
 												value="Verwijder">
-										<jsp:include page="share.jsp" />
+										<jsp:include page="share.jsp">
+											<jsp:param name="source" value="${row.source}" />
+										</jsp:include>
 										</div>
 									</form>
 	
@@ -406,7 +408,9 @@ SELECT * FROM rent r
 												<form action="<%=request.getContextPath()%>/reservations" method="get">
 													<div class="btn-group">
 														<input type="submit" class="btn btn-primary" role="button" value="Gereserveerd" />
-														<jsp:include page="share.jsp" />
+														<jsp:include page="share.jsp">
+															<jsp:param name="source" value="${row.source}" />
+														</jsp:include>
 													</div>
 												</form>
 												<% } else { %>
@@ -414,7 +418,9 @@ SELECT * FROM rent r
 													<input type="hidden" name="id" id="" value="${row.id}" />
 													<div class="btn-group">
 														<input type="submit" class="btn btn-primary" role="button" value="Reserveer" />
-														<jsp:include page="share.jsp" />
+														<jsp:include page="share.jsp">
+															<jsp:param name="source" value="${row.source}" />
+														</jsp:include>
 													</div>
 												</form>
 												<% } %>
@@ -431,7 +437,9 @@ SELECT * FROM rent r
 										<input type="hidden" name="id" value="${row.id}" />
 											<div class="btn-group">
 												<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-												<jsp:include page="share.jsp" />
+												<jsp:include page="share.jsp">
+													<jsp:param name="source" value="${row.source}" />
+												</jsp:include>
 											</div>
 										</form>
 									</c:if>
@@ -446,7 +454,9 @@ SELECT * FROM rent r
 												<input type="hidden" name="id" value="${row.id}" />
 												<div class="btn-group">
 													<input type="submit" class="btn btn-primary" role="button" value="Huur direct!" />
-													<jsp:include page="share.jsp" />
+													<jsp:include page="share.jsp">
+														<jsp:param name="source" value="${row.source}" />
+													</jsp:include>
 												</div>
 											</form>
 										</p>
