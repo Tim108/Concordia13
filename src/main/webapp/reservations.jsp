@@ -50,7 +50,7 @@
 	%>
 	<br><font color="red"><h2>${Error}</h2></font>
 	<% } else {%>
-	<table style="border-collapse:separate; border-spacing:0 10px;">
+	<table style="border-collapse:separate; border-spacing:0 0px;">
 		<%
 		for(int i=0; i<sources.size(); i++) { %>
 		
@@ -76,9 +76,8 @@
 			else 
 				diffDay = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
 			%>
-		
-			<tr style="background-color:#E8E8E8; padding-bottom:0px;">
-				<td style="border-radius:10px 0 0 0; -moz-border-radius: 10px 0 0 0; text-align: center;"><b><%=names.get(i)%></b></td>
+			<tr style="background-color:#E8E8E8;">
+				<td style="border-radius:10px 0 0 0; -moz-border-radius: 10px 0 0 0; text-align: center; padding:10px; margin:0px;"><b><%=names.get(i)%></b></td>
 				<td style="padding-right:10px; padding-left:10px; padding-top:10px; padding-bottom:10px;" rowspan="2">
 					<img src="img/<%= sources.get(i) %>" alt="<%= sources.get(i) %>" style="width:200px; max-heigth:100%; border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;"/>
 				</td>
@@ -98,12 +97,16 @@
 				</td>
 			</tr>
 			<tr style="background-color:#E8E8E8; padding-top:0px; margin:0px;">
-				<td style="border-radius: 0px 0 0 10px; -moz-border-radius: 0px 0 0 10px; text-align: center;">
+				<td style="border-radius: 0px 0 0 10px; -moz-border-radius: 0px 0 0 10px; padding:10px;">
 					<% if(diffMonth != 0 && diffDay != 0) { %><font color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden <% } %> en<br> <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
 					<% } else if(diffMonth == 0) { %> <font color='red'>Beschikbaar over <%=diffDay%> <% if(diffDay == 1) { %> dag <% } else { %> dagen. <% } %></font>
 					<% } else { %> <font color='red'>Beschikbaar over <%=diffMonth%> <% if(diffMonth == 1) { %> maand <% } else { %> maanden. <% } %></font>
 					<% } %>
 				</td>
+			</tr>
+			<tr>
+			<td><br>
+			</td>
 			</tr>
 		<%
 		}
